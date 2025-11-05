@@ -1,0 +1,203 @@
+{
+  "version": "1.0",
+  "name": "Flight Tracker",
+  "template": "{\"type\":\"Card\",\"size\":\"md\",\"theme\":\"dark\",\"background\":\"linear-gradient(135deg, #378CD1 0%, #2B67AC 100%)\",\"children\":[{\"type\":\"Row\",\"children\":[{\"type\":\"Image\",\"src\":{{ (airline.logo) | tojson }},\"size\":16,\"children\":[]},{\"type\":\"Caption\",\"value\":{{ (number) | tojson }},\"color\":\"default\",\"children\":[]},{\"type\":\"Spacer\",\"children\":[]},{\"type\":\"Caption\",\"value\":{{ (date) | tojson }},\"color\":\"alpha-50\",\"children\":[]}]},{\"type\":\"Divider\",\"flush\":true,\"children\":[]},{\"type\":\"Col\",\"gap\":3,\"children\":[{\"type\":\"Row\",\"align\":\"center\",\"children\":[{\"type\":\"Text\",\"value\":{{ (departure.city) | tojson }},\"children\":[]},{\"type\":\"Spacer\",\"children\":[]},{\"type\":\"Text\",\"value\":{{ (arrival.city) | tojson }},\"children\":[]}]},{\"type\":\"Box\",\"height\":8,\"radius\":\"full\",\"background\":\"alpha-15\",\"children\":[{\"type\":\"Box\",\"width\":{{ (progress) | tojson }},\"height\":\"100%\",\"radius\":\"full\",\"background\":\"white\",\"children\":[]}]},{\"type\":\"Row\",\"children\":[{\"type\":\"Row\",\"gap\":2,\"align\":\"center\",\"children\":[{\"type\":\"Text\",\"value\":{{ (departure.time) | tojson }},\"size\":\"sm\",\"children\":[]},{\"type\":\"Text\",\"value\":{{ (departure.status) | tojson }},\"color\":\"alpha-50\",\"size\":\"sm\",\"children\":[]}]},{\"type\":\"Spacer\",\"children\":[]},{\"type\":\"Row\",\"gap\":2,\"align\":\"center\",\"children\":[{\"type\":\"Text\",\"value\":{{ (arrival.status) | tojson }},\"color\":\"alpha-50\",\"size\":\"sm\",\"children\":[]},{\"type\":\"Text\",\"value\":{{ (arrival.time) | tojson }},\"size\":\"sm\",\"children\":[]}]}]}]}]}",
+  "jsonSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "number": {
+        "type": "string"
+      },
+      "date": {
+        "type": "string"
+      },
+      "progress": {
+        "type": "string"
+      },
+      "airline": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "logo": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "logo"
+        ],
+        "additionalProperties": false
+      },
+      "departure": {
+        "type": "object",
+        "properties": {
+          "city": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "time": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "city",
+          "status",
+          "time"
+        ],
+        "additionalProperties": false
+      },
+      "arrival": {
+        "type": "object",
+        "properties": {
+          "city": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "time": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "city",
+          "status",
+          "time"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "required": [
+      "number",
+      "date",
+      "progress",
+      "airline",
+      "departure",
+      "arrival"
+    ],
+    "additionalProperties": false
+  },
+  "outputJsonPreview": {
+    "type": "Card",
+    "size": "md",
+    "theme": "dark",
+    "background": "linear-gradient(135deg, #378CD1 0%, #2B67AC 100%)",
+    "children": [
+      {
+        "type": "Row",
+        "children": [
+          {
+            "type": "Image",
+            "src": "/panam.png",
+            "size": 16
+          },
+          {
+            "type": "Caption",
+            "value": "PA 845",
+            "color": "default"
+          },
+          {
+            "type": "Spacer"
+          },
+          {
+            "type": "Caption",
+            "value": "Fri, Apr 25",
+            "color": "alpha-50"
+          }
+        ]
+      },
+      {
+        "type": "Divider",
+        "flush": true
+      },
+      {
+        "type": "Col",
+        "gap": 3,
+        "children": [
+          {
+            "type": "Row",
+            "align": "center",
+            "children": [
+              {
+                "type": "Text",
+                "value": "San Francisco"
+              },
+              {
+                "type": "Spacer"
+              },
+              {
+                "type": "Text",
+                "value": "London"
+              }
+            ]
+          },
+          {
+            "type": "Box",
+            "height": 8,
+            "radius": "full",
+            "background": "alpha-15",
+            "children": [
+              {
+                "type": "Box",
+                "width": "30%",
+                "height": "100%",
+                "radius": "full",
+                "background": "white"
+              }
+            ]
+          },
+          {
+            "type": "Row",
+            "children": [
+              {
+                "type": "Row",
+                "gap": 2,
+                "align": "center",
+                "children": [
+                  {
+                    "type": "Text",
+                    "value": "4:00 PM",
+                    "size": "sm"
+                  },
+                  {
+                    "type": "Text",
+                    "value": "On time",
+                    "color": "alpha-50",
+                    "size": "sm"
+                  }
+                ]
+              },
+              {
+                "type": "Spacer"
+              },
+              {
+                "type": "Row",
+                "gap": 2,
+                "align": "center",
+                "children": [
+                  {
+                    "type": "Text",
+                    "value": "On time",
+                    "color": "alpha-50",
+                    "size": "sm"
+                  },
+                  {
+                    "type": "Text",
+                    "value": "10:25 AM +1",
+                    "size": "sm"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "encodedWidget": "eyJpZCI6IndpZ19qM2FhNnl1ZCIsIm5hbWUiOiJGbGlnaHQgVHJhY2tlciIsInZpZXciOiI8Q2FyZFxuICBzaXplPVwibWRcIlxuICB0aGVtZT1cImRhcmtcIlxuICBiYWNrZ3JvdW5kPVwibGluZWFyLWdyYWRpZW50KDEzNWRlZywgIzM3OENEMSAwJSwgIzJCNjdBQyAxMDAlKVwiXG4-XG4gIDxSb3c-XG4gICAgPEltYWdlIHNyYz17YWlybGluZS5sb2dvfSBzaXplPXsxNn0gLz5cbiAgICA8Q2FwdGlvbiB2YWx1ZT17bnVtYmVyfSBjb2xvcj1cImRlZmF1bHRcIiAvPlxuICAgIDxTcGFjZXIgLz5cbiAgICA8Q2FwdGlvbiB2YWx1ZT17ZGF0ZX0gY29sb3I9XCJhbHBoYS01MFwiIC8-XG4gIDwvUm93PlxuXG4gIDxEaXZpZGVyIGZsdXNoIC8-XG5cbiAgPENvbCBnYXA9ezN9PlxuICAgIDxSb3cgYWxpZ249XCJjZW50ZXJcIj5cbiAgICAgIDxUZXh0IHZhbHVlPXtkZXBhcnR1cmUuY2l0eX0gLz5cbiAgICAgIDxTcGFjZXIgLz5cbiAgICAgIDxUZXh0IHZhbHVlPXthcnJpdmFsLmNpdHl9IC8-XG4gICAgPC9Sb3c-XG5cbiAgICA8Qm94IGhlaWdodD17OH0gcmFkaXVzPVwiZnVsbFwiIGJhY2tncm91bmQ9XCJhbHBoYS0xNVwiPlxuICAgICAgPEJveCB3aWR0aD17cHJvZ3Jlc3N9IGhlaWdodD1cIjEwMCVcIiByYWRpdXM9XCJmdWxsXCIgYmFja2dyb3VuZD1cIndoaXRlXCIgLz5cbiAgICA8L0JveD5cblxuICAgIDxSb3c-XG4gICAgICA8Um93IGdhcD17Mn0gYWxpZ249XCJjZW50ZXJcIj5cbiAgICAgICAgPFRleHQgdmFsdWU9e2RlcGFydHVyZS50aW1lfSBzaXplPVwic21cIiAvPlxuICAgICAgICA8VGV4dCB2YWx1ZT17ZGVwYXJ0dXJlLnN0YXR1c30gY29sb3I9XCJhbHBoYS01MFwiIHNpemU9XCJzbVwiIC8-XG4gICAgICA8L1Jvdz5cbiAgICAgIDxTcGFjZXIgLz5cbiAgICAgIDxSb3cgZ2FwPXsyfSBhbGlnbj1cImNlbnRlclwiPlxuICAgICAgICA8VGV4dCB2YWx1ZT17YXJyaXZhbC5zdGF0dXN9IGNvbG9yPVwiYWxwaGEtNTBcIiBzaXplPVwic21cIiAvPlxuICAgICAgICA8VGV4dCB2YWx1ZT17YXJyaXZhbC50aW1lfSBzaXplPVwic21cIiAvPlxuICAgICAgPC9Sb3c-XG4gICAgPC9Sb3c-XG4gIDwvQ29sPlxuPC9DYXJkPiIsImRlZmF1bHRTdGF0ZSI6eyJudW1iZXIiOiJQQSA4NDUiLCJkYXRlIjoiRnJpLCBBcHIgMjUiLCJwcm9ncmVzcyI6IjMwJSIsImFpcmxpbmUiOnsibmFtZSI6IlBhbiBBbWVyaWNhIiwibG9nbyI6Ii9wYW5hbS5wbmcifSwiZGVwYXJ0dXJlIjp7ImNpdHkiOiJTYW4gRnJhbmNpc2NvIiwic3RhdHVzIjoiT24gdGltZSIsInRpbWUiOiI0OjAwIFBNIn0sImFycml2YWwiOnsiY2l0eSI6IkxvbmRvbiIsInN0YXR1cyI6Ik9uIHRpbWUiLCJ0aW1lIjoiMTA6MjUgQU0gKzEifX0sInNjaGVtYSI6ImltcG9ydCB7IHogfSBmcm9tIFwiem9kXCJcblxuY29uc3QgQWlybGluZSA9IHoub2JqZWN0KHtcbiAgbmFtZTogei5zdHJpbmcoKSxcbiAgbG9nbzogei5zdHJpbmcoKSxcbn0pXG5cbmNvbnN0IEZsaWdodEVuZHBvaW50ID0gei5vYmplY3Qoe1xuICBjaXR5OiB6LnN0cmluZygpLFxuICBzdGF0dXM6IHouc3RyaW5nKCksXG4gIHRpbWU6IHouc3RyaW5nKCksXG59KVxuXG5jb25zdCBXaWRnZXRTdGF0ZSA9IHoub2JqZWN0KHtcbiAgbnVtYmVyOiB6LnN0cmluZygpLFxuICBkYXRlOiB6LnN0cmluZygpLFxuICBwcm9ncmVzczogei5zdHJpbmcoKSxcbiAgYWlybGluZTogQWlybGluZSxcbiAgZGVwYXJ0dXJlOiBGbGlnaHRFbmRwb2ludCxcbiAgYXJyaXZhbDogRmxpZ2h0RW5kcG9pbnQsXG59KVxuXG5leHBvcnQgZGVmYXVsdCBXaWRnZXRTdGF0ZSIsInN0YXRlcyI6W10sInNjaGVtYVZhbGlkaXR5IjoidmFsaWQiLCJ2aWV3VmFsaWRpdHkiOiJ2YWxpZCIsImRlZmF1bHRTdGF0ZVZhbGlkaXR5IjoidmFsaWQifQ"
+}

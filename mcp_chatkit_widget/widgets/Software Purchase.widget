@@ -1,0 +1,308 @@
+{
+  "version": "1.0",
+  "name": "Software Purchase",
+  "template": "{\"type\":\"Card\",\"size\":\"sm\",\"padding\":0,\"confirm\":{\"label\":\"Confirm\",\"action\":{\"type\":\"request.submit\"}},\"cancel\":{\"label\":\"Discard\",\"action\":{\"type\":\"request.discard\"}},\"children\":[{\"type\":\"Row\",\"align\":\"center\",\"padding\":{\"x\":4,\"top\":4,\"bottom\":1},\"children\":[{\"type\":\"Title\",\"value\":\"Software purchase\",\"size\":\"sm\",\"children\":[]}]},{\"type\":\"Col\",\"padding\":{\"left\":4,\"right\":2},\"children\":[{\"type\":\"Row\",\"padding\":{\"right\":2},\"children\":[{\"type\":\"Text\",\"value\":\"What is it for?\",\"size\":\"sm\",\"color\":\"secondary\",\"children\":[]},{\"type\":\"Spacer\",\"children\":[]},{\"type\":\"Box\",\"padding\":1.1,\"children\":[{\"type\":\"Text\",\"value\":{{ (productName) | tojson }},\"textAlign\":\"end\",\"width\":\"200px\",\"editable\":{\"name\":\"purchase.purpose\",\"required\":true,\"placeholder\":\"Vendor or tool\"},\"children\":[]}]}]},{\"type\":\"Row\",\"children\":[{\"type\":\"Text\",\"value\":\"Start date\",\"size\":\"sm\",\"color\":\"secondary\",\"children\":[]},{\"type\":\"Spacer\",\"children\":[]},{\"type\":\"DatePicker\",\"name\":\"purchase.start\",\"defaultValue\":{{ (startDate) | tojson }},\"align\":\"end\",\"variant\":\"ghost\",\"children\":[]}]},{\"type\":\"Row\",\"children\":[{\"type\":\"Text\",\"value\":\"End date\",\"size\":\"sm\",\"color\":\"secondary\",\"children\":[]},{\"type\":\"Spacer\",\"children\":[]},{\"type\":\"DatePicker\",\"name\":\"purchase.end\",\"defaultValue\":{{ (endDate) | tojson }},\"align\":\"end\",\"variant\":\"ghost\",\"children\":[]}]},{\"type\":\"Row\",\"children\":[{\"type\":\"Text\",\"value\":\"Volume\",\"size\":\"sm\",\"color\":\"secondary\",\"children\":[]},{\"type\":\"Spacer\",\"children\":[]},{\"type\":\"Select\",\"name\":\"purchase.volume\",\"options\":{{ (volumeOptions) | tojson }},\"defaultValue\":{{ (defaultVolume) | tojson }},\"variant\":\"ghost\",\"children\":[]}]},{\"type\":\"Row\",\"children\":[{\"type\":\"Text\",\"value\":\"Frequency\",\"size\":\"sm\",\"color\":\"secondary\",\"children\":[]},{\"type\":\"Spacer\",\"children\":[]},{\"type\":\"Select\",\"name\":\"purchase.frequency\",\"options\":{{ (frequencyOptions) | tojson }},\"defaultValue\":{{ (defaultFrequency) | tojson }},\"variant\":\"ghost\",\"children\":[]}]}]},{\"type\":\"Row\",\"padding\":{\"y\":4,\"left\":4,\"right\":5},\"background\":\"surface-elevated-secondary\",\"border\":{\"top\":{\"size\":1}},\"children\":[{\"type\":\"Text\",\"value\":\"Total amount\",\"size\":\"sm\",\"children\":[]},{\"type\":\"Spacer\",\"children\":[]},{\"type\":\"Box\",\"children\":[]},{\"type\":\"Text\",\"value\":{{ (totalAmount) | tojson }},\"weight\":\"semibold\",\"size\":\"sm\",\"children\":[]}]}]}",
+  "jsonSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "productName": {
+        "type": "string"
+      },
+      "startDate": {
+        "type": "string"
+      },
+      "endDate": {
+        "type": "string"
+      },
+      "volumeOptions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "type": "string"
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "label",
+            "value"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "defaultVolume": {
+        "type": "string"
+      },
+      "frequencyOptions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "type": "string"
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "label",
+            "value"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "defaultFrequency": {
+        "type": "string"
+      },
+      "totalAmount": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "productName",
+      "startDate",
+      "endDate",
+      "volumeOptions",
+      "defaultVolume",
+      "frequencyOptions",
+      "defaultFrequency",
+      "totalAmount"
+    ],
+    "additionalProperties": false
+  },
+  "outputJsonPreview": {
+    "type": "Card",
+    "size": "sm",
+    "padding": 0,
+    "confirm": {
+      "label": "Confirm",
+      "action": {
+        "type": "request.submit"
+      }
+    },
+    "cancel": {
+      "label": "Discard",
+      "action": {
+        "type": "request.discard"
+      }
+    },
+    "children": [
+      {
+        "type": "Row",
+        "align": "center",
+        "padding": {
+          "x": 4,
+          "top": 4,
+          "bottom": 1
+        },
+        "children": [
+          {
+            "type": "Title",
+            "value": "Software purchase",
+            "size": "sm"
+          }
+        ]
+      },
+      {
+        "type": "Col",
+        "padding": {
+          "left": 4,
+          "right": 2
+        },
+        "children": [
+          {
+            "type": "Row",
+            "padding": {
+              "right": 2
+            },
+            "children": [
+              {
+                "type": "Text",
+                "value": "What is it for?",
+                "size": "sm",
+                "color": "secondary"
+              },
+              {
+                "type": "Spacer"
+              },
+              {
+                "type": "Box",
+                "padding": 1.1,
+                "children": [
+                  {
+                    "type": "Text",
+                    "value": "ChatGPT Business",
+                    "textAlign": "end",
+                    "width": "200px",
+                    "editable": {
+                      "name": "purchase.purpose",
+                      "required": true,
+                      "placeholder": "Vendor or tool"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Row",
+            "children": [
+              {
+                "type": "Text",
+                "value": "Start date",
+                "size": "sm",
+                "color": "secondary"
+              },
+              {
+                "type": "Spacer"
+              },
+              {
+                "type": "DatePicker",
+                "name": "purchase.start",
+                "defaultValue": "2025-10-01",
+                "align": "end",
+                "variant": "ghost"
+              }
+            ]
+          },
+          {
+            "type": "Row",
+            "children": [
+              {
+                "type": "Text",
+                "value": "End date",
+                "size": "sm",
+                "color": "secondary"
+              },
+              {
+                "type": "Spacer"
+              },
+              {
+                "type": "DatePicker",
+                "name": "purchase.end",
+                "defaultValue": "2026-10-01",
+                "align": "end",
+                "variant": "ghost"
+              }
+            ]
+          },
+          {
+            "type": "Row",
+            "children": [
+              {
+                "type": "Text",
+                "value": "Volume",
+                "size": "sm",
+                "color": "secondary"
+              },
+              {
+                "type": "Spacer"
+              },
+              {
+                "type": "Select",
+                "name": "purchase.volume",
+                "options": [
+                  {
+                    "label": "1 seat",
+                    "value": "1"
+                  },
+                  {
+                    "label": "3 seats",
+                    "value": "3"
+                  },
+                  {
+                    "label": "5 seats",
+                    "value": "5"
+                  },
+                  {
+                    "label": "10 seats",
+                    "value": "10"
+                  },
+                  {
+                    "label": "25 seats",
+                    "value": "25"
+                  }
+                ],
+                "defaultValue": "5",
+                "variant": "ghost"
+              }
+            ]
+          },
+          {
+            "type": "Row",
+            "children": [
+              {
+                "type": "Text",
+                "value": "Frequency",
+                "size": "sm",
+                "color": "secondary"
+              },
+              {
+                "type": "Spacer"
+              },
+              {
+                "type": "Select",
+                "name": "purchase.frequency",
+                "options": [
+                  {
+                    "label": "Monthly",
+                    "value": "monthly"
+                  },
+                  {
+                    "label": "Quarterly",
+                    "value": "quarterly"
+                  },
+                  {
+                    "label": "Yearly",
+                    "value": "yearly"
+                  }
+                ],
+                "defaultValue": "monthly",
+                "variant": "ghost"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "Row",
+        "padding": {
+          "y": 4,
+          "left": 4,
+          "right": 5
+        },
+        "background": "surface-elevated-secondary",
+        "border": {
+          "top": {
+            "size": 1
+          }
+        },
+        "children": [
+          {
+            "type": "Text",
+            "value": "Total amount",
+            "size": "sm"
+          },
+          {
+            "type": "Spacer"
+          },
+          {
+            "type": "Box"
+          },
+          {
+            "type": "Text",
+            "value": "$125 / month",
+            "weight": "semibold",
+            "size": "sm"
+          }
+        ]
+      }
+    ]
+  },
+  "encodedWidget": "eyJpZCI6IndpZ19ieGt5bTgzOCIsIm5hbWUiOiJTb2Z0d2FyZSBQdXJjaGFzZSIsInZpZXciOiI8Q2FyZFxuICBzaXplPVwic21cIlxuICBwYWRkaW5nPXswfVxuICBjb25maXJtPXt7IGxhYmVsOiBcIkNvbmZpcm1cIiwgYWN0aW9uOiB7IHR5cGU6IFwicmVxdWVzdC5zdWJtaXRcIiB9IH19XG4gIGNhbmNlbD17eyBsYWJlbDogXCJEaXNjYXJkXCIsIGFjdGlvbjogeyB0eXBlOiBcInJlcXVlc3QuZGlzY2FyZFwiIH0gfX1cbj5cbiAgPFJvdyBhbGlnbj1cImNlbnRlclwiIHBhZGRpbmc9e3sgeDogNCwgdG9wOiA0LCBib3R0b206IDEgfX0-XG4gICAgPFRpdGxlIHZhbHVlPVwiU29mdHdhcmUgcHVyY2hhc2VcIiBzaXplPVwic21cIiAvPlxuICA8L1Jvdz5cbiAgPENvbCBwYWRkaW5nPXt7IGxlZnQ6IDQsIHJpZ2h0OiAyIH19PlxuICAgIDxSb3cgcGFkZGluZz17eyByaWdodDogMiB9fT5cbiAgICAgIDxUZXh0IHZhbHVlPVwiV2hhdCBpcyBpdCBmb3I_XCIgc2l6ZT1cInNtXCIgY29sb3I9XCJzZWNvbmRhcnlcIiAvPlxuICAgICAgPFNwYWNlciAvPlxuICAgICAgPEJveCBwYWRkaW5nPXsxLjF9PlxuICAgICAgICA8VGV4dFxuICAgICAgICAgIHZhbHVlPXtwcm9kdWN0TmFtZX1cbiAgICAgICAgICB0ZXh0QWxpZ249XCJlbmRcIlxuICAgICAgICAgIHdpZHRoPVwiMjAwcHhcIlxuICAgICAgICAgIGVkaXRhYmxlPXt7XG4gICAgICAgICAgICBuYW1lOiBcInB1cmNoYXNlLnB1cnBvc2VcIixcbiAgICAgICAgICAgIHJlcXVpcmVkOiB0cnVlLFxuICAgICAgICAgICAgcGxhY2Vob2xkZXI6IFwiVmVuZG9yIG9yIHRvb2xcIixcbiAgICAgICAgICB9fVxuICAgICAgICAvPlxuICAgICAgPC9Cb3g-XG4gICAgPC9Sb3c-XG4gICAgPFJvdz5cbiAgICAgIDxUZXh0IHZhbHVlPVwiU3RhcnQgZGF0ZVwiIHNpemU9XCJzbVwiIGNvbG9yPVwic2Vjb25kYXJ5XCIgLz5cbiAgICAgIDxTcGFjZXIgLz5cbiAgICAgIDxEYXRlUGlja2VyXG4gICAgICAgIG5hbWU9XCJwdXJjaGFzZS5zdGFydFwiXG4gICAgICAgIGRlZmF1bHRWYWx1ZT17c3RhcnREYXRlfVxuICAgICAgICBhbGlnbj1cImVuZFwiXG4gICAgICAgIHZhcmlhbnQ9XCJnaG9zdFwiXG4gICAgICAvPlxuICAgIDwvUm93PlxuICAgIDxSb3c-XG4gICAgICA8VGV4dCB2YWx1ZT1cIkVuZCBkYXRlXCIgc2l6ZT1cInNtXCIgY29sb3I9XCJzZWNvbmRhcnlcIiAvPlxuICAgICAgPFNwYWNlciAvPlxuICAgICAgPERhdGVQaWNrZXJcbiAgICAgICAgbmFtZT1cInB1cmNoYXNlLmVuZFwiXG4gICAgICAgIGRlZmF1bHRWYWx1ZT17ZW5kRGF0ZX1cbiAgICAgICAgYWxpZ249XCJlbmRcIlxuICAgICAgICB2YXJpYW50PVwiZ2hvc3RcIlxuICAgICAgLz5cbiAgICA8L1Jvdz5cbiAgICA8Um93PlxuICAgICAgPFRleHQgdmFsdWU9XCJWb2x1bWVcIiBzaXplPVwic21cIiBjb2xvcj1cInNlY29uZGFyeVwiIC8-XG4gICAgICA8U3BhY2VyIC8-XG4gICAgICA8U2VsZWN0XG4gICAgICAgIG5hbWU9XCJwdXJjaGFzZS52b2x1bWVcIlxuICAgICAgICBvcHRpb25zPXt2b2x1bWVPcHRpb25zfVxuICAgICAgICBkZWZhdWx0VmFsdWU9e2RlZmF1bHRWb2x1bWV9XG4gICAgICAgIHZhcmlhbnQ9XCJnaG9zdFwiXG4gICAgICAvPlxuICAgIDwvUm93PlxuICAgIDxSb3c-XG4gICAgICA8VGV4dCB2YWx1ZT1cIkZyZXF1ZW5jeVwiIHNpemU9XCJzbVwiIGNvbG9yPVwic2Vjb25kYXJ5XCIgLz5cbiAgICAgIDxTcGFjZXIgLz5cbiAgICAgIDxTZWxlY3RcbiAgICAgICAgbmFtZT1cInB1cmNoYXNlLmZyZXF1ZW5jeVwiXG4gICAgICAgIG9wdGlvbnM9e2ZyZXF1ZW5jeU9wdGlvbnN9XG4gICAgICAgIGRlZmF1bHRWYWx1ZT17ZGVmYXVsdEZyZXF1ZW5jeX1cbiAgICAgICAgdmFyaWFudD1cImdob3N0XCJcbiAgICAgIC8-XG4gICAgPC9Sb3c-XG4gIDwvQ29sPlxuICA8Um93XG4gICAgcGFkZGluZz17eyB5OiA0LCBsZWZ0OiA0LCByaWdodDogNSB9fVxuICAgIGJhY2tncm91bmQ9XCJzdXJmYWNlLWVsZXZhdGVkLXNlY29uZGFyeVwiXG4gICAgYm9yZGVyPXt7IHRvcDogeyBzaXplOiAxIH0gfX1cbiAgPlxuICAgIDxUZXh0IHZhbHVlPVwiVG90YWwgYW1vdW50XCIgc2l6ZT1cInNtXCIgLz5cbiAgICA8U3BhY2VyIC8-XG4gICAgPEJveD48L0JveD5cbiAgICA8VGV4dCB2YWx1ZT17dG90YWxBbW91bnR9IHdlaWdodD1cInNlbWlib2xkXCIgc2l6ZT1cInNtXCIgLz5cbiAgPC9Sb3c-XG48L0NhcmQ-IiwiZGVmYXVsdFN0YXRlIjp7InByb2R1Y3ROYW1lIjoiQ2hhdEdQVCBCdXNpbmVzcyIsInN0YXJ0RGF0ZSI6IjIwMjUtMTAtMDEiLCJlbmREYXRlIjoiMjAyNi0xMC0wMSIsInZvbHVtZU9wdGlvbnMiOlt7ImxhYmVsIjoiMSBzZWF0IiwidmFsdWUiOiIxIn0seyJsYWJlbCI6IjMgc2VhdHMiLCJ2YWx1ZSI6IjMifSx7ImxhYmVsIjoiNSBzZWF0cyIsInZhbHVlIjoiNSJ9LHsibGFiZWwiOiIxMCBzZWF0cyIsInZhbHVlIjoiMTAifSx7ImxhYmVsIjoiMjUgc2VhdHMiLCJ2YWx1ZSI6IjI1In1dLCJkZWZhdWx0Vm9sdW1lIjoiNSIsImZyZXF1ZW5jeU9wdGlvbnMiOlt7ImxhYmVsIjoiTW9udGhseSIsInZhbHVlIjoibW9udGhseSJ9LHsibGFiZWwiOiJRdWFydGVybHkiLCJ2YWx1ZSI6InF1YXJ0ZXJseSJ9LHsibGFiZWwiOiJZZWFybHkiLCJ2YWx1ZSI6InllYXJseSJ9XSwiZGVmYXVsdEZyZXF1ZW5jeSI6Im1vbnRobHkiLCJ0b3RhbEFtb3VudCI6IiQxMjUgLyBtb250aCJ9LCJzY2hlbWEiOiJpbXBvcnQgeyB6IH0gZnJvbSBcInpvZFwiXG5cbmNvbnN0IE9wdGlvbiA9IHoub2JqZWN0KHtcbiAgbGFiZWw6IHouc3RyaW5nKCksXG4gIHZhbHVlOiB6LnN0cmluZygpLFxufSlcblxuY29uc3QgV2lkZ2V0U3RhdGUgPSB6Lm9iamVjdCh7XG4gIHByb2R1Y3ROYW1lOiB6LnN0cmluZygpLFxuICBzdGFydERhdGU6IHouc3RyaW5nKCksXG4gIGVuZERhdGU6IHouc3RyaW5nKCksXG4gIHZvbHVtZU9wdGlvbnM6IHouYXJyYXkoT3B0aW9uKSxcbiAgZGVmYXVsdFZvbHVtZTogei5zdHJpbmcoKSxcbiAgZnJlcXVlbmN5T3B0aW9uczogei5hcnJheShPcHRpb24pLFxuICBkZWZhdWx0RnJlcXVlbmN5OiB6LnN0cmluZygpLFxuICB0b3RhbEFtb3VudDogei5zdHJpbmcoKSxcbn0pXG5cbmV4cG9ydCBkZWZhdWx0IFdpZGdldFN0YXRlIiwic3RhdGVzIjpbXSwic2NoZW1hVmFsaWRpdHkiOiJ2YWxpZCIsInZpZXdWYWxpZGl0eSI6InZhbGlkIiwiZGVmYXVsdFN0YXRlVmFsaWRpdHkiOiJ2YWxpZCJ9"
+}

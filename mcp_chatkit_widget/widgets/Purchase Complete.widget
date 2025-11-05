@@ -1,0 +1,173 @@
+{
+  "version": "1.0",
+  "name": "Purchase Complete",
+  "template": "{\"type\":\"Card\",\"size\":\"sm\",\"children\":[{\"type\":\"Col\",\"gap\":3,\"children\":[{\"type\":\"Row\",\"align\":\"center\",\"gap\":2,\"children\":[{\"type\":\"Icon\",\"name\":\"check-circle-filled\",\"color\":\"success\",\"children\":[]},{\"type\":\"Text\",\"size\":\"sm\",\"value\":\"Purchase complete\",\"color\":\"success\",\"children\":[]}]},{\"type\":\"Divider\",\"color\":\"subtle\",\"flush\":true,\"children\":[]},{\"type\":\"Row\",\"gap\":3,\"children\":[{\"type\":\"Image\",\"src\":{{ (product.image) | tojson }},\"alt\":\"Blue folding chair\",\"size\":80,\"frame\":true,\"children\":[]},{\"type\":\"Col\",\"gap\":1,\"children\":[{\"type\":\"Title\",\"value\":{{ (product.name) | tojson }},\"maxLines\":2,\"children\":[]},{\"type\":\"Text\",\"value\":\"Free delivery • 14-day returns\",\"size\":\"sm\",\"color\":\"secondary\",\"children\":[]}]}]}]},{\"type\":\"Col\",\"gap\":2,\"padding\":{\"y\":2},\"children\":[{\"type\":\"Row\",\"children\":[{\"type\":\"Text\",\"value\":\"Estimated delivery\",\"size\":\"sm\",\"color\":\"secondary\",\"children\":[]},{\"type\":\"Spacer\",\"children\":[]},{\"type\":\"Text\",\"value\":\"Thursday, Oct 8\",\"size\":\"sm\",\"children\":[]}]},{\"type\":\"Row\",\"children\":[{\"type\":\"Text\",\"value\":\"Sold by\",\"size\":\"sm\",\"color\":\"secondary\",\"children\":[]},{\"type\":\"Spacer\",\"children\":[]},{\"type\":\"Text\",\"value\":\"OpenAI\",\"size\":\"sm\",\"children\":[]}]},{\"type\":\"Row\",\"children\":[{\"type\":\"Text\",\"value\":\"Paid\",\"size\":\"sm\",\"color\":\"secondary\",\"children\":[]},{\"type\":\"Spacer\",\"children\":[]},{\"type\":\"Text\",\"value\":\"$20.00\",\"size\":\"sm\",\"children\":[]}]}]},{\"type\":\"Button\",\"label\":\"View details\",\"onClickAction\":{\"type\":\"order.view_details\"},\"variant\":\"outline\",\"pill\":true,\"block\":true,\"children\":[]}]}",
+  "jsonSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "product": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "image": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "image"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "required": [
+      "product"
+    ],
+    "additionalProperties": false
+  },
+  "outputJsonPreview": {
+    "type": "Card",
+    "size": "sm",
+    "children": [
+      {
+        "type": "Col",
+        "gap": 3,
+        "children": [
+          {
+            "type": "Row",
+            "align": "center",
+            "gap": 2,
+            "children": [
+              {
+                "type": "Icon",
+                "name": "check-circle-filled",
+                "color": "success"
+              },
+              {
+                "type": "Text",
+                "size": "sm",
+                "value": "Purchase complete",
+                "color": "success"
+              }
+            ]
+          },
+          {
+            "type": "Divider",
+            "color": "subtle",
+            "flush": true
+          },
+          {
+            "type": "Row",
+            "gap": 3,
+            "children": [
+              {
+                "type": "Image",
+                "src": "/blue-chair.png",
+                "alt": "Blue folding chair",
+                "size": 80,
+                "frame": true
+              },
+              {
+                "type": "Col",
+                "gap": 1,
+                "children": [
+                  {
+                    "type": "Title",
+                    "value": "Blue folding chair",
+                    "maxLines": 2
+                  },
+                  {
+                    "type": "Text",
+                    "value": "Free delivery • 14-day returns",
+                    "size": "sm",
+                    "color": "secondary"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "Col",
+        "gap": 2,
+        "padding": {
+          "y": 2
+        },
+        "children": [
+          {
+            "type": "Row",
+            "children": [
+              {
+                "type": "Text",
+                "value": "Estimated delivery",
+                "size": "sm",
+                "color": "secondary"
+              },
+              {
+                "type": "Spacer"
+              },
+              {
+                "type": "Text",
+                "value": "Thursday, Oct 8",
+                "size": "sm"
+              }
+            ]
+          },
+          {
+            "type": "Row",
+            "children": [
+              {
+                "type": "Text",
+                "value": "Sold by",
+                "size": "sm",
+                "color": "secondary"
+              },
+              {
+                "type": "Spacer"
+              },
+              {
+                "type": "Text",
+                "value": "OpenAI",
+                "size": "sm"
+              }
+            ]
+          },
+          {
+            "type": "Row",
+            "children": [
+              {
+                "type": "Text",
+                "value": "Paid",
+                "size": "sm",
+                "color": "secondary"
+              },
+              {
+                "type": "Spacer"
+              },
+              {
+                "type": "Text",
+                "value": "$20.00",
+                "size": "sm"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "Button",
+        "label": "View details",
+        "onClickAction": {
+          "type": "order.view_details"
+        },
+        "variant": "outline",
+        "pill": true,
+        "block": true
+      }
+    ]
+  },
+  "encodedWidget": "eyJpZCI6IndpZ19zaWZoOHpybiIsIm5hbWUiOiJQdXJjaGFzZSBDb21wbGV0ZSIsInZpZXciOiI8Q2FyZCBzaXplPVwic21cIj5cbiAgPENvbCBnYXA9ezN9PlxuICAgIDxSb3cgYWxpZ249XCJjZW50ZXJcIiBnYXA9ezJ9PlxuICAgICAgPEljb24gbmFtZT1cImNoZWNrLWNpcmNsZS1maWxsZWRcIiBjb2xvcj1cInN1Y2Nlc3NcIiAvPlxuICAgICAgPFRleHQgc2l6ZT1cInNtXCIgdmFsdWU9XCJQdXJjaGFzZSBjb21wbGV0ZVwiIGNvbG9yPVwic3VjY2Vzc1wiIC8-XG4gICAgPC9Sb3c-XG4gICAgPERpdmlkZXIgY29sb3I9XCJzdWJ0bGVcIiBmbHVzaCAvPlxuXG4gICAgPFJvdyBnYXA9ezN9PlxuICAgICAgPEltYWdlIHNyYz17cHJvZHVjdC5pbWFnZX0gYWx0PVwiQmx1ZSBmb2xkaW5nIGNoYWlyXCIgc2l6ZT17ODB9IGZyYW1lIC8-XG4gICAgICA8Q29sIGdhcD17MX0-XG4gICAgICAgIDxUaXRsZSB2YWx1ZT17cHJvZHVjdC5uYW1lfSBtYXhMaW5lcz17Mn0gLz5cbiAgICAgICAgPFRleHRcbiAgICAgICAgICB2YWx1ZT1cIkZyZWUgZGVsaXZlcnkg4oCiIDE0LWRheSByZXR1cm5zXCJcbiAgICAgICAgICBzaXplPVwic21cIlxuICAgICAgICAgIGNvbG9yPVwic2Vjb25kYXJ5XCJcbiAgICAgICAgLz5cbiAgICAgIDwvQ29sPlxuICAgIDwvUm93PlxuICA8L0NvbD5cbiAgPENvbCBnYXA9ezJ9IHBhZGRpbmc9e3sgeTogMiB9fT5cbiAgICA8Um93PlxuICAgICAgPFRleHQgdmFsdWU9XCJFc3RpbWF0ZWQgZGVsaXZlcnlcIiBzaXplPVwic21cIiBjb2xvcj1cInNlY29uZGFyeVwiIC8-XG4gICAgICA8U3BhY2VyIC8-XG4gICAgICA8VGV4dCB2YWx1ZT1cIlRodXJzZGF5LCBPY3QgOFwiIHNpemU9XCJzbVwiIC8-XG4gICAgPC9Sb3c-XG4gICAgPFJvdz5cbiAgICAgIDxUZXh0IHZhbHVlPVwiU29sZCBieVwiIHNpemU9XCJzbVwiIGNvbG9yPVwic2Vjb25kYXJ5XCIgLz5cbiAgICAgIDxTcGFjZXIgLz5cbiAgICAgIDxUZXh0IHZhbHVlPVwiT3BlbkFJXCIgc2l6ZT1cInNtXCIgLz5cbiAgICA8L1Jvdz5cbiAgICA8Um93PlxuICAgICAgPFRleHQgdmFsdWU9XCJQYWlkXCIgc2l6ZT1cInNtXCIgY29sb3I9XCJzZWNvbmRhcnlcIiAvPlxuICAgICAgPFNwYWNlciAvPlxuICAgICAgPFRleHQgdmFsdWU9XCIkMjAuMDBcIiBzaXplPVwic21cIiAvPlxuICAgIDwvUm93PlxuICA8L0NvbD5cblxuICA8QnV0dG9uXG4gICAgbGFiZWw9XCJWaWV3IGRldGFpbHNcIlxuICAgIG9uQ2xpY2tBY3Rpb249e3sgdHlwZTogXCJvcmRlci52aWV3X2RldGFpbHNcIiB9fVxuICAgIHZhcmlhbnQ9XCJvdXRsaW5lXCJcbiAgICBwaWxsXG4gICAgYmxvY2tcbiAgLz5cbjwvQ2FyZD4iLCJkZWZhdWx0U3RhdGUiOnsicHJvZHVjdCI6eyJuYW1lIjoiQmx1ZSBmb2xkaW5nIGNoYWlyIiwiaW1hZ2UiOiIvYmx1ZS1jaGFpci5wbmcifX0sInNjaGVtYSI6ImltcG9ydCB7IHogfSBmcm9tIFwiem9kXCJcblxuY29uc3QgUHJvZHVjdCA9IHoub2JqZWN0KHtcbiAgbmFtZTogei5zdHJpbmcoKSxcbiAgaW1hZ2U6IHouc3RyaW5nKCksXG59KVxuXG5jb25zdCBXaWRnZXRTdGF0ZSA9IHoub2JqZWN0KHtcbiAgcHJvZHVjdDogUHJvZHVjdCxcbn0pXG5cbmV4cG9ydCBkZWZhdWx0IFdpZGdldFN0YXRlIiwic3RhdGVzIjpbXSwic2NoZW1hVmFsaWRpdHkiOiJ2YWxpZCIsInZpZXdWYWxpZGl0eSI6InZhbGlkIiwiZGVmYXVsdFN0YXRlVmFsaWRpdHkiOiJ2YWxpZCJ9"
+}

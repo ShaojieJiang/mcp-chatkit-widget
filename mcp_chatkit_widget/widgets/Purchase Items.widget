@@ -1,0 +1,248 @@
+{
+  "version": "1.0",
+  "name": "Purchase Items",
+  "template": "{\"type\":\"Card\",\"size\":\"sm\",\"children\":[{\"type\":\"Col\",\"children\":[{%- set _c -%}{%-for item in items -%},{\"type\":\"Row\",\"key\":{{ (item.title) | tojson }},\"align\":\"center\",\"children\":[{\"type\":\"Image\",\"src\":{{ (item.image) | tojson }},\"size\":48,\"children\":[]},{\"type\":\"Col\",\"children\":[{\"type\":\"Text\",\"value\":{{ (item.title) | tojson }},\"size\":\"md\",\"weight\":\"semibold\",\"color\":\"emphasis\",\"children\":[]},{\"type\":\"Text\",\"value\":{{ (item.subtitle) | tojson }},\"size\":\"sm\",\"color\":\"secondary\",\"children\":[]}]}]}{%-endfor-%}{%- endset -%}{{- (_c[1:] if _c and _c[0] == ',' else _c) -}}]},{\"type\":\"Divider\",\"flush\":true,\"children\":[]},{\"type\":\"Col\",\"children\":[{\"type\":\"Row\",\"children\":[{\"type\":\"Text\",\"value\":\"Subtotal\",\"size\":\"sm\",\"children\":[]},{\"type\":\"Spacer\",\"children\":[]},{\"type\":\"Text\",\"value\":{{ (subTotal) | tojson }},\"size\":\"sm\",\"children\":[]}]},{\"type\":\"Row\",\"children\":[{\"type\":\"Text\",\"value\":{{ ((\"Sales tax (\" ~ taxPct ~ \")\")) | tojson }},\"size\":\"sm\",\"children\":[]},{\"type\":\"Spacer\",\"children\":[]},{\"type\":\"Text\",\"value\":{{ (tax) | tojson }},\"size\":\"sm\",\"children\":[]}]},{\"type\":\"Row\",\"children\":[{\"type\":\"Text\",\"value\":\"Total with tax\",\"weight\":\"semibold\",\"size\":\"sm\",\"children\":[]},{\"type\":\"Spacer\",\"children\":[]},{\"type\":\"Text\",\"value\":{{ (total) | tojson }},\"weight\":\"semibold\",\"size\":\"sm\",\"children\":[]}]}]},{\"type\":\"Divider\",\"flush\":true,\"children\":[]},{\"type\":\"Col\",\"children\":[{\"type\":\"Button\",\"label\":\"Purchase\",\"onClickAction\":{\"type\":\"purchase\"},\"style\":\"primary\",\"block\":true,\"children\":[]},{\"type\":\"Button\",\"label\":\"Add to cart\",\"onClickAction\":{\"type\":\"add_to_cart\"},\"style\":\"secondary\",\"block\":true,\"children\":[]}]}]}",
+  "jsonSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "image": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "subtitle": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "image",
+            "title",
+            "subtitle"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "subTotal": {
+        "type": "string"
+      },
+      "taxPct": {
+        "type": "string"
+      },
+      "tax": {
+        "type": "string"
+      },
+      "total": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "items",
+      "subTotal",
+      "taxPct",
+      "tax",
+      "total"
+    ],
+    "additionalProperties": false
+  },
+  "outputJsonPreview": {
+    "type": "Card",
+    "size": "sm",
+    "children": [
+      {
+        "type": "Col",
+        "children": [
+          {
+            "type": "Row",
+            "key": "Black Sugar Hoick Latte",
+            "align": "center",
+            "children": [
+              {
+                "type": "Image",
+                "src": "https://cdn.openai.com/API/storybook/blacksugar.png",
+                "size": 48
+              },
+              {
+                "type": "Col",
+                "children": [
+                  {
+                    "type": "Text",
+                    "value": "Black Sugar Hoick Latte",
+                    "size": "md",
+                    "weight": "semibold",
+                    "color": "emphasis"
+                  },
+                  {
+                    "type": "Text",
+                    "value": "16oz Iced · Boba · $6.50",
+                    "size": "sm",
+                    "color": "secondary"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Row",
+            "key": "Classic Milk Tea",
+            "align": "center",
+            "children": [
+              {
+                "type": "Image",
+                "src": "https://cdn.openai.com/API/storybook/classic.png",
+                "size": 48
+              },
+              {
+                "type": "Col",
+                "children": [
+                  {
+                    "type": "Text",
+                    "value": "Classic Milk Tea",
+                    "size": "md",
+                    "weight": "semibold",
+                    "color": "emphasis"
+                  },
+                  {
+                    "type": "Text",
+                    "value": "16oz Iced · Double Boba · $6.75",
+                    "size": "sm",
+                    "color": "secondary"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Row",
+            "key": "Matcha Latte",
+            "align": "center",
+            "children": [
+              {
+                "type": "Image",
+                "src": "https://cdn.openai.com/API/storybook/matcha.png",
+                "size": 48
+              },
+              {
+                "type": "Col",
+                "children": [
+                  {
+                    "type": "Text",
+                    "value": "Matcha Latte",
+                    "size": "md",
+                    "weight": "semibold",
+                    "color": "emphasis"
+                  },
+                  {
+                    "type": "Text",
+                    "value": "16oz Iced · Boba · $6.50",
+                    "size": "sm",
+                    "color": "secondary"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "Divider",
+        "flush": true
+      },
+      {
+        "type": "Col",
+        "children": [
+          {
+            "type": "Row",
+            "children": [
+              {
+                "type": "Text",
+                "value": "Subtotal",
+                "size": "sm"
+              },
+              {
+                "type": "Spacer"
+              },
+              {
+                "type": "Text",
+                "value": "$19.75",
+                "size": "sm"
+              }
+            ]
+          },
+          {
+            "type": "Row",
+            "children": [
+              {
+                "type": "Text",
+                "value": "Sales tax (8.75%)",
+                "size": "sm"
+              },
+              {
+                "type": "Spacer"
+              },
+              {
+                "type": "Text",
+                "value": "$1.72",
+                "size": "sm"
+              }
+            ]
+          },
+          {
+            "type": "Row",
+            "children": [
+              {
+                "type": "Text",
+                "value": "Total with tax",
+                "weight": "semibold",
+                "size": "sm"
+              },
+              {
+                "type": "Spacer"
+              },
+              {
+                "type": "Text",
+                "value": "$21.47",
+                "weight": "semibold",
+                "size": "sm"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "Divider",
+        "flush": true
+      },
+      {
+        "type": "Col",
+        "children": [
+          {
+            "type": "Button",
+            "label": "Purchase",
+            "onClickAction": {
+              "type": "purchase"
+            },
+            "style": "primary",
+            "block": true
+          },
+          {
+            "type": "Button",
+            "label": "Add to cart",
+            "onClickAction": {
+              "type": "add_to_cart"
+            },
+            "style": "secondary",
+            "block": true
+          }
+        ]
+      }
+    ]
+  },
+  "encodedWidget": "eyJpZCI6IndpZ18yeDAybnd2NiIsIm5hbWUiOiJwdXJjaGFzZUl0ZW1zIiwidmlldyI6IjxDYXJkIHNpemU9XCJzbVwiPlxuICA8Q29sPlxuICAgIHtpdGVtcy5tYXAoKGl0ZW0pID0-IChcbiAgICAgIDxSb3cga2V5PXtpdGVtLnRpdGxlfSBhbGlnbj1cImNlbnRlclwiPlxuICAgICAgICA8SW1hZ2Ugc3JjPXtpdGVtLmltYWdlfSBzaXplPXs0OH0gLz5cbiAgICAgICAgPENvbD5cbiAgICAgICAgICA8VGV4dFxuICAgICAgICAgICAgdmFsdWU9e2l0ZW0udGl0bGV9XG4gICAgICAgICAgICBzaXplPVwibWRcIlxuICAgICAgICAgICAgd2VpZ2h0PVwic2VtaWJvbGRcIlxuICAgICAgICAgICAgY29sb3I9XCJlbXBoYXNpc1wiXG4gICAgICAgICAgLz5cbiAgICAgICAgICA8VGV4dCB2YWx1ZT17aXRlbS5zdWJ0aXRsZX0gc2l6ZT1cInNtXCIgY29sb3I9XCJzZWNvbmRhcnlcIiAvPlxuICAgICAgICA8L0NvbD5cbiAgICAgIDwvUm93PlxuICAgICkpfVxuICA8L0NvbD5cblxuICA8RGl2aWRlciBmbHVzaCAvPlxuXG4gIDxDb2w-XG4gICAgPFJvdz5cbiAgICAgIDxUZXh0IHZhbHVlPVwiU3VidG90YWxcIiBzaXplPVwic21cIiAvPlxuICAgICAgPFNwYWNlciAvPlxuICAgICAgPFRleHQgdmFsdWU9e3N1YlRvdGFsfSBzaXplPVwic21cIiAvPlxuICAgIDwvUm93PlxuICAgIDxSb3c-XG4gICAgICA8VGV4dCB2YWx1ZT17YFNhbGVzIHRheCAoJHt0YXhQY3R9KWB9IHNpemU9XCJzbVwiIC8-XG4gICAgICA8U3BhY2VyIC8-XG4gICAgICA8VGV4dCB2YWx1ZT17dGF4fSBzaXplPVwic21cIiAvPlxuICAgIDwvUm93PlxuICAgIDxSb3c-XG4gICAgICA8VGV4dCB2YWx1ZT1cIlRvdGFsIHdpdGggdGF4XCIgd2VpZ2h0PVwic2VtaWJvbGRcIiBzaXplPVwic21cIiAvPlxuICAgICAgPFNwYWNlciAvPlxuICAgICAgPFRleHQgdmFsdWU9e3RvdGFsfSB3ZWlnaHQ9XCJzZW1pYm9sZFwiIHNpemU9XCJzbVwiIC8-XG4gICAgPC9Sb3c-XG4gIDwvQ29sPlxuXG4gIDxEaXZpZGVyIGZsdXNoIC8-XG5cbiAgPENvbD5cbiAgICA8QnV0dG9uXG4gICAgICBsYWJlbD1cIlB1cmNoYXNlXCJcbiAgICAgIG9uQ2xpY2tBY3Rpb249e3sgdHlwZTogXCJwdXJjaGFzZVwiIH19XG4gICAgICBzdHlsZT1cInByaW1hcnlcIlxuICAgICAgYmxvY2tcbiAgICAvPlxuICAgIDxCdXR0b25cbiAgICAgIGxhYmVsPVwiQWRkIHRvIGNhcnRcIlxuICAgICAgb25DbGlja0FjdGlvbj17eyB0eXBlOiBcImFkZF90b19jYXJ0XCIgfX1cbiAgICAgIHN0eWxlPVwic2Vjb25kYXJ5XCJcbiAgICAgIGJsb2NrXG4gICAgLz5cbiAgPC9Db2w-XG48L0NhcmQ-IiwiZGVmYXVsdFN0YXRlIjp7Iml0ZW1zIjpbeyJpbWFnZSI6Imh0dHBzOi8vY2RuLm9wZW5haS5jb20vQVBJL3N0b3J5Ym9vay9ibGFja3N1Z2FyLnBuZyIsInRpdGxlIjoiQmxhY2sgU3VnYXIgSG9pY2sgTGF0dGUiLCJzdWJ0aXRsZSI6IjE2b3ogSWNlZCDCtyBCb2JhIMK3ICQ2LjUwIn0seyJpbWFnZSI6Imh0dHBzOi8vY2RuLm9wZW5haS5jb20vQVBJL3N0b3J5Ym9vay9jbGFzc2ljLnBuZyIsInRpdGxlIjoiQ2xhc3NpYyBNaWxrIFRlYSIsInN1YnRpdGxlIjoiMTZveiBJY2VkIMK3IERvdWJsZSBCb2JhIMK3ICQ2Ljc1In0seyJpbWFnZSI6Imh0dHBzOi8vY2RuLm9wZW5haS5jb20vQVBJL3N0b3J5Ym9vay9tYXRjaGEucG5nIiwidGl0bGUiOiJNYXRjaGEgTGF0dGUiLCJzdWJ0aXRsZSI6IjE2b3ogSWNlZCDCtyBCb2JhIMK3ICQ2LjUwIn1dLCJzdWJUb3RhbCI6IiQxOS43NSIsInRheFBjdCI6IjguNzUlIiwidGF4IjoiJDEuNzIiLCJ0b3RhbCI6IiQyMS40NyJ9LCJzY2hlbWEiOiJpbXBvcnQgeyB6IH0gZnJvbSBcInpvZFwiXG5cbmNvbnN0IEl0ZW0gPSB6Lm9iamVjdCh7XG4gIGltYWdlOiB6LnN0cmluZygpLFxuICB0aXRsZTogei5zdHJpbmcoKSxcbiAgc3VidGl0bGU6IHouc3RyaW5nKCksXG59KVxuXG5jb25zdCBXaWRnZXRTdGF0ZSA9IHoub2JqZWN0KHtcbiAgaXRlbXM6IHouYXJyYXkoSXRlbSksXG4gIHN1YlRvdGFsOiB6LnN0cmluZygpLFxuICB0YXhQY3Q6IHouc3RyaW5nKCksXG4gIHRheDogei5zdHJpbmcoKSxcbiAgdG90YWw6IHouc3RyaW5nKCksXG59KVxuXG5leHBvcnQgZGVmYXVsdCBXaWRnZXRTdGF0ZSIsInN0YXRlcyI6W10sInNjaGVtYVZhbGlkaXR5IjoidmFsaWQiLCJ2aWV3VmFsaWRpdHkiOiJ2YWxpZCIsImRlZmF1bHRTdGF0ZVZhbGlkaXR5IjoidmFsaWQifQ"
+}

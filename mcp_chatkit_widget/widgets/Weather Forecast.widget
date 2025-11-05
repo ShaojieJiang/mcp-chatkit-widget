@@ -1,0 +1,197 @@
+{
+  "version": "1.0",
+  "name": "Weather Forecast",
+  "template": "{\"type\":\"Card\",\"theme\":\"dark\",\"size\":\"sm\",\"padding\":8,\"background\":{{ (background) | tojson }},\"children\":[{\"type\":\"Col\",\"align\":\"center\",\"gap\":3,\"children\":[{\"type\":\"Image\",\"src\":{{ (conditionImage) | tojson }},\"size\":60,\"children\":[]},{\"type\":\"Row\",\"align\":\"center\",\"gap\":2,\"children\":[{\"type\":\"Title\",\"value\":{{ (lowTemperature) | tojson }},\"size\":\"2xl\",\"weight\":\"normal\",\"color\":\"alpha-70\",\"children\":[]},{\"type\":\"Title\",\"value\":{{ (highTemperature) | tojson }},\"size\":\"2xl\",\"color\":\"emphasis\",\"weight\":\"normal\",\"children\":[]}]},{\"type\":\"Caption\",\"value\":{{ (location) | tojson }},\"color\":\"emphasis\",\"children\":[]},{\"type\":\"Text\",\"value\":{{ (conditionDescription) | tojson }},\"textAlign\":\"center\",\"children\":[]},{\"type\":\"Row\",\"gap\":6,\"children\":[{%- set _c -%}{%-for day in forecast -%},{\"type\":\"Col\",\"align\":\"center\",\"gap\":0,\"children\":[{\"type\":\"Image\",\"src\":{{ (day.conditionImage) | tojson }},\"size\":40,\"children\":[]},{\"type\":\"Text\",\"value\":{{ (day.temperature) | tojson }},\"children\":[]}]}{%-endfor-%}{%- endset -%}{{- (_c[1:] if _c and _c[0] == ',' else _c) -}}]}]}]}",
+  "jsonSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "background": {
+        "type": "string"
+      },
+      "conditionImage": {
+        "type": "string"
+      },
+      "lowTemperature": {
+        "type": "string"
+      },
+      "highTemperature": {
+        "type": "string"
+      },
+      "location": {
+        "type": "string"
+      },
+      "conditionDescription": {
+        "type": "string"
+      },
+      "forecast": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "conditionImage": {
+              "type": "string"
+            },
+            "temperature": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "conditionImage",
+            "temperature"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "required": [
+      "background",
+      "conditionImage",
+      "lowTemperature",
+      "highTemperature",
+      "location",
+      "conditionDescription",
+      "forecast"
+    ],
+    "additionalProperties": false
+  },
+  "outputJsonPreview": {
+    "type": "Card",
+    "theme": "dark",
+    "size": "sm",
+    "padding": 8,
+    "background": "linear-gradient(111deg, #1769C8 0%, #258AE3 56.92%, #31A3F8 100%)",
+    "children": [
+      {
+        "type": "Col",
+        "align": "center",
+        "gap": 3,
+        "children": [
+          {
+            "type": "Image",
+            "src": "https://cdn.openai.com/API/storybook/mixed-sun.png",
+            "size": 60
+          },
+          {
+            "type": "Row",
+            "align": "center",
+            "gap": 2,
+            "children": [
+              {
+                "type": "Title",
+                "value": "47°",
+                "size": "2xl",
+                "weight": "normal",
+                "color": "alpha-70"
+              },
+              {
+                "type": "Title",
+                "value": "69°",
+                "size": "2xl",
+                "color": "emphasis",
+                "weight": "normal"
+              }
+            ]
+          },
+          {
+            "type": "Caption",
+            "value": "San Francisco, CA",
+            "color": "emphasis"
+          },
+          {
+            "type": "Text",
+            "value": "Partly sunny skies accompanied by some clouds",
+            "textAlign": "center"
+          },
+          {
+            "type": "Row",
+            "gap": 6,
+            "children": [
+              {
+                "type": "Col",
+                "align": "center",
+                "gap": 0,
+                "children": [
+                  {
+                    "type": "Image",
+                    "src": "https://cdn.openai.com/API/storybook/mostly-sunny.png",
+                    "size": 40
+                  },
+                  {
+                    "type": "Text",
+                    "value": "54°"
+                  }
+                ]
+              },
+              {
+                "type": "Col",
+                "align": "center",
+                "gap": 0,
+                "children": [
+                  {
+                    "type": "Image",
+                    "src": "https://cdn.openai.com/API/storybook/rain.png",
+                    "size": 40
+                  },
+                  {
+                    "type": "Text",
+                    "value": "54°"
+                  }
+                ]
+              },
+              {
+                "type": "Col",
+                "align": "center",
+                "gap": 0,
+                "children": [
+                  {
+                    "type": "Image",
+                    "src": "https://cdn.openai.com/API/storybook/mixed-sun.png",
+                    "size": 40
+                  },
+                  {
+                    "type": "Text",
+                    "value": "54°"
+                  }
+                ]
+              },
+              {
+                "type": "Col",
+                "align": "center",
+                "gap": 0,
+                "children": [
+                  {
+                    "type": "Image",
+                    "src": "https://cdn.openai.com/API/storybook/windy.png",
+                    "size": 40
+                  },
+                  {
+                    "type": "Text",
+                    "value": "54°"
+                  }
+                ]
+              },
+              {
+                "type": "Col",
+                "align": "center",
+                "gap": 0,
+                "children": [
+                  {
+                    "type": "Image",
+                    "src": "https://cdn.openai.com/API/storybook/mostly-sunny.png",
+                    "size": 40
+                  },
+                  {
+                    "type": "Text",
+                    "value": "54°"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "encodedWidget": "eyJpZCI6IndpZ18yNnJqNHExeSIsIm5hbWUiOiJ3ZWF0aGVyRm9yZWNhc3QiLCJ2aWV3IjoiPENhcmQgdGhlbWU9XCJkYXJrXCIgc2l6ZT1cInNtXCIgcGFkZGluZz17OH0gYmFja2dyb3VuZD17YmFja2dyb3VuZH0-XG4gIDxDb2wgYWxpZ249XCJjZW50ZXJcIiBnYXA9ezN9PlxuICAgIDxJbWFnZSBzcmM9e2NvbmRpdGlvbkltYWdlfSBzaXplPXs2MH0gLz5cblxuICAgIDxSb3cgYWxpZ249XCJjZW50ZXJcIiBnYXA9ezJ9PlxuICAgICAgPFRpdGxlXG4gICAgICAgIHZhbHVlPXtsb3dUZW1wZXJhdHVyZX1cbiAgICAgICAgc2l6ZT1cIjJ4bFwiXG4gICAgICAgIHdlaWdodD1cIm5vcm1hbFwiXG4gICAgICAgIGNvbG9yPVwiYWxwaGEtNzBcIlxuICAgICAgLz5cbiAgICAgIDxUaXRsZVxuICAgICAgICB2YWx1ZT17aGlnaFRlbXBlcmF0dXJlfVxuICAgICAgICBzaXplPVwiMnhsXCJcbiAgICAgICAgY29sb3I9XCJlbXBoYXNpc1wiXG4gICAgICAgIHdlaWdodD1cIm5vcm1hbFwiXG4gICAgICAvPlxuICAgIDwvUm93PlxuXG4gICAgPENhcHRpb24gdmFsdWU9e2xvY2F0aW9ufSBjb2xvcj1cImVtcGhhc2lzXCIgLz5cbiAgICA8VGV4dCB2YWx1ZT17Y29uZGl0aW9uRGVzY3JpcHRpb259IHRleHRBbGlnbj1cImNlbnRlclwiIC8-XG5cbiAgICA8Um93IGdhcD17Nn0-XG4gICAgICB7Zm9yZWNhc3QubWFwKChkYXkpID0-IChcbiAgICAgICAgPENvbCBhbGlnbj1cImNlbnRlclwiIGdhcD17MH0-XG4gICAgICAgICAgPEltYWdlIHNyYz17ZGF5LmNvbmRpdGlvbkltYWdlfSBzaXplPXs0MH0gLz5cbiAgICAgICAgICA8VGV4dCB2YWx1ZT17ZGF5LnRlbXBlcmF0dXJlfSAvPlxuICAgICAgICA8L0NvbD5cbiAgICAgICkpfVxuICAgIDwvUm93PlxuICA8L0NvbD5cbjwvQ2FyZD4iLCJkZWZhdWx0U3RhdGUiOnsiYmFja2dyb3VuZCI6ImxpbmVhci1ncmFkaWVudCgxMTFkZWcsICMxNzY5QzggMCUsICMyNThBRTMgNTYuOTIlLCAjMzFBM0Y4IDEwMCUpIiwiY29uZGl0aW9uSW1hZ2UiOiJodHRwczovL2Nkbi5vcGVuYWkuY29tL0FQSS9zdG9yeWJvb2svbWl4ZWQtc3VuLnBuZyIsImxvd1RlbXBlcmF0dXJlIjoiNDfCsCIsImhpZ2hUZW1wZXJhdHVyZSI6IjY5wrAiLCJsb2NhdGlvbiI6IlNhbiBGcmFuY2lzY28sIENBIiwiY29uZGl0aW9uRGVzY3JpcHRpb24iOiJQYXJ0bHkgc3Vubnkgc2tpZXMgYWNjb21wYW5pZWQgYnkgc29tZSBjbG91ZHMiLCJmb3JlY2FzdCI6W3siY29uZGl0aW9uSW1hZ2UiOiJodHRwczovL2Nkbi5vcGVuYWkuY29tL0FQSS9zdG9yeWJvb2svbW9zdGx5LXN1bm55LnBuZyIsInRlbXBlcmF0dXJlIjoiNTTCsCJ9LHsiY29uZGl0aW9uSW1hZ2UiOiJodHRwczovL2Nkbi5vcGVuYWkuY29tL0FQSS9zdG9yeWJvb2svcmFpbi5wbmciLCJ0ZW1wZXJhdHVyZSI6IjU0wrAifSx7ImNvbmRpdGlvbkltYWdlIjoiaHR0cHM6Ly9jZG4ub3BlbmFpLmNvbS9BUEkvc3Rvcnlib29rL21peGVkLXN1bi5wbmciLCJ0ZW1wZXJhdHVyZSI6IjU0wrAifSx7ImNvbmRpdGlvbkltYWdlIjoiaHR0cHM6Ly9jZG4ub3BlbmFpLmNvbS9BUEkvc3Rvcnlib29rL3dpbmR5LnBuZyIsInRlbXBlcmF0dXJlIjoiNTTCsCJ9LHsiY29uZGl0aW9uSW1hZ2UiOiJodHRwczovL2Nkbi5vcGVuYWkuY29tL0FQSS9zdG9yeWJvb2svbW9zdGx5LXN1bm55LnBuZyIsInRlbXBlcmF0dXJlIjoiNTTCsCJ9XX0sInNjaGVtYSI6ImltcG9ydCB7IHogfSBmcm9tIFwiem9kXCJcblxuY29uc3QgRm9yZWNhc3RJdGVtID0gei5vYmplY3Qoe1xuICBjb25kaXRpb25JbWFnZTogei5zdHJpbmcoKSxcbiAgdGVtcGVyYXR1cmU6IHouc3RyaW5nKCksXG59KVxuXG5jb25zdCBXaWRnZXRTdGF0ZSA9IHoub2JqZWN0KHtcbiAgYmFja2dyb3VuZDogei5zdHJpbmcoKSxcbiAgY29uZGl0aW9uSW1hZ2U6IHouc3RyaW5nKCksXG4gIGxvd1RlbXBlcmF0dXJlOiB6LnN0cmluZygpLFxuICBoaWdoVGVtcGVyYXR1cmU6IHouc3RyaW5nKCksXG4gIGxvY2F0aW9uOiB6LnN0cmluZygpLFxuICBjb25kaXRpb25EZXNjcmlwdGlvbjogei5zdHJpbmcoKSxcbiAgZm9yZWNhc3Q6IHouYXJyYXkoRm9yZWNhc3RJdGVtKSxcbn0pXG5cbmV4cG9ydCBkZWZhdWx0IFdpZGdldFN0YXRlIiwic3RhdGVzIjpbXSwic2NoZW1hVmFsaWRpdHkiOiJ2YWxpZCIsInZpZXdWYWxpZGl0eSI6InZhbGlkIiwiZGVmYXVsdFN0YXRlVmFsaWRpdHkiOiJ2YWxpZCJ9"
+}
