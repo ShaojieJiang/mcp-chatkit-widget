@@ -1,0 +1,98 @@
+{
+  "version": "1.0",
+  "name": "View Event",
+  "template": "{\"type\":\"Card\",\"children\":[{\"type\":\"Row\",\"align\":\"stretch\",\"gap\":3,\"children\":[{\"type\":\"Box\",\"width\":5,\"background\":{{ (color) | tojson }},\"radius\":\"full\",\"children\":[]},{\"type\":\"Col\",\"flex\":1,\"gap\":1,\"children\":[{\"type\":\"Row\",\"children\":[{\"type\":\"Text\",\"color\":\"alpha-70\",\"size\":\"sm\",\"value\":{{ ((date.dayName ~ \", \" ~ date.monthName ~ \" \" ~ date.dayNumber)) | tojson }},\"children\":[]},{\"type\":\"Spacer\",\"children\":[]},{\"type\":\"Text\",\"color\":{{ (color) | tojson }},\"size\":\"sm\",\"value\":{{ (time) | tojson }},\"children\":[]}]},{\"type\":\"Title\",\"value\":{{ (title) | tojson }},\"size\":\"md\",\"children\":[]}]}]}]}",
+  "jsonSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "title": {
+        "type": "string"
+      },
+      "time": {
+        "type": "string"
+      },
+      "color": {
+        "type": "string"
+      },
+      "date": {
+        "type": "object",
+        "properties": {
+          "dayName": {
+            "type": "string"
+          },
+          "dayNumber": {
+            "type": "string"
+          },
+          "monthName": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "dayName",
+          "dayNumber",
+          "monthName"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "required": [
+      "title",
+      "time",
+      "color",
+      "date"
+    ],
+    "additionalProperties": false
+  },
+  "outputJsonPreview": {
+    "type": "Card",
+    "children": [
+      {
+        "type": "Row",
+        "align": "stretch",
+        "gap": 3,
+        "children": [
+          {
+            "type": "Box",
+            "width": 5,
+            "background": "blue-400",
+            "radius": "full"
+          },
+          {
+            "type": "Col",
+            "flex": 1,
+            "gap": 1,
+            "children": [
+              {
+                "type": "Row",
+                "children": [
+                  {
+                    "type": "Text",
+                    "color": "alpha-70",
+                    "size": "sm",
+                    "value": "Friday, Dec 28"
+                  },
+                  {
+                    "type": "Spacer"
+                  },
+                  {
+                    "type": "Text",
+                    "color": "blue-400",
+                    "size": "sm",
+                    "value": "1:00 - 2:00 PM"
+                  }
+                ]
+              },
+              {
+                "type": "Title",
+                "value": "Q1 roadmap review",
+                "size": "md"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "encodedWidget": "eyJpZCI6IndpZ19mMzMwdjR5dyIsIm5hbWUiOiJWaWV3IEV2ZW50IiwidmlldyI6IjxDYXJkPlxuICA8Um93IGFsaWduPVwic3RyZXRjaFwiIGdhcD17M30-XG4gICAgPEJveCB3aWR0aD17NX0gYmFja2dyb3VuZD17Y29sb3J9IHJhZGl1cz1cImZ1bGxcIiAvPlxuICAgIDxDb2wgZmxleD17MX0gZ2FwPXsxfT5cbiAgICAgIDxSb3c-XG4gICAgICAgIDxUZXh0XG4gICAgICAgICAgY29sb3I9XCJhbHBoYS03MFwiXG4gICAgICAgICAgc2l6ZT1cInNtXCJcbiAgICAgICAgICB2YWx1ZT17YCR7ZGF0ZS5kYXlOYW1lfSwgJHtkYXRlLm1vbnRoTmFtZX0gJHtkYXRlLmRheU51bWJlcn1gfVxuICAgICAgICAvPlxuICAgICAgICA8U3BhY2VyIC8-XG4gICAgICAgIDxUZXh0IGNvbG9yPXtjb2xvcn0gc2l6ZT1cInNtXCIgdmFsdWU9e3RpbWV9IC8-XG4gICAgICA8L1Jvdz5cbiAgICAgIDxUaXRsZSB2YWx1ZT17dGl0bGV9IHNpemU9XCJtZFwiIC8-XG4gICAgPC9Db2w-XG4gIDwvUm93PlxuPC9DYXJkPiIsImRlZmF1bHRTdGF0ZSI6eyJ0aXRsZSI6IlExIHJvYWRtYXAgcmV2aWV3IiwidGltZSI6IjE6MDAgLSAyOjAwIFBNIiwiY29sb3IiOiJibHVlLTQwMCIsImRhdGUiOnsiZGF5TmFtZSI6IkZyaWRheSIsImRheU51bWJlciI6IjI4IiwibW9udGhOYW1lIjoiRGVjIn19LCJzY2hlbWEiOiJpbXBvcnQgeyB6IH0gZnJvbSBcInpvZFwiXG5cbmNvbnN0IERhdGVJbmZvID0gei5vYmplY3Qoe1xuICBkYXlOYW1lOiB6LnN0cmluZygpLFxuICBkYXlOdW1iZXI6IHouc3RyaW5nKCksXG4gIG1vbnRoTmFtZTogei5zdHJpbmcoKSxcbn0pXG5cbmNvbnN0IFdpZGdldFN0YXRlID0gei5vYmplY3Qoe1xuICB0aXRsZTogei5zdHJpbmcoKSxcbiAgdGltZTogei5zdHJpbmcoKSxcbiAgY29sb3I6IHouc3RyaW5nKCksXG4gIGRhdGU6IERhdGVJbmZvLFxufSlcblxuZXhwb3J0IGRlZmF1bHQgV2lkZ2V0U3RhdGUiLCJzdGF0ZXMiOltdLCJzY2hlbWFWYWxpZGl0eSI6InZhbGlkIiwidmlld1ZhbGlkaXR5IjoidmFsaWQiLCJkZWZhdWx0U3RhdGVWYWxpZGl0eSI6InZhbGlkIn0"
+}

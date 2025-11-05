@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is an MCP (Model Context Protocol) server that provides ChatKit widget functionality. The project uses FastMCP for the server implementation and is designed to integrate UI components with AI agents. It originated at the Power of Europe Hackathon 2025.
+This is an MCP (Model Context Protocol) server that provides ChatKit widget functionality. The project uses FastMCP for the server implementation and is designed to integrate UI components with AI agents. 
 
 ## Development Environment
 
@@ -105,8 +105,6 @@ When adding tests:
 1. `lint`: Runs `make lint` (ruff + mypy + format check)
 2. `coverage`: Runs tests, enforces 95% coverage + 100% diff coverage
 3. `build-and-release`: Publishes to PyPI on version tags (trusted publishing)
-
-**Important:** The Makefile has a bug - `mypy ui_mcp_server` should be `mypy mcp_chatkit_widget`
 
 ## Version Management
 

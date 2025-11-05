@@ -1,0 +1,97 @@
+{
+  "version": "1.0",
+  "name": "Create Task",
+  "template": "{\"type\":\"Card\",\"size\":\"md\",\"children\":[{\"type\":\"Form\",\"onSubmitAction\":{\"type\":\"task.create\"},\"children\":[{\"type\":\"Col\",\"gap\":3,\"children\":[{\"type\":\"Text\",\"value\":{{ (title) | tojson }},\"size\":\"lg\",\"weight\":\"semibold\",\"editable\":{\"name\":\"task.title\",\"required\":true,\"placeholder\":\"Task title\",\"autoFocus\":false,\"autoSelect\":false},\"children\":[]},{\"type\":\"Text\",\"value\":\"Create a design proposal for how ChatKit's popup mode can support dynamic height and user resizing.\",\"minLines\":5,\"editable\":{\"name\":\"task.body\",\"required\":true,\"placeholder\":\"Describe the task…\"},\"children\":[]},{\"type\":\"Divider\",\"flush\":true,\"children\":[]},{\"type\":\"Row\",\"align\":\"center\",\"gap\":3,\"children\":[{\"type\":\"Row\",\"align\":\"center\",\"gap\":2,\"children\":[{\"type\":\"DatePicker\",\"name\":\"task.due\",\"placeholder\":\"Due date\",\"defaultValue\":\"2025-10-16\",\"clearable\":true,\"pill\":true,\"children\":[]}]},{\"type\":\"Spacer\",\"children\":[]},{\"type\":\"Button\",\"submit\":true,\"label\":\"Create task\",\"style\":\"primary\",\"children\":[]}]}]}]}]}",
+  "jsonSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "title": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "title"
+    ],
+    "additionalProperties": false
+  },
+  "outputJsonPreview": {
+    "type": "Card",
+    "size": "md",
+    "children": [
+      {
+        "type": "Form",
+        "onSubmitAction": {
+          "type": "task.create"
+        },
+        "children": [
+          {
+            "type": "Col",
+            "gap": 3,
+            "children": [
+              {
+                "type": "Text",
+                "value": "Design resizable popup mode",
+                "size": "lg",
+                "weight": "semibold",
+                "editable": {
+                  "name": "task.title",
+                  "required": true,
+                  "placeholder": "Task title",
+                  "autoFocus": false,
+                  "autoSelect": false
+                }
+              },
+              {
+                "type": "Text",
+                "value": "Create a design proposal for how ChatKit's popup mode can support dynamic height and user resizing.",
+                "minLines": 5,
+                "editable": {
+                  "name": "task.body",
+                  "required": true,
+                  "placeholder": "Describe the task…"
+                }
+              },
+              {
+                "type": "Divider",
+                "flush": true
+              },
+              {
+                "type": "Row",
+                "align": "center",
+                "gap": 3,
+                "children": [
+                  {
+                    "type": "Row",
+                    "align": "center",
+                    "gap": 2,
+                    "children": [
+                      {
+                        "type": "DatePicker",
+                        "name": "task.due",
+                        "placeholder": "Due date",
+                        "defaultValue": "2025-10-16",
+                        "clearable": true,
+                        "pill": true
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Spacer"
+                  },
+                  {
+                    "type": "Button",
+                    "submit": true,
+                    "label": "Create task",
+                    "style": "primary"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "encodedWidget": "eyJpZCI6IndpZ19hYzBnb2NqdyIsIm5hbWUiOiJDcmVhdGUgVGFzayIsInZpZXciOiI8Q2FyZCBzaXplPVwibWRcIj5cbiAgPEZvcm0gb25TdWJtaXRBY3Rpb249e3sgdHlwZTogXCJ0YXNrLmNyZWF0ZVwiIH19PlxuICAgIDxDb2wgZ2FwPXszfT5cbiAgICAgIDxUZXh0XG4gICAgICAgIHZhbHVlPXt0aXRsZX1cbiAgICAgICAgc2l6ZT1cImxnXCJcbiAgICAgICAgd2VpZ2h0PVwic2VtaWJvbGRcIlxuICAgICAgICBlZGl0YWJsZT17e1xuICAgICAgICAgIG5hbWU6IFwidGFzay50aXRsZVwiLFxuICAgICAgICAgIHJlcXVpcmVkOiB0cnVlLFxuICAgICAgICAgIHBsYWNlaG9sZGVyOiBcIlRhc2sgdGl0bGVcIixcbiAgICAgICAgICBhdXRvRm9jdXM6IGZhbHNlLFxuICAgICAgICAgIGF1dG9TZWxlY3Q6IGZhbHNlLFxuICAgICAgICB9fVxuICAgICAgLz5cblxuICAgICAgPFRleHRcbiAgICAgICAgdmFsdWU9XCJDcmVhdGUgYSBkZXNpZ24gcHJvcG9zYWwgZm9yIGhvdyBDaGF0S2l0J3MgcG9wdXAgbW9kZSBjYW4gc3VwcG9ydCBkeW5hbWljIGhlaWdodCBhbmQgdXNlciByZXNpemluZy5cIlxuICAgICAgICBtaW5MaW5lcz17NX1cbiAgICAgICAgZWRpdGFibGU9e3tcbiAgICAgICAgICBuYW1lOiBcInRhc2suYm9keVwiLFxuICAgICAgICAgIHJlcXVpcmVkOiB0cnVlLFxuICAgICAgICAgIHBsYWNlaG9sZGVyOiBcIkRlc2NyaWJlIHRoZSB0YXNr4oCmXCIsXG4gICAgICAgIH19XG4gICAgICAvPlxuXG4gICAgICA8RGl2aWRlciBmbHVzaCAvPlxuXG4gICAgICA8Um93IGFsaWduPVwiY2VudGVyXCIgZ2FwPXszfT5cbiAgICAgICAgPFJvdyBhbGlnbj1cImNlbnRlclwiIGdhcD17Mn0-XG4gICAgICAgICAgPERhdGVQaWNrZXJcbiAgICAgICAgICAgIG5hbWU9XCJ0YXNrLmR1ZVwiXG4gICAgICAgICAgICBwbGFjZWhvbGRlcj1cIkR1ZSBkYXRlXCJcbiAgICAgICAgICAgIGRlZmF1bHRWYWx1ZT1cIjIwMjUtMTAtMTZcIlxuICAgICAgICAgICAgY2xlYXJhYmxlXG4gICAgICAgICAgICBwaWxsXG4gICAgICAgICAgLz5cbiAgICAgICAgPC9Sb3c-XG4gICAgICAgIDxTcGFjZXIgLz5cbiAgICAgICAgPEJ1dHRvbiBzdWJtaXQgbGFiZWw9XCJDcmVhdGUgdGFza1wiIHN0eWxlPVwicHJpbWFyeVwiIC8-XG4gICAgICA8L1Jvdz5cbiAgICA8L0NvbD5cbiAgPC9Gb3JtPlxuPC9DYXJkPiIsImRlZmF1bHRTdGF0ZSI6eyJ0aXRsZSI6IkRlc2lnbiByZXNpemFibGUgcG9wdXAgbW9kZSJ9LCJzY2hlbWEiOiJpbXBvcnQgeyB6IH0gZnJvbSBcInpvZFwiXG5cbmNvbnN0IFdpZGdldFN0YXRlID0gei5vYmplY3Qoe1xuICB0aXRsZTogei5zdHJpbmcoKSxcbn0pXG5cbmV4cG9ydCBkZWZhdWx0IFdpZGdldFN0YXRlIiwic3RhdGVzIjpbXSwic2NoZW1hVmFsaWRpdHkiOiJ2YWxpZCIsInZpZXdWYWxpZGl0eSI6InZhbGlkIiwiZGVmYXVsdFN0YXRlVmFsaWRpdHkiOiJ2YWxpZCJ9"
+}

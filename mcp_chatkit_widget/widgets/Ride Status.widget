@@ -1,0 +1,95 @@
+{
+  "version": "1.0",
+  "name": "Ride Status",
+  "template": "{\"type\":\"Card\",\"size\":\"sm\",\"children\":[{\"type\":\"Title\",\"value\":\"1 min\",\"size\":\"xl\",\"children\":[]},{\"type\":\"Row\",\"align\":\"center\",\"children\":[{\"type\":\"Col\",\"minWidth\":\"auto\",\"children\":[{\"type\":\"Caption\",\"value\":\"Pick up\",\"children\":[]},{\"type\":\"Text\",\"value\":\"1008 Mission St\",\"truncate\":true,\"children\":[]}]},{\"type\":\"Spacer\",\"children\":[]},{\"type\":\"Col\",\"align\":\"end\",\"children\":[{\"type\":\"Caption\",\"value\":\"Driver\",\"children\":[]},{\"type\":\"Text\",\"value\":\"Jonathan\",\"children\":[]}]},{\"type\":\"Image\",\"src\":\"https://cdn.openai.com/API/storybook/driver.png\",\"size\":40,\"radius\":\"full\",\"children\":[]}]}]}",
+  "jsonSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "eta": {
+        "type": "string"
+      },
+      "address": {
+        "type": "string"
+      },
+      "driver": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "photo": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "photo"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "required": [
+      "eta",
+      "address",
+      "driver"
+    ],
+    "additionalProperties": false
+  },
+  "outputJsonPreview": {
+    "type": "Card",
+    "size": "sm",
+    "children": [
+      {
+        "type": "Title",
+        "value": "1 min",
+        "size": "xl"
+      },
+      {
+        "type": "Row",
+        "align": "center",
+        "children": [
+          {
+            "type": "Col",
+            "minWidth": "auto",
+            "children": [
+              {
+                "type": "Caption",
+                "value": "Pick up"
+              },
+              {
+                "type": "Text",
+                "value": "1008 Mission St",
+                "truncate": true
+              }
+            ]
+          },
+          {
+            "type": "Spacer"
+          },
+          {
+            "type": "Col",
+            "align": "end",
+            "children": [
+              {
+                "type": "Caption",
+                "value": "Driver"
+              },
+              {
+                "type": "Text",
+                "value": "Jonathan"
+              }
+            ]
+          },
+          {
+            "type": "Image",
+            "src": "https://cdn.openai.com/API/storybook/driver.png",
+            "size": 40,
+            "radius": "full"
+          }
+        ]
+      }
+    ]
+  },
+  "encodedWidget": "eyJpZCI6IndpZ180ZHNhcmZwZSIsIm5hbWUiOiJyaWRlU3RhdHVzIiwidmlldyI6IjxDYXJkIHNpemU9XCJzbVwiPlxuICA8VGl0bGUgdmFsdWU9XCIxIG1pblwiIHNpemU9XCJ4bFwiIC8-XG5cbiAgPFJvdyBhbGlnbj1cImNlbnRlclwiPlxuICAgIDxDb2wgbWluV2lkdGg9XCJhdXRvXCI-XG4gICAgICA8Q2FwdGlvbiB2YWx1ZT1cIlBpY2sgdXBcIiAvPlxuICAgICAgPFRleHQgdmFsdWU9XCIxMDA4IE1pc3Npb24gU3RcIiB0cnVuY2F0ZSAvPlxuICAgIDwvQ29sPlxuICAgIDxTcGFjZXIgLz5cbiAgICA8Q29sIGFsaWduPVwiZW5kXCI-XG4gICAgICA8Q2FwdGlvbiB2YWx1ZT1cIkRyaXZlclwiIC8-XG4gICAgICA8VGV4dCB2YWx1ZT1cIkpvbmF0aGFuXCIgLz5cbiAgICA8L0NvbD5cblxuICAgIDxJbWFnZVxuICAgICAgc3JjPVwiaHR0cHM6Ly9jZG4ub3BlbmFpLmNvbS9BUEkvc3Rvcnlib29rL2RyaXZlci5wbmdcIlxuICAgICAgc2l6ZT17NDB9XG4gICAgICByYWRpdXM9XCJmdWxsXCJcbiAgICAvPlxuICA8L1Jvdz5cbjwvQ2FyZD4iLCJkZWZhdWx0U3RhdGUiOnsiZXRhIjoiMSBtaW4iLCJhZGRyZXNzIjoiMTAwOCBNaXNzaW9uIFN0IiwiZHJpdmVyIjp7Im5hbWUiOiJKb25hdGhhbiIsInBob3RvIjoiaHR0cHM6Ly9jZG4ub3BlbmFpLmNvbS9BUEkvc3Rvcnlib29rL2RyaXZlci5wbmcifX0sInNjaGVtYSI6ImltcG9ydCB7IHogfSBmcm9tIFwiem9kXCJcblxuY29uc3QgRHJpdmVyID0gei5vYmplY3Qoe1xuICBuYW1lOiB6LnN0cmluZygpLFxuICBwaG90bzogei5zdHJpbmcoKSxcbn0pXG5cbmNvbnN0IFdpZGdldFN0YXRlID0gei5vYmplY3Qoe1xuICBldGE6IHouc3RyaW5nKCksXG4gIGFkZHJlc3M6IHouc3RyaW5nKCksXG4gIGRyaXZlcjogRHJpdmVyLFxufSlcblxuZXhwb3J0IGRlZmF1bHQgV2lkZ2V0U3RhdGUiLCJzdGF0ZXMiOltdLCJzY2hlbWFWYWxpZGl0eSI6InZhbGlkIiwidmlld1ZhbGlkaXR5IjoidmFsaWQiLCJkZWZhdWx0U3RhdGVWYWxpZGl0eSI6InZhbGlkIn0"
+}

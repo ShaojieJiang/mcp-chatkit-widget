@@ -1,0 +1,223 @@
+{
+  "version": "1.0",
+  "name": "Playlist",
+  "template": "{\"type\":\"Card\",\"size\":\"sm\",\"children\":[{\"type\":\"Image\",\"src\":{{ (bannerImage) | tojson }},\"alt\":\"K-POP\",\"height\":180,\"fit\":\"cover\",\"flush\":true,\"children\":[]},{\"type\":\"Col\",\"padding\":{\"y\":2},\"children\":[{%- set _c -%}{%-for item in tracks -%},{\"type\":\"Row\",\"key\":{{ (item.id) | tojson }},\"align\":\"center\",\"gap\":3,\"children\":[{\"type\":\"Caption\",\"value\":{{ (((index + 1))) | tojson }},\"children\":[]},{\"type\":\"Image\",\"src\":{{ (item.cover) | tojson }},\"children\":[]},{\"type\":\"Col\",\"flex\":\"auto\",\"gap\":0,\"children\":[{\"type\":\"Text\",\"value\":{{ (item.title) | tojson }},\"weight\":\"semibold\",\"children\":[]},{\"type\":\"Text\",\"value\":{{ (item.artist) | tojson }},\"size\":\"sm\",\"color\":\"secondary\",\"children\":[]}]},{\"type\":\"Button\",\"iconStart\":\"play\",\"variant\":\"ghost\",\"uniform\":true,\"size\":\"xl\",\"onClickAction\":{\"type\":\"music.play\",\"payload\":{\"id\":{{ (item.id) | tojson }}}},\"children\":[]}]}{%-endfor-%}{%- endset -%}{{- (_c[1:] if _c and _c[0] == ',' else _c) -}}]},{\"type\":\"Button\",\"label\":\"View playlist\",\"variant\":\"outline\",\"pill\":true,\"block\":true,\"onClickAction\":{\"type\":\"view.playlist\",\"payload\":{\"name\":\"kpop\"}},\"children\":[]}]}",
+  "jsonSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "bannerImage": {
+        "type": "string"
+      },
+      "tracks": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "artist": {
+              "type": "string"
+            },
+            "cover": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "title",
+            "artist",
+            "cover"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "required": [
+      "bannerImage",
+      "tracks"
+    ],
+    "additionalProperties": false
+  },
+  "outputJsonPreview": {
+    "type": "Card",
+    "size": "sm",
+    "children": [
+      {
+        "type": "Image",
+        "src": "/kpop.png",
+        "alt": "K-POP",
+        "height": 180,
+        "fit": "cover",
+        "flush": true
+      },
+      {
+        "type": "Col",
+        "padding": {
+          "y": 2
+        },
+        "children": [
+          {
+            "type": "Row",
+            "key": "retrovinyl",
+            "align": "center",
+            "gap": 3,
+            "children": [
+              {
+                "type": "Caption",
+                "value": "1"
+              },
+              {
+                "type": "Image",
+                "src": "/album01.png"
+              },
+              {
+                "type": "Col",
+                "flex": "auto",
+                "gap": 0,
+                "children": [
+                  {
+                    "type": "Text",
+                    "value": "retrovinyl",
+                    "weight": "semibold"
+                  },
+                  {
+                    "type": "Text",
+                    "value": "Erik Mclean",
+                    "size": "sm",
+                    "color": "secondary"
+                  }
+                ]
+              },
+              {
+                "type": "Button",
+                "iconStart": "play",
+                "variant": "ghost",
+                "uniform": true,
+                "size": "xl",
+                "onClickAction": {
+                  "type": "music.play",
+                  "payload": {
+                    "id": "retrovinyl"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "type": "Row",
+            "key": "neon-polaroid",
+            "align": "center",
+            "gap": 3,
+            "children": [
+              {
+                "type": "Caption",
+                "value": "2"
+              },
+              {
+                "type": "Image",
+                "src": "/album03.png"
+              },
+              {
+                "type": "Col",
+                "flex": "auto",
+                "gap": 0,
+                "children": [
+                  {
+                    "type": "Text",
+                    "value": "Neon Polaroid",
+                    "weight": "semibold"
+                  },
+                  {
+                    "type": "Text",
+                    "value": "Efe Kurnaz",
+                    "size": "sm",
+                    "color": "secondary"
+                  }
+                ]
+              },
+              {
+                "type": "Button",
+                "iconStart": "play",
+                "variant": "ghost",
+                "uniform": true,
+                "size": "xl",
+                "onClickAction": {
+                  "type": "music.play",
+                  "payload": {
+                    "id": "neon-polaroid"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "type": "Row",
+            "key": "morning-grain",
+            "align": "center",
+            "gap": 3,
+            "children": [
+              {
+                "type": "Caption",
+                "value": "3"
+              },
+              {
+                "type": "Image",
+                "src": "/album02.png"
+              },
+              {
+                "type": "Col",
+                "flex": "auto",
+                "gap": 0,
+                "children": [
+                  {
+                    "type": "Text",
+                    "value": "Morning Grain",
+                    "weight": "semibold"
+                  },
+                  {
+                    "type": "Text",
+                    "value": "Reinhart Julian",
+                    "size": "sm",
+                    "color": "secondary"
+                  }
+                ]
+              },
+              {
+                "type": "Button",
+                "iconStart": "play",
+                "variant": "ghost",
+                "uniform": true,
+                "size": "xl",
+                "onClickAction": {
+                  "type": "music.play",
+                  "payload": {
+                    "id": "morning-grain"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "Button",
+        "label": "View playlist",
+        "variant": "outline",
+        "pill": true,
+        "block": true,
+        "onClickAction": {
+          "type": "view.playlist",
+          "payload": {
+            "name": "kpop"
+          }
+        }
+      }
+    ]
+  },
+  "encodedWidget": "eyJpZCI6IndpZ184cGRycjRuaCIsIm5hbWUiOiJQbGF5bGlzdCIsInZpZXciOiI8Q2FyZCBzaXplPVwic21cIj5cbiAgPEltYWdlIHNyYz17YmFubmVySW1hZ2V9IGFsdD1cIkstUE9QXCIgaGVpZ2h0PXsxODB9IGZpdD1cImNvdmVyXCIgZmx1c2ggLz5cbiAgPENvbCBwYWRkaW5nPXt7IHk6IDIgfX0-XG4gICAge3RyYWNrcy5tYXAoKGl0ZW0sIGluZGV4KSA9PiAoXG4gICAgICA8Um93IGtleT17aXRlbS5pZH0gYWxpZ249XCJjZW50ZXJcIiBnYXA9ezN9PlxuICAgICAgICA8Q2FwdGlvbiB2YWx1ZT17YCR7aW5kZXggKyAxfWB9IC8-XG4gICAgICAgIDxJbWFnZSBzcmM9e2l0ZW0uY292ZXJ9IC8-XG4gICAgICAgIDxDb2wgZmxleD1cImF1dG9cIiBnYXA9ezB9PlxuICAgICAgICAgIDxUZXh0IHZhbHVlPXtpdGVtLnRpdGxlfSB3ZWlnaHQ9XCJzZW1pYm9sZFwiIC8-XG4gICAgICAgICAgPFRleHQgdmFsdWU9e2l0ZW0uYXJ0aXN0fSBzaXplPVwic21cIiBjb2xvcj1cInNlY29uZGFyeVwiIC8-XG4gICAgICAgIDwvQ29sPlxuXG4gICAgICAgIDxCdXR0b25cbiAgICAgICAgICBpY29uU3RhcnQ9XCJwbGF5XCJcbiAgICAgICAgICB2YXJpYW50PVwiZ2hvc3RcIlxuICAgICAgICAgIHVuaWZvcm1cbiAgICAgICAgICBzaXplPVwieGxcIlxuICAgICAgICAgIG9uQ2xpY2tBY3Rpb249e3sgdHlwZTogXCJtdXNpYy5wbGF5XCIsIHBheWxvYWQ6IHsgaWQ6IGl0ZW0uaWQgfSB9fVxuICAgICAgICAvPlxuICAgICAgPC9Sb3c-XG4gICAgKSl9XG4gIDwvQ29sPlxuICA8QnV0dG9uXG4gICAgbGFiZWw9XCJWaWV3IHBsYXlsaXN0XCJcbiAgICB2YXJpYW50PVwib3V0bGluZVwiXG4gICAgcGlsbFxuICAgIGJsb2NrXG4gICAgb25DbGlja0FjdGlvbj17eyB0eXBlOiBcInZpZXcucGxheWxpc3RcIiwgcGF5bG9hZDogeyBuYW1lOiBcImtwb3BcIiB9IH19XG4gIC8-XG48L0NhcmQ-IiwiZGVmYXVsdFN0YXRlIjp7ImJhbm5lckltYWdlIjoiL2twb3AucG5nIiwidHJhY2tzIjpbeyJpZCI6InJldHJvdmlueWwiLCJ0aXRsZSI6InJldHJvdmlueWwiLCJhcnRpc3QiOiJFcmlrIE1jbGVhbiIsImNvdmVyIjoiL2FsYnVtMDEucG5nIn0seyJpZCI6Im5lb24tcG9sYXJvaWQiLCJ0aXRsZSI6Ik5lb24gUG9sYXJvaWQiLCJhcnRpc3QiOiJFZmUgS3VybmF6IiwiY292ZXIiOiIvYWxidW0wMy5wbmcifSx7ImlkIjoibW9ybmluZy1ncmFpbiIsInRpdGxlIjoiTW9ybmluZyBHcmFpbiIsImFydGlzdCI6IlJlaW5oYXJ0IEp1bGlhbiIsImNvdmVyIjoiL2FsYnVtMDIucG5nIn1dfSwic2NoZW1hIjoiaW1wb3J0IHsgeiB9IGZyb20gXCJ6b2RcIlxuXG5jb25zdCBUcmFjayA9IHoub2JqZWN0KHtcbiAgaWQ6IHouc3RyaW5nKCksXG4gIHRpdGxlOiB6LnN0cmluZygpLFxuICBhcnRpc3Q6IHouc3RyaW5nKCksXG4gIGNvdmVyOiB6LnN0cmluZygpLFxufSlcblxuY29uc3QgV2lkZ2V0U3RhdGUgPSB6Lm9iamVjdCh7XG4gIGJhbm5lckltYWdlOiB6LnN0cmluZygpLFxuICB0cmFja3M6IHouYXJyYXkoVHJhY2spLFxufSlcblxuZXhwb3J0IGRlZmF1bHQgV2lkZ2V0U3RhdGUiLCJzdGF0ZXMiOltdLCJzY2hlbWFWYWxpZGl0eSI6InZhbGlkIiwidmlld1ZhbGlkaXR5IjoidmFsaWQiLCJkZWZhdWx0U3RhdGVWYWxpZGl0eSI6InZhbGlkIn0"
+}

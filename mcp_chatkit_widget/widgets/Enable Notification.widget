@@ -1,0 +1,94 @@
+{
+  "version": "1.0",
+  "name": "Enable Notification",
+  "template": "{\"type\":\"Card\",\"children\":[{\"type\":\"Col\",\"align\":\"center\",\"gap\":4,\"padding\":4,\"children\":[{\"type\":\"Box\",\"background\":\"green-400\",\"radius\":\"full\",\"padding\":3,\"children\":[{\"type\":\"Icon\",\"name\":\"check\",\"size\":\"3xl\",\"color\":\"white\",\"children\":[]}]},{\"type\":\"Col\",\"align\":\"center\",\"gap\":1,\"children\":[{\"type\":\"Title\",\"value\":{{ (title) | tojson }},\"children\":[]},{\"type\":\"Text\",\"value\":{{ (description) | tojson }},\"color\":\"secondary\",\"children\":[]}]}]},{\"type\":\"Row\",\"children\":[{\"type\":\"Button\",\"label\":\"Yes\",\"block\":true,\"onClickAction\":{\"type\":\"notification.settings\",\"payload\":{\"enable\":true}},\"children\":[]},{\"type\":\"Button\",\"label\":\"No\",\"block\":true,\"variant\":\"outline\",\"onClickAction\":{\"type\":\"notification.settings\",\"payload\":{\"enable\":true}},\"children\":[]}]}]}",
+  "jsonSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "title": {
+        "type": "string"
+      },
+      "description": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "title",
+      "description"
+    ],
+    "additionalProperties": false
+  },
+  "outputJsonPreview": {
+    "type": "Card",
+    "children": [
+      {
+        "type": "Col",
+        "align": "center",
+        "gap": 4,
+        "padding": 4,
+        "children": [
+          {
+            "type": "Box",
+            "background": "green-400",
+            "radius": "full",
+            "padding": 3,
+            "children": [
+              {
+                "type": "Icon",
+                "name": "check",
+                "size": "3xl",
+                "color": "white"
+              }
+            ]
+          },
+          {
+            "type": "Col",
+            "align": "center",
+            "gap": 1,
+            "children": [
+              {
+                "type": "Title",
+                "value": "Enable notification"
+              },
+              {
+                "type": "Text",
+                "value": "Notify me when this item ships",
+                "color": "secondary"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "Row",
+        "children": [
+          {
+            "type": "Button",
+            "label": "Yes",
+            "block": true,
+            "onClickAction": {
+              "type": "notification.settings",
+              "payload": {
+                "enable": true
+              }
+            }
+          },
+          {
+            "type": "Button",
+            "label": "No",
+            "block": true,
+            "variant": "outline",
+            "onClickAction": {
+              "type": "notification.settings",
+              "payload": {
+                "enable": true
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "encodedWidget": "eyJpZCI6IndpZ196c2wzbjN4OSIsIm5hbWUiOiJFbmFibGUgTm90aWZpY2F0aW9uIiwidmlldyI6IjxDYXJkPlxuICA8Q29sIGFsaWduPVwiY2VudGVyXCIgZ2FwPXs0fSBwYWRkaW5nPXs0fT5cbiAgICA8Qm94IGJhY2tncm91bmQ9XCJncmVlbi00MDBcIiByYWRpdXM9XCJmdWxsXCIgcGFkZGluZz17M30-XG4gICAgICA8SWNvbiBuYW1lPVwiY2hlY2tcIiBzaXplPVwiM3hsXCIgY29sb3I9XCJ3aGl0ZVwiIC8-XG4gICAgPC9Cb3g-XG4gICAgPENvbCBhbGlnbj1cImNlbnRlclwiIGdhcD17MX0-XG4gICAgICA8VGl0bGUgdmFsdWU9e3RpdGxlfSAvPlxuICAgICAgPFRleHQgdmFsdWU9e2Rlc2NyaXB0aW9ufSBjb2xvcj1cInNlY29uZGFyeVwiIC8-XG4gICAgPC9Db2w-XG4gIDwvQ29sPlxuXG4gIDxSb3c-XG4gICAgPEJ1dHRvblxuICAgICAgbGFiZWw9XCJZZXNcIlxuICAgICAgYmxvY2tcbiAgICAgIG9uQ2xpY2tBY3Rpb249e3tcbiAgICAgICAgdHlwZTogXCJub3RpZmljYXRpb24uc2V0dGluZ3NcIixcbiAgICAgICAgcGF5bG9hZDogeyBlbmFibGU6IHRydWUgfSxcbiAgICAgIH19XG4gICAgLz5cbiAgICA8QnV0dG9uXG4gICAgICBsYWJlbD1cIk5vXCJcbiAgICAgIGJsb2NrXG4gICAgICB2YXJpYW50PVwib3V0bGluZVwiXG4gICAgICBvbkNsaWNrQWN0aW9uPXt7XG4gICAgICAgIHR5cGU6IFwibm90aWZpY2F0aW9uLnNldHRpbmdzXCIsXG4gICAgICAgIHBheWxvYWQ6IHsgZW5hYmxlOiB0cnVlIH0sXG4gICAgICB9fVxuICAgIC8-XG4gIDwvUm93PlxuPC9DYXJkPiIsImRlZmF1bHRTdGF0ZSI6eyJ0aXRsZSI6IkVuYWJsZSBub3RpZmljYXRpb24iLCJkZXNjcmlwdGlvbiI6Ik5vdGlmeSBtZSB3aGVuIHRoaXMgaXRlbSBzaGlwcyJ9LCJzY2hlbWEiOiJpbXBvcnQgeyB6IH0gZnJvbSBcInpvZFwiXG5cbmNvbnN0IFdpZGdldFN0YXRlID0gei5vYmplY3Qoe1xuICB0aXRsZTogei5zdHJpbmcoKSxcbiAgZGVzY3JpcHRpb246IHouc3RyaW5nKCksXG59KVxuXG5leHBvcnQgZGVmYXVsdCBXaWRnZXRTdGF0ZSIsInN0YXRlcyI6W10sInNjaGVtYVZhbGlkaXR5IjoidmFsaWQiLCJ2aWV3VmFsaWRpdHkiOiJ2YWxpZCIsImRlZmF1bHRTdGF0ZVZhbGlkaXR5IjoidmFsaWQifQ"
+}

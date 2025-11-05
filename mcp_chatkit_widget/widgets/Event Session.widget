@@ -1,0 +1,241 @@
+{
+  "version": "1.0",
+  "name": "Event Session",
+  "template": "{\"type\":\"Card\",\"size\":\"md\",\"children\":[{\"type\":\"Col\",\"gap\":1,\"children\":[{\"type\":\"Text\",\"value\":{{ (type) | tojson }},\"size\":\"sm\",\"color\":\"#FF7B00\",\"children\":[]},{\"type\":\"Title\",\"value\":{{ (title) | tojson }},\"size\":\"sm\",\"children\":[]},{\"type\":\"Text\",\"value\":{{ (description) | tojson }},\"size\":\"sm\",\"color\":\"secondary\",\"children\":[]}]},{\"type\":\"Divider\",\"flush\":true,\"children\":[]},{\"type\":\"Col\",\"gap\":3,\"children\":[{%- set _c -%},{\"type\":\"Row\",\"gap\":3,\"children\":[{\"type\":\"Box\",\"size\":40,\"background\":\"#FF7B00\",\"radius\":\"sm\",\"align\":\"center\",\"justify\":\"center\",\"children\":[{\"type\":\"Icon\",\"name\":\"map-pin\",\"size\":\"xl\",\"children\":[]}]},{\"type\":\"Col\",\"children\":[{\"type\":\"Text\",\"value\":{{ (location) | tojson }},\"size\":\"sm\",\"weight\":\"semibold\",\"color\":\"emphasis\",\"maxLines\":1,\"children\":[]},{\"type\":\"Text\",\"value\":{{ (time) | tojson }},\"size\":\"sm\",\"color\":\"secondary\",\"maxLines\":1,\"children\":[]}]},{\"type\":\"Spacer\",\"children\":[]},{\"type\":\"Button\",\"label\":\"View\",\"variant\":\"outline\",\"children\":[]}]}{%-for item in speakers -%},{\"type\":\"Row\",\"key\":{{ (item.id) | tojson }},\"gap\":3,\"children\":[{\"type\":\"Image\",\"src\":{{ (item.image) | tojson }},\"children\":[]},{\"type\":\"Col\",\"children\":[{\"type\":\"Text\",\"value\":{{ (item.name) | tojson }},\"size\":\"sm\",\"weight\":\"semibold\",\"color\":\"emphasis\",\"maxLines\":1,\"children\":[]},{\"type\":\"Text\",\"value\":{{ (item.title) | tojson }},\"size\":\"sm\",\"color\":\"secondary\",\"maxLines\":1,\"children\":[]}]},{\"type\":\"Spacer\",\"children\":[]},{\"type\":\"Button\",\"label\":\"View\",\"variant\":\"outline\",\"children\":[]}]}{%-endfor-%}{%- endset -%}{{- (_c[1:] if _c and _c[0] == ',' else _c) -}}]}]}",
+  "jsonSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "title": {
+        "type": "string"
+      },
+      "description": {
+        "type": "string"
+      },
+      "type": {
+        "type": "string"
+      },
+      "track": {
+        "type": "string"
+      },
+      "time": {
+        "type": "string"
+      },
+      "location": {
+        "type": "string"
+      },
+      "speakers": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "org": {
+              "type": "string"
+            },
+            "image": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "title",
+            "org",
+            "image"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "required": [
+      "id",
+      "title",
+      "description",
+      "type",
+      "track",
+      "time",
+      "location",
+      "speakers"
+    ],
+    "additionalProperties": false
+  },
+  "outputJsonPreview": {
+    "type": "Card",
+    "size": "md",
+    "children": [
+      {
+        "type": "Col",
+        "gap": 1,
+        "children": [
+          {
+            "type": "Text",
+            "value": "Breakout session",
+            "size": "sm",
+            "color": "#FF7B00"
+          },
+          {
+            "type": "Title",
+            "value": "Orchestrating Agents at Scale",
+            "size": "sm"
+          },
+          {
+            "type": "Text",
+            "value": "Click, connect, create. Learn how to quickly design and deploy enterprise-grade agents with a new suite of agentic platform tools.",
+            "size": "sm",
+            "color": "secondary"
+          }
+        ]
+      },
+      {
+        "type": "Divider",
+        "flush": true
+      },
+      {
+        "type": "Col",
+        "gap": 3,
+        "children": [
+          {
+            "type": "Row",
+            "gap": 3,
+            "children": [
+              {
+                "type": "Box",
+                "size": 40,
+                "background": "#FF7B00",
+                "radius": "sm",
+                "align": "center",
+                "justify": "center",
+                "children": [
+                  {
+                    "type": "Icon",
+                    "name": "map-pin",
+                    "size": "xl"
+                  }
+                ]
+              },
+              {
+                "type": "Col",
+                "children": [
+                  {
+                    "type": "Text",
+                    "value": "Cowell Theater",
+                    "size": "sm",
+                    "weight": "semibold",
+                    "color": "emphasis",
+                    "maxLines": 1
+                  },
+                  {
+                    "type": "Text",
+                    "value": "11:15 AM",
+                    "size": "sm",
+                    "color": "secondary",
+                    "maxLines": 1
+                  }
+                ]
+              },
+              {
+                "type": "Spacer"
+              },
+              {
+                "type": "Button",
+                "label": "View",
+                "variant": "outline"
+              }
+            ]
+          },
+          {
+            "type": "Row",
+            "key": "speaker-james-hills",
+            "gap": 3,
+            "children": [
+              {
+                "type": "Image",
+                "src": "/jameshills.png"
+              },
+              {
+                "type": "Col",
+                "children": [
+                  {
+                    "type": "Text",
+                    "value": "James Hills",
+                    "size": "sm",
+                    "weight": "semibold",
+                    "color": "emphasis",
+                    "maxLines": 1
+                  },
+                  {
+                    "type": "Text",
+                    "value": "Member of Technical Staff",
+                    "size": "sm",
+                    "color": "secondary",
+                    "maxLines": 1
+                  }
+                ]
+              },
+              {
+                "type": "Spacer"
+              },
+              {
+                "type": "Button",
+                "label": "View",
+                "variant": "outline"
+              }
+            ]
+          },
+          {
+            "type": "Row",
+            "key": "speaker-rohan-mehta",
+            "gap": 3,
+            "children": [
+              {
+                "type": "Image",
+                "src": "/rohanmehta.png"
+              },
+              {
+                "type": "Col",
+                "children": [
+                  {
+                    "type": "Text",
+                    "value": "Rohan Mehta",
+                    "size": "sm",
+                    "weight": "semibold",
+                    "color": "emphasis",
+                    "maxLines": 1
+                  },
+                  {
+                    "type": "Text",
+                    "value": "Member of Technical Staff",
+                    "size": "sm",
+                    "color": "secondary",
+                    "maxLines": 1
+                  }
+                ]
+              },
+              {
+                "type": "Spacer"
+              },
+              {
+                "type": "Button",
+                "label": "View",
+                "variant": "outline"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "encodedWidget": "eyJpZCI6IndpZ196a3BzY3R4dyIsIm5hbWUiOiJFdmVudCBTZXNzaW9uIiwidmlldyI6IjxDYXJkIHNpemU9XCJtZFwiPlxuICA8Q29sIGdhcD17MX0-XG4gICAgPFRleHQgdmFsdWU9e3R5cGV9IHNpemU9XCJzbVwiIGNvbG9yPVwiI0ZGN0IwMFwiIC8-XG4gICAgPFRpdGxlIHZhbHVlPXt0aXRsZX0gc2l6ZT1cInNtXCIgLz5cbiAgICA8VGV4dCB2YWx1ZT17ZGVzY3JpcHRpb259IHNpemU9XCJzbVwiIGNvbG9yPVwic2Vjb25kYXJ5XCIgLz5cbiAgPC9Db2w-XG4gIDxEaXZpZGVyIGZsdXNoIC8-XG4gIDxDb2wgZ2FwPXszfT5cbiAgICA8Um93IGdhcD17M30-XG4gICAgICA8Qm94XG4gICAgICAgIHNpemU9ezQwfVxuICAgICAgICBiYWNrZ3JvdW5kPVwiI0ZGN0IwMFwiXG4gICAgICAgIHJhZGl1cz1cInNtXCJcbiAgICAgICAgYWxpZ249XCJjZW50ZXJcIlxuICAgICAgICBqdXN0aWZ5PVwiY2VudGVyXCJcbiAgICAgID5cbiAgICAgICAgPEljb24gbmFtZT1cIm1hcC1waW5cIiBzaXplPVwieGxcIiAvPlxuICAgICAgPC9Cb3g-XG4gICAgICA8Q29sPlxuICAgICAgICA8VGV4dFxuICAgICAgICAgIHZhbHVlPXtsb2NhdGlvbn1cbiAgICAgICAgICBzaXplPVwic21cIlxuICAgICAgICAgIHdlaWdodD1cInNlbWlib2xkXCJcbiAgICAgICAgICBjb2xvcj1cImVtcGhhc2lzXCJcbiAgICAgICAgICBtYXhMaW5lcz17MX1cbiAgICAgICAgLz5cbiAgICAgICAgPFRleHQgdmFsdWU9e3RpbWV9IHNpemU9XCJzbVwiIGNvbG9yPVwic2Vjb25kYXJ5XCIgbWF4TGluZXM9ezF9IC8-XG4gICAgICA8L0NvbD5cbiAgICAgIDxTcGFjZXIgLz5cbiAgICAgIDxCdXR0b24gbGFiZWw9XCJWaWV3XCIgdmFyaWFudD1cIm91dGxpbmVcIiAvPlxuICAgIDwvUm93PlxuICAgIHtzcGVha2Vycy5tYXAoKGl0ZW0pID0-IChcbiAgICAgIDxSb3cga2V5PXtpdGVtLmlkfSBnYXA9ezN9PlxuICAgICAgICA8SW1hZ2Ugc3JjPXtpdGVtLmltYWdlfSAvPlxuICAgICAgICA8Q29sPlxuICAgICAgICAgIDxUZXh0XG4gICAgICAgICAgICB2YWx1ZT17aXRlbS5uYW1lfVxuICAgICAgICAgICAgc2l6ZT1cInNtXCJcbiAgICAgICAgICAgIHdlaWdodD1cInNlbWlib2xkXCJcbiAgICAgICAgICAgIGNvbG9yPVwiZW1waGFzaXNcIlxuICAgICAgICAgICAgbWF4TGluZXM9ezF9XG4gICAgICAgICAgLz5cbiAgICAgICAgICA8VGV4dCB2YWx1ZT17aXRlbS50aXRsZX0gc2l6ZT1cInNtXCIgY29sb3I9XCJzZWNvbmRhcnlcIiBtYXhMaW5lcz17MX0gLz5cbiAgICAgICAgPC9Db2w-XG4gICAgICAgIDxTcGFjZXIgLz5cbiAgICAgICAgPEJ1dHRvbiBsYWJlbD1cIlZpZXdcIiB2YXJpYW50PVwib3V0bGluZVwiIC8-XG4gICAgICA8L1Jvdz5cbiAgICApKX1cbiAgPC9Db2w-XG48L0NhcmQ-IiwiZGVmYXVsdFN0YXRlIjp7ImlkIjoic2Vzc2lvbi1vcmNoZXN0cmF0aW5nLWFnZW50cy1hdC1zY2FsZSIsInRpdGxlIjoiT3JjaGVzdHJhdGluZyBBZ2VudHMgYXQgU2NhbGUiLCJkZXNjcmlwdGlvbiI6IkNsaWNrLCBjb25uZWN0LCBjcmVhdGUuIExlYXJuIGhvdyB0byBxdWlja2x5IGRlc2lnbiBhbmQgZGVwbG95IGVudGVycHJpc2UtZ3JhZGUgYWdlbnRzIHdpdGggYSBuZXcgc3VpdGUgb2YgYWdlbnRpYyBwbGF0Zm9ybSB0b29scy4iLCJ0eXBlIjoiQnJlYWtvdXQgc2Vzc2lvbiIsInRyYWNrIjoiRGVwbG95IGFuZCBTY2FsZSIsInRpbWUiOiIxMToxNSBBTSIsImxvY2F0aW9uIjoiQ293ZWxsIFRoZWF0ZXIiLCJzcGVha2VycyI6W3siaWQiOiJzcGVha2VyLWphbWVzLWhpbGxzIiwibmFtZSI6IkphbWVzIEhpbGxzIiwidGl0bGUiOiJNZW1iZXIgb2YgVGVjaG5pY2FsIFN0YWZmIiwib3JnIjoiT3BlbkFJIiwiaW1hZ2UiOiIvamFtZXNoaWxscy5wbmcifSx7ImlkIjoic3BlYWtlci1yb2hhbi1tZWh0YSIsIm5hbWUiOiJSb2hhbiBNZWh0YSIsInRpdGxlIjoiTWVtYmVyIG9mIFRlY2huaWNhbCBTdGFmZiIsIm9yZyI6Ik9wZW5BSSIsImltYWdlIjoiL3JvaGFubWVodGEucG5nIn1dfSwic2NoZW1hIjoiaW1wb3J0IHsgeiB9IGZyb20gXCJ6b2RcIlxuXG5jb25zdCBTcGVha2VyID0gei5vYmplY3Qoe1xuICBpZDogei5zdHJpbmcoKSxcbiAgbmFtZTogei5zdHJpbmcoKSxcbiAgdGl0bGU6IHouc3RyaW5nKCksXG4gIG9yZzogei5zdHJpbmcoKSxcbiAgaW1hZ2U6IHouc3RyaW5nKCksXG59KVxuXG5jb25zdCBXaWRnZXRTdGF0ZSA9IHoub2JqZWN0KHtcbiAgaWQ6IHouc3RyaW5nKCksXG4gIHRpdGxlOiB6LnN0cmluZygpLFxuICBkZXNjcmlwdGlvbjogei5zdHJpbmcoKSxcbiAgdHlwZTogei5zdHJpbmcoKSxcbiAgdHJhY2s6IHouc3RyaW5nKCksXG4gIHRpbWU6IHouc3RyaW5nKCksXG4gIGxvY2F0aW9uOiB6LnN0cmluZygpLFxuICBzcGVha2Vyczogei5hcnJheShTcGVha2VyKSxcbn0pXG5cbmV4cG9ydCBkZWZhdWx0IFdpZGdldFN0YXRlIiwic3RhdGVzIjpbXSwic2NoZW1hVmFsaWRpdHkiOiJ2YWxpZCIsInZpZXdWYWxpZGl0eSI6InZhbGlkIiwiZGVmYXVsdFN0YXRlVmFsaWRpdHkiOiJ2YWxpZCJ9"
+}

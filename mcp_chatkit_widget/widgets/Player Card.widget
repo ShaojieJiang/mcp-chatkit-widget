@@ -1,0 +1,153 @@
+{
+  "version": "1.0",
+  "name": "Player Card",
+  "template": "{\"type\":\"Card\",\"size\":\"md\",\"theme\":\"dark\",\"padding\":8,\"background\":\"url(https://ik.imagekit.io/m998roxrr/footballfroge.png) no-repeat center / cover\",\"children\":[{\"type\":\"Row\",\"align\":\"center\",\"children\":[{\"type\":\"Box\",\"width\":\"40%\",\"minHeight\":160,\"children\":[]},{\"type\":\"Col\",\"flex\":\"auto\",\"children\":[{\"type\":\"Title\",\"value\":{{ ((name ~ \" (#\" ~ number ~ \")\")) | tojson }},\"size\":\"xl\",\"color\":\"white\",\"weight\":\"normal\",\"children\":[]},{\"type\":\"Row\",\"children\":[{%- set _c -%}{%-for item in stats -%},{\"type\":\"Col\",\"flex\":1,\"gap\":0,\"children\":[{\"type\":\"Text\",\"value\":{{ (item.value) | tojson }},\"weight\":\"semibold\",\"children\":[]},{\"type\":\"Caption\",\"value\":{{ (item.label) | tojson }},\"color\":{{ (accent) | tojson }},\"children\":[]}]}{%-endfor-%}{%- endset -%}{{- (_c[1:] if _c and _c[0] == ',' else _c) -}}]}]}]}]}",
+  "jsonSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string"
+      },
+      "number": {
+        "type": "string"
+      },
+      "accent": {
+        "type": "string"
+      },
+      "stats": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "value",
+            "label"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "required": [
+      "name",
+      "number",
+      "accent",
+      "stats"
+    ],
+    "additionalProperties": false
+  },
+  "outputJsonPreview": {
+    "type": "Card",
+    "size": "md",
+    "theme": "dark",
+    "padding": 8,
+    "background": "url(https://ik.imagekit.io/m998roxrr/footballfroge.png) no-repeat center / cover",
+    "children": [
+      {
+        "type": "Row",
+        "align": "center",
+        "children": [
+          {
+            "type": "Box",
+            "width": "40%",
+            "minHeight": 160
+          },
+          {
+            "type": "Col",
+            "flex": "auto",
+            "children": [
+              {
+                "type": "Title",
+                "value": "Froge (#22)",
+                "size": "xl",
+                "color": "white",
+                "weight": "normal"
+              },
+              {
+                "type": "Row",
+                "children": [
+                  {
+                    "type": "Col",
+                    "flex": 1,
+                    "gap": 0,
+                    "children": [
+                      {
+                        "type": "Text",
+                        "value": "18",
+                        "weight": "semibold"
+                      },
+                      {
+                        "type": "Caption",
+                        "value": "PTS",
+                        "color": "blue-100"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Col",
+                    "flex": 1,
+                    "gap": 0,
+                    "children": [
+                      {
+                        "type": "Text",
+                        "value": "141",
+                        "weight": "semibold"
+                      },
+                      {
+                        "type": "Caption",
+                        "value": "YDS",
+                        "color": "blue-100"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Col",
+                    "flex": 1,
+                    "gap": 0,
+                    "children": [
+                      {
+                        "type": "Text",
+                        "value": "2",
+                        "weight": "semibold"
+                      },
+                      {
+                        "type": "Caption",
+                        "value": "TKL",
+                        "color": "blue-100"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Col",
+                    "flex": 1,
+                    "gap": 0,
+                    "children": [
+                      {
+                        "type": "Text",
+                        "value": "17",
+                        "weight": "semibold"
+                      },
+                      {
+                        "type": "Caption",
+                        "value": "LEAPS",
+                        "color": "blue-100"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "encodedWidget": "eyJpZCI6IndpZ191MnNhbzI4aCIsIm5hbWUiOiJQbGF5ZXIgQ2FyZCIsInZpZXciOiI8Q2FyZFxuICBzaXplPVwibWRcIlxuICB0aGVtZT1cImRhcmtcIlxuICBwYWRkaW5nPXs4fVxuICBiYWNrZ3JvdW5kPVwidXJsKGh0dHBzOi8vaWsuaW1hZ2VraXQuaW8vbTk5OHJveHJyL2Zvb3RiYWxsZnJvZ2UucG5nKSBuby1yZXBlYXQgY2VudGVyIC8gY292ZXJcIlxuPlxuICA8Um93IGFsaWduPVwiY2VudGVyXCI-XG4gICAgPEJveCB3aWR0aD1cIjQwJVwiIG1pbkhlaWdodD17MTYwfSAvPlxuICAgIDxDb2wgZmxleD1cImF1dG9cIj5cbiAgICAgIDxUaXRsZVxuICAgICAgICB2YWx1ZT17YCR7bmFtZX0gKCMke251bWJlcn0pYH1cbiAgICAgICAgc2l6ZT1cInhsXCJcbiAgICAgICAgY29sb3I9XCJ3aGl0ZVwiXG4gICAgICAgIHdlaWdodD1cIm5vcm1hbFwiXG4gICAgICAvPlxuICAgICAgPFJvdz5cbiAgICAgICAge3N0YXRzLm1hcCgoaXRlbSwgaW5kZXgpID0-IChcbiAgICAgICAgICA8Q29sIGZsZXg9ezF9IGdhcD17MH0-XG4gICAgICAgICAgICA8VGV4dCB2YWx1ZT17aXRlbS52YWx1ZX0gd2VpZ2h0PVwic2VtaWJvbGRcIiAvPlxuICAgICAgICAgICAgPENhcHRpb24gdmFsdWU9e2l0ZW0ubGFiZWx9IGNvbG9yPXthY2NlbnR9IC8-XG4gICAgICAgICAgPC9Db2w-XG4gICAgICAgICkpfVxuICAgICAgPC9Sb3c-XG4gICAgPC9Db2w-XG4gIDwvUm93PlxuPC9DYXJkPiIsImRlZmF1bHRTdGF0ZSI6eyJuYW1lIjoiRnJvZ2UiLCJudW1iZXIiOiIyMiIsImFjY2VudCI6ImJsdWUtMTAwIiwic3RhdHMiOlt7InZhbHVlIjoiMTgiLCJsYWJlbCI6IlBUUyJ9LHsidmFsdWUiOiIxNDEiLCJsYWJlbCI6IllEUyJ9LHsidmFsdWUiOiIyIiwibGFiZWwiOiJUS0wifSx7InZhbHVlIjoiMTciLCJsYWJlbCI6IkxFQVBTIn1dfSwic2NoZW1hIjoiaW1wb3J0IHsgeiB9IGZyb20gXCJ6b2RcIlxuXG5jb25zdCBTdGF0ID0gei5vYmplY3Qoe1xuICB2YWx1ZTogei5zdHJpbmcoKSxcbiAgbGFiZWw6IHouc3RyaW5nKCksXG59KVxuXG5jb25zdCBXaWRnZXRTdGF0ZSA9IHoub2JqZWN0KHtcbiAgbmFtZTogei5zdHJpbmcoKSxcbiAgbnVtYmVyOiB6LnN0cmluZygpLFxuICBhY2NlbnQ6IHouc3RyaW5nKCksXG4gIHN0YXRzOiB6LmFycmF5KFN0YXQpLFxufSlcblxuZXhwb3J0IGRlZmF1bHQgV2lkZ2V0U3RhdGUiLCJzdGF0ZXMiOltdLCJzY2hlbWFWYWxpZGl0eSI6InZhbGlkIiwidmlld1ZhbGlkaXR5IjoidmFsaWQiLCJkZWZhdWx0U3RhdGVWYWxpZGl0eSI6InZhbGlkIn0"
+}

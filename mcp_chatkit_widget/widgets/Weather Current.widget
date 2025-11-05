@@ -1,0 +1,92 @@
+{
+  "version": "1.0",
+  "name": "Weather Current",
+  "template": "{\"type\":\"Card\",\"theme\":\"dark\",\"size\":\"sm\",\"padding\":{\"y\":8,\"x\":4},\"background\":{{ (background) | tojson }},\"children\":[{\"type\":\"Col\",\"align\":\"center\",\"gap\":2,\"children\":[{\"type\":\"Row\",\"align\":\"center\",\"gap\":2,\"children\":[{\"type\":\"Image\",\"src\":{{ (conditionImage) | tojson }},\"size\":80,\"children\":[]},{\"type\":\"Title\",\"value\":{{ (temperature) | tojson }},\"size\":\"3xl\",\"weight\":\"normal\",\"color\":\"white\",\"children\":[]}]},{\"type\":\"Col\",\"align\":\"center\",\"gap\":4,\"children\":[{\"type\":\"Caption\",\"value\":{{ (location) | tojson }},\"color\":\"white\",\"size\":\"lg\",\"children\":[]},{\"type\":\"Text\",\"value\":{{ (conditionDescription) | tojson }},\"color\":\"white\",\"textAlign\":\"center\",\"children\":[]}]}]}]}",
+  "jsonSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "location": {
+        "type": "string"
+      },
+      "background": {
+        "type": "string"
+      },
+      "conditionImage": {
+        "type": "string"
+      },
+      "conditionDescription": {
+        "type": "string"
+      },
+      "temperature": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "location",
+      "background",
+      "conditionImage",
+      "conditionDescription",
+      "temperature"
+    ],
+    "additionalProperties": false
+  },
+  "outputJsonPreview": {
+    "type": "Card",
+    "theme": "dark",
+    "size": "sm",
+    "padding": {
+      "y": 8,
+      "x": 4
+    },
+    "background": "linear-gradient(111deg, #1769C8 0%, #258AE3 56.92%, #31A3F8 100%)",
+    "children": [
+      {
+        "type": "Col",
+        "align": "center",
+        "gap": 2,
+        "children": [
+          {
+            "type": "Row",
+            "align": "center",
+            "gap": 2,
+            "children": [
+              {
+                "type": "Image",
+                "src": "https://cdn.openai.com/API/storybook/mostly-sunny.png",
+                "size": 80
+              },
+              {
+                "type": "Title",
+                "value": "72°",
+                "size": "3xl",
+                "weight": "normal",
+                "color": "white"
+              }
+            ]
+          },
+          {
+            "type": "Col",
+            "align": "center",
+            "gap": 4,
+            "children": [
+              {
+                "type": "Caption",
+                "value": "San Francisco",
+                "color": "white",
+                "size": "lg"
+              },
+              {
+                "type": "Text",
+                "value": "Sunny sky and warm temperatures are expected for the rest of the afternoon.",
+                "color": "white",
+                "textAlign": "center"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "encodedWidget": "eyJpZCI6IndpZ19pc3Y0b3VrMSIsIm5hbWUiOiJ3ZWF0aGVyQ3VycmVudCIsInZpZXciOiI8Q2FyZCB0aGVtZT1cImRhcmtcIiBzaXplPVwic21cIiBwYWRkaW5nPXt7IHk6IDgsIHg6IDQgfX0gYmFja2dyb3VuZD17YmFja2dyb3VuZH0-XG4gIDxDb2wgYWxpZ249XCJjZW50ZXJcIiBnYXA9ezJ9PlxuICAgIDxSb3cgYWxpZ249XCJjZW50ZXJcIiBnYXA9ezJ9PlxuICAgICAgPEltYWdlIHNyYz17Y29uZGl0aW9uSW1hZ2V9IHNpemU9ezgwfSAvPlxuICAgICAgPFRpdGxlIHZhbHVlPXt0ZW1wZXJhdHVyZX0gc2l6ZT1cIjN4bFwiIHdlaWdodD1cIm5vcm1hbFwiIGNvbG9yPVwid2hpdGVcIiAvPlxuICAgIDwvUm93PlxuXG4gICAgPENvbCBhbGlnbj1cImNlbnRlclwiIGdhcD17NH0-XG4gICAgICA8Q2FwdGlvbiB2YWx1ZT17bG9jYXRpb259IGNvbG9yPVwid2hpdGVcIiBzaXplPVwibGdcIiAvPlxuICAgICAgPFRleHQgdmFsdWU9e2NvbmRpdGlvbkRlc2NyaXB0aW9ufSBjb2xvcj1cIndoaXRlXCIgdGV4dEFsaWduPVwiY2VudGVyXCIgLz5cbiAgICA8L0NvbD5cbiAgPC9Db2w-XG48L0NhcmQ-IiwiZGVmYXVsdFN0YXRlIjp7ImxvY2F0aW9uIjoiU2FuIEZyYW5jaXNjbyIsImJhY2tncm91bmQiOiJsaW5lYXItZ3JhZGllbnQoMTExZGVnLCAjMTc2OUM4IDAlLCAjMjU4QUUzIDU2LjkyJSwgIzMxQTNGOCAxMDAlKSIsImNvbmRpdGlvbkltYWdlIjoiaHR0cHM6Ly9jZG4ub3BlbmFpLmNvbS9BUEkvc3Rvcnlib29rL21vc3RseS1zdW5ueS5wbmciLCJjb25kaXRpb25EZXNjcmlwdGlvbiI6IlN1bm55IHNreSBhbmQgd2FybSB0ZW1wZXJhdHVyZXMgYXJlIGV4cGVjdGVkIGZvciB0aGUgcmVzdCBvZiB0aGUgYWZ0ZXJub29uLiIsInRlbXBlcmF0dXJlIjoiNzLCsCJ9LCJzY2hlbWEiOiJpbXBvcnQgeyB6IH0gZnJvbSBcInpvZFwiXG5cbmNvbnN0IFdpZGdldFN0YXRlID0gei5vYmplY3Qoe1xuICBsb2NhdGlvbjogei5zdHJpbmcoKSxcbiAgYmFja2dyb3VuZDogei5zdHJpbmcoKSxcbiAgY29uZGl0aW9uSW1hZ2U6IHouc3RyaW5nKCksXG4gIGNvbmRpdGlvbkRlc2NyaXB0aW9uOiB6LnN0cmluZygpLFxuICB0ZW1wZXJhdHVyZTogei5zdHJpbmcoKSxcbn0pXG5cbmV4cG9ydCBkZWZhdWx0IFdpZGdldFN0YXRlIiwic3RhdGVzIjpbXSwic2NoZW1hVmFsaWRpdHkiOiJ2YWxpZCIsInZpZXdWYWxpZGl0eSI6InZhbGlkIiwiZGVmYXVsdFN0YXRlVmFsaWRpdHkiOiJ2YWxpZCJ9"
+}

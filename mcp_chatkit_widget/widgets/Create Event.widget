@@ -1,0 +1,223 @@
+{
+  "version": "1.0",
+  "name": "Create Event",
+  "template": "{\"type\":\"Card\",\"size\":\"md\",\"confirm\":{\"label\":\"Add to calendar\",\"action\":{\"type\":\"calendar.add\"}},\"cancel\":{\"label\":\"Discard\",\"action\":{\"type\":\"calendar.discard\"}},\"children\":[{\"type\":\"Row\",\"align\":\"start\",\"children\":[{\"type\":\"Col\",\"align\":\"start\",\"gap\":1,\"width\":80,\"children\":[{\"type\":\"Caption\",\"value\":{{ (date.name) | tojson }},\"size\":\"lg\",\"color\":\"secondary\",\"children\":[]},{\"type\":\"Title\",\"value\":{{ (date.number) | tojson }},\"size\":\"3xl\",\"children\":[]}]},{\"type\":\"Col\",\"flex\":\"auto\",\"children\":[{%- set _c -%}{%-for item in events -%},{\"type\":\"Row\",\"key\":{{ (item.id) | tojson }},\"padding\":{\"x\":3,\"y\":2},\"gap\":3,\"radius\":\"xl\",\"background\":{% if item.isNew %}\"none\"{% else %}\"surface-secondary\"{% endif %},\"border\":{% if item.isNew %}{\"size\":1,\"color\":{{ (item.color) | tojson }},\"style\":\"dashed\"}{% else %}{{ (undefined) | tojson }}{% endif %},\"children\":[{\"type\":\"Box\",\"width\":4,\"height\":\"40px\",\"radius\":\"full\",\"background\":{{ (item.color) | tojson }},\"children\":[]},{\"type\":\"Col\",\"children\":[{\"type\":\"Text\",\"value\":{{ (item.title) | tojson }},\"children\":[]},{\"type\":\"Text\",\"value\":{{ (item.time) | tojson }},\"size\":\"sm\",\"color\":\"tertiary\",\"children\":[]}]}]}{%-endfor-%}{%- endset -%}{{- (_c[1:] if _c and _c[0] == ',' else _c) -}}]}]}]}",
+  "jsonSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "date": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "number": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "number"
+        ],
+        "additionalProperties": false
+      },
+      "events": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "time": {
+              "type": "string"
+            },
+            "color": {
+              "type": "string"
+            },
+            "isNew": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "id",
+            "title",
+            "time",
+            "color",
+            "isNew"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "required": [
+      "date",
+      "events"
+    ],
+    "additionalProperties": false
+  },
+  "outputJsonPreview": {
+    "type": "Card",
+    "size": "md",
+    "confirm": {
+      "label": "Add to calendar",
+      "action": {
+        "type": "calendar.add"
+      }
+    },
+    "cancel": {
+      "label": "Discard",
+      "action": {
+        "type": "calendar.discard"
+      }
+    },
+    "children": [
+      {
+        "type": "Row",
+        "align": "start",
+        "children": [
+          {
+            "type": "Col",
+            "align": "start",
+            "gap": 1,
+            "width": 80,
+            "children": [
+              {
+                "type": "Caption",
+                "value": "Friday",
+                "size": "lg",
+                "color": "secondary"
+              },
+              {
+                "type": "Title",
+                "value": "28",
+                "size": "3xl"
+              }
+            ]
+          },
+          {
+            "type": "Col",
+            "flex": "auto",
+            "children": [
+              {
+                "type": "Row",
+                "key": "lunch",
+                "padding": {
+                  "x": 3,
+                  "y": 2
+                },
+                "gap": 3,
+                "radius": "xl",
+                "background": "surface-secondary",
+                "children": [
+                  {
+                    "type": "Box",
+                    "width": 4,
+                    "height": "40px",
+                    "radius": "full",
+                    "background": "red-400"
+                  },
+                  {
+                    "type": "Col",
+                    "children": [
+                      {
+                        "type": "Text",
+                        "value": "Lunch"
+                      },
+                      {
+                        "type": "Text",
+                        "value": "12:00 - 12:45 PM",
+                        "size": "sm",
+                        "color": "tertiary"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Row",
+                "key": "q1-roadmap-review",
+                "padding": {
+                  "x": 3,
+                  "y": 2
+                },
+                "gap": 3,
+                "radius": "xl",
+                "background": "none",
+                "border": {
+                  "size": 1,
+                  "color": "blue-400",
+                  "style": "dashed"
+                },
+                "children": [
+                  {
+                    "type": "Box",
+                    "width": 4,
+                    "height": "40px",
+                    "radius": "full",
+                    "background": "blue-400"
+                  },
+                  {
+                    "type": "Col",
+                    "children": [
+                      {
+                        "type": "Text",
+                        "value": "Q1 roadmap review"
+                      },
+                      {
+                        "type": "Text",
+                        "value": "1:00 - 2:00 PM",
+                        "size": "sm",
+                        "color": "tertiary"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Row",
+                "key": "team-standup",
+                "padding": {
+                  "x": 3,
+                  "y": 2
+                },
+                "gap": 3,
+                "radius": "xl",
+                "background": "surface-secondary",
+                "children": [
+                  {
+                    "type": "Box",
+                    "width": 4,
+                    "height": "40px",
+                    "radius": "full",
+                    "background": "red-400"
+                  },
+                  {
+                    "type": "Col",
+                    "children": [
+                      {
+                        "type": "Text",
+                        "value": "Team standup"
+                      },
+                      {
+                        "type": "Text",
+                        "value": "3:30 - 4:00 PM",
+                        "size": "sm",
+                        "color": "tertiary"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "encodedWidget": "eyJpZCI6IndpZ192ZGtubzFhZyIsIm5hbWUiOiJDcmVhdGUgRXZlbnQiLCJ2aWV3IjoiPENhcmRcbiAgc2l6ZT1cIm1kXCJcbiAgY29uZmlybT17eyBsYWJlbDogXCJBZGQgdG8gY2FsZW5kYXJcIiwgYWN0aW9uOiB7IHR5cGU6IFwiY2FsZW5kYXIuYWRkXCIgfSB9fVxuICBjYW5jZWw9e3sgbGFiZWw6IFwiRGlzY2FyZFwiLCBhY3Rpb246IHsgdHlwZTogXCJjYWxlbmRhci5kaXNjYXJkXCIgfSB9fVxuPlxuICA8Um93IGFsaWduPVwic3RhcnRcIj5cbiAgICA8Q29sIGFsaWduPVwic3RhcnRcIiBnYXA9ezF9IHdpZHRoPXs4MH0-XG4gICAgICA8Q2FwdGlvbiB2YWx1ZT17ZGF0ZS5uYW1lfSBzaXplPVwibGdcIiBjb2xvcj1cInNlY29uZGFyeVwiIC8-XG4gICAgICA8VGl0bGUgdmFsdWU9e2RhdGUubnVtYmVyfSBzaXplPVwiM3hsXCIgLz5cbiAgICA8L0NvbD5cblxuICAgIDxDb2wgZmxleD1cImF1dG9cIj5cbiAgICAgIHtldmVudHMubWFwKChpdGVtKSA9PiAoXG4gICAgICAgIDxSb3dcbiAgICAgICAgICBrZXk9e2l0ZW0uaWR9XG4gICAgICAgICAgcGFkZGluZz17eyB4OiAzLCB5OiAyIH19XG4gICAgICAgICAgZ2FwPXszfVxuICAgICAgICAgIHJhZGl1cz1cInhsXCJcbiAgICAgICAgICBiYWNrZ3JvdW5kPXtpdGVtLmlzTmV3ID8gXCJub25lXCIgOiBcInN1cmZhY2Utc2Vjb25kYXJ5XCJ9XG4gICAgICAgICAgYm9yZGVyPXtcbiAgICAgICAgICAgIGl0ZW0uaXNOZXdcbiAgICAgICAgICAgICAgPyB7IHNpemU6IDEsIGNvbG9yOiBpdGVtLmNvbG9yLCBzdHlsZTogXCJkYXNoZWRcIiB9XG4gICAgICAgICAgICAgIDogdW5kZWZpbmVkXG4gICAgICAgICAgfVxuICAgICAgICA-XG4gICAgICAgICAgPEJveCB3aWR0aD17NH0gaGVpZ2h0PVwiNDBweFwiIHJhZGl1cz1cImZ1bGxcIiBiYWNrZ3JvdW5kPXtpdGVtLmNvbG9yfSAvPlxuICAgICAgICAgIDxDb2w-XG4gICAgICAgICAgICA8VGV4dCB2YWx1ZT17aXRlbS50aXRsZX0gLz5cbiAgICAgICAgICAgIDxUZXh0IHZhbHVlPXtpdGVtLnRpbWV9IHNpemU9XCJzbVwiIGNvbG9yPVwidGVydGlhcnlcIiAvPlxuICAgICAgICAgIDwvQ29sPlxuICAgICAgICA8L1Jvdz5cbiAgICAgICkpfVxuICAgIDwvQ29sPlxuICA8L1Jvdz5cbjwvQ2FyZD4iLCJkZWZhdWx0U3RhdGUiOnsiZGF0ZSI6eyJuYW1lIjoiRnJpZGF5IiwibnVtYmVyIjoiMjgifSwiZXZlbnRzIjpbeyJpZCI6Imx1bmNoIiwidGl0bGUiOiJMdW5jaCIsInRpbWUiOiIxMjowMCAtIDEyOjQ1IFBNIiwiY29sb3IiOiJyZWQtNDAwIiwiaXNOZXciOmZhbHNlfSx7ImlkIjoicTEtcm9hZG1hcC1yZXZpZXciLCJ0aXRsZSI6IlExIHJvYWRtYXAgcmV2aWV3IiwidGltZSI6IjE6MDAgLSAyOjAwIFBNIiwiY29sb3IiOiJibHVlLTQwMCIsImlzTmV3Ijp0cnVlfSx7ImlkIjoidGVhbS1zdGFuZHVwIiwidGl0bGUiOiJUZWFtIHN0YW5kdXAiLCJ0aW1lIjoiMzozMCAtIDQ6MDAgUE0iLCJjb2xvciI6InJlZC00MDAiLCJpc05ldyI6ZmFsc2V9XX0sInNjaGVtYSI6ImltcG9ydCB7IHogfSBmcm9tIFwiem9kXCJcblxuY29uc3QgRGF0ZUluZm8gPSB6Lm9iamVjdCh7XG4gIG5hbWU6IHouc3RyaW5nKCksXG4gIG51bWJlcjogei5zdHJpbmcoKSxcbn0pXG5cbmNvbnN0IEV2ZW50SXRlbSA9IHoub2JqZWN0KHtcbiAgaWQ6IHouc3RyaW5nKCksXG4gIHRpdGxlOiB6LnN0cmluZygpLFxuICB0aW1lOiB6LnN0cmluZygpLFxuICBjb2xvcjogei5zdHJpbmcoKSxcbiAgaXNOZXc6IHouYm9vbGVhbigpLFxufSlcblxuY29uc3QgV2lkZ2V0U3RhdGUgPSB6Lm9iamVjdCh7XG4gIGRhdGU6IERhdGVJbmZvLFxuICBldmVudHM6IHouYXJyYXkoRXZlbnRJdGVtKSxcbn0pXG5cbmV4cG9ydCBkZWZhdWx0IFdpZGdldFN0YXRlIiwic3RhdGVzIjpbXSwic2NoZW1hVmFsaWRpdHkiOiJ2YWxpZCIsInZpZXdWYWxpZGl0eSI6InZhbGlkIiwiZGVmYXVsdFN0YXRlVmFsaWRpdHkiOiJ2YWxpZCJ9"
+}
