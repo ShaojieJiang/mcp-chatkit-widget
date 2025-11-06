@@ -25,6 +25,10 @@ make lint              # Run ruff, mypy, and format checks
 uv run make lint       # Same but with uv prefix (CI style)
 ```
 
+**CRITICAL:** After making any code changes:
+- Run `make lint` and ensure it passes with ZERO errors or warnings.
+- Run `make test` and ensure all tests pass.
+
 **Formatting:**
 ```bash
 make format            # Auto-fix imports, format Python and React code

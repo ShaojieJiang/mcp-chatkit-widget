@@ -7,7 +7,7 @@ widget component objects.
 
 from typing import Any
 from chatkit import widgets
-from pydantic import BaseModel, ConfigDict, create_model
+from pydantic import BaseModel, ConfigDict, ValidationError, create_model
 
 
 def _to_title_case(snake_or_lower: str) -> str:
@@ -246,7 +246,18 @@ def _dict_to_widget_component(
         ]
 
     # Instantiate the widget component with the properties
-    return widget_class(**props)
+    try:
+        return widget_class(**props)
+    except ValidationError as exc:
+        # ListView components are only accepted as roots in the ChatKit schema,
+        # but existing widget previews embed them within layout containers.
+        # Fall back to constructing the model without validation when we detect
+        # this compatibility gap so the widgets can still be rendered.
+        if "children" in props and any(
+            getattr(child, "type", None) == "ListView" for child in props["children"]
+        ):
+            return widget_class.model_construct(**props)
+        raise exc  # pragma: no cover
 
 
 def create_widget_instance(
