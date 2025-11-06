@@ -4,7 +4,7 @@ Each script should have fewer than 250 LOC; special cases may extend but must st
 
 ## Refactoring Checklist (2025-11-06)
 
-- [ ] `tests/test_widget_integration.py` — 612 LOC
+- [x] `tests/test_widget_integration.py` — 190 LOC
 - [ ] `tests/test_widget_loader.py` — 410 LOC
 - [ ] `examples/run_widget/run_widget.py` — 315 LOC
 - [ ] `tests/test_schema_utils.py` — 277 LOC
