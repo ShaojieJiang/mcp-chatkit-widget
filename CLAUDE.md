@@ -74,6 +74,7 @@ The `examples/` directory is currently empty but structured for:
 - Import style: Absolute imports only (no relative imports via TID252)
 - Two blank lines after imports (isort config)
 - Google-style docstrings (pydocstyle convention)
+- Keep each script below 250 lines of code; only clearly justified exceptions may reach but not exceed 300 lines.
 
 **Type Checking:** mypy with strict mode
 - `disallow_untyped_defs = true`: All functions must have type annotations
