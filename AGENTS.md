@@ -6,6 +6,10 @@ The `mcp_chatkit_widget/` package contains the MCP server implementation and int
 ## Build, Test, and Development Commands
 Use `make lint` to run Ruff linting, type checks (`mypy mcp_chatkit_widget`), and format validation in one step. Apply project formatting with `make format`, which fixes Ruff import/style issues and formats the React example. Execute the Python test suite and coverage reporting with `make test` (equivalent to `pytest --cov --cov-report term-missing tests/`). Spin up the reference backend with `make demo-backend`, or launch UI demos using `make demo-react` and `make demo-streamlit`.
 
+**CRITICAL:** After making any code changes:
+- Run `make lint` and ensure it passes with ZERO errors or warnings.
+- Run `make test` and ensure all tests pass.
+
 ## Coding Style & Naming Conventions
 Python code follows Ruff defaults with an 88-character limit and 4-space indentation; enable Ruff’s fixer before opening PRs. Keep public symbols and modules typed, as `mypy` enforces `disallow_untyped_defs`. Prefer explicit module imports (no relative imports) and snake_case for functions, CamelCase for classes, and uppercase for constants. Run `ruff format .` before committing to preserve consistent spacing in both Python and generated files.
 Keep each script under 250 lines of code; on rare, well-justified occasions you may extend up to but not beyond 300 lines.
