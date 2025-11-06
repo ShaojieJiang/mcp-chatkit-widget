@@ -34,7 +34,7 @@ name = "mcp-chatkit-widget"
 readme = "README.md"
 requires-python = ">=3.12"
 url = "https://github.com/ShaojieJiang/mcp-chatkit-widget"
-version = "0.1.0"
+version = "0.1.1"
 
 [project.scripts]
 mcp-chatkit-widget = "mcp_chatkit_widget:main"
