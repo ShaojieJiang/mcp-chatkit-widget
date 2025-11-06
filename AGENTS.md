@@ -3,11 +3,23 @@
 ## Project Structure & Module Organization
 The `mcp_chatkit_widget/` package contains the MCP server implementation and integration utilities. Tests live in `tests/` and mirror the source layout (`tests/<module>/test_*.py`). Demo clients and reference backends are under `examples/` with separate folders for `frontend/react`, `frontend/streamlit`, and `backend`. Documentation artifacts are generated from `docs/` via `mkdocs.yml`, while automation shortcuts reside in the project `Makefile`.
 
+## Environment Setup
+
+- Install dependencies with `uv sync --all-groups`; this creates the project-managed `.venv`.
+- Prefer `uv run <command>` so the virtual environment is activated automatically (e.g., `uv run make lint`).
+- Avoid creating or activating custom virtual environments with `python -m venv` or `pip install`; everything should flow through `uv`.
+- For direct Python entrypoints use `uv run python`, and for tooling reuse use `uvx <tool>`.
+
 ## Build, Test, and Development Commands
-Use `make lint` to run Ruff linting, type checks (`mypy mcp_chatkit_widget`), and format validation in one step. Apply project formatting with `make format`, which fixes Ruff import/style issues and formats the React example. Execute the Python test suite and coverage reporting with `make test` (equivalent to `pytest --cov --cov-report term-missing tests/`). Spin up the reference backend with `make demo-backend`, or launch UI demos using `make demo-react` and `make demo-streamlit`.
+Use `make lint` (invoke as `uv run make lint`) to run Ruff linting, type checks (`mypy mcp_chatkit_widget`), and format validation in one step. Apply project formatting with `make format` (`uv run make format`), which fixes Ruff import/style issues and formats the React example. Execute the Python test suite and coverage reporting with `make test` (`uv run make test`, equivalent to `pytest --cov --cov-report term-missing tests/`). Spin up the reference backend with `make demo-backend`, or launch UI demos using `make demo-react` and `make demo-streamlit`.
+
+**CRITICAL:** After making any code changes:
+- Run `make lint` and ensure it passes with ZERO errors or warnings.
+- Run `make test` and ensure all tests pass.
 
 ## Coding Style & Naming Conventions
 Python code follows Ruff defaults with an 88-character limit and 4-space indentation; enable Ruff’s fixer before opening PRs. Keep public symbols and modules typed, as `mypy` enforces `disallow_untyped_defs`. Prefer explicit module imports (no relative imports) and snake_case for functions, CamelCase for classes, and uppercase for constants. Run `ruff format .` before committing to preserve consistent spacing in both Python and generated files.
+Keep each script under 250 lines of code; on rare, well-justified occasions you may extend up to but not beyond 300 lines.
 
 ## Testing Guidelines
 Write tests with `pytest`, covering synchronous and async behavior via `pytest-asyncio`. Name files `test_<feature>.py` and individual tests `test_<scenario>`. Maintain meaningful coverage for new modules and review the `pytest --cov` output for gaps; add regression tests for any bug fixes. For UI demos, complement unit tests with short smoke runs of the relevant `make demo-*` target when feasible.

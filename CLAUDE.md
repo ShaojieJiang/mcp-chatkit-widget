@@ -17,38 +17,44 @@ Install dependencies:
 uv sync --all-groups
 ```
 
+This command creates/updates the `.venv` managed by `uv`. Always run project commands through `uv run <command>` so the environment is activated automatically (e.g., `uv run make lint`). Skip manual `pip install` or `python -m venv` steps—`uv` handles dependency resolution and virtualenv management for you.
+
 ## Common Commands
 
 **Linting and Type Checking:**
 ```bash
-make lint              # Run ruff, mypy, and format checks
-uv run make lint       # Same but with uv prefix (CI style)
+uv run make lint       # Run ruff, mypy, and format checks inside the uv environment
+make lint              # Equivalent if the uv-created .venv is already activated
 ```
+
+**CRITICAL:** After making any code changes:
+- Run `make lint` and ensure it passes with ZERO errors or warnings.
+- Run `make test` and ensure all tests pass.
 
 **Formatting:**
 ```bash
-make format            # Auto-fix imports, format Python and React code
-ruff format .          # Format Python code only
+uv run make format     # Auto-fix imports, format Python and React code
+uv run ruff format .   # Format Python code only
 ```
 
 **Testing:**
 ```bash
-make test                                          # Run all tests with coverage
-pytest --cov --cov-report term-missing tests/      # Explicit test command
-pytest tests/path/to/test_file.py::test_name      # Run single test
+uv run make test                                   # Run all tests with coverage
+uv run pytest --cov --cov-report term-missing tests/   # Explicit test command
+uv run pytest tests/path/to/test_file.py::test_name    # Run single test
 uv run coverage run -m pytest                      # CI-style coverage
 ```
 
 **Running Demos:**
 ```bash
-make demo-backend      # Start LangGraph backend (requires langgraph.json)
-make demo-react        # Start React demo (port in package.json)
-make demo-streamlit    # Start Streamlit demo
+uv run make demo-backend      # Start LangGraph backend (requires langgraph.json)
+uv run make demo-react        # Start React demo (port in package.json)
+uv run make demo-streamlit    # Start Streamlit demo
 ```
 
 **Documentation:**
 ```bash
-make doc               # Serve docs locally on 0.0.0.0:8080
+uv run make doc        # Serve docs locally on 0.0.0.0:8080
 ```
 
 ## Project Architecture
@@ -74,6 +80,7 @@ The `examples/` directory is currently empty but structured for:
 - Import style: Absolute imports only (no relative imports via TID252)
 - Two blank lines after imports (isort config)
 - Google-style docstrings (pydocstyle convention)
+- Keep each script below 250 lines of code; only clearly justified exceptions may reach but not exceed 300 lines.
 
 **Type Checking:** mypy with strict mode
 - `disallow_untyped_defs = true`: All functions must have type annotations
