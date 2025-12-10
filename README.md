@@ -64,13 +64,7 @@ pip install -e ".[dev,docs]"
 Start the server using the provided console script:
 
 ```bash
-mcp-chatkit-widget
-```
-
-Or run as a Python module:
-
-```bash
-python -m mcp_chatkit_widget
+uv run mcp-chatkit-widget
 ```
 
 ### Integrating with MCP Clients
