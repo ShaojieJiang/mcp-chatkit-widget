@@ -2,7 +2,14 @@
 
 from argparse import ArgumentParser
 from pathlib import Path
-from .server import register_widget_tools, server
+from .rendering import render_widget_definition
+from .server import (
+    DEFAULT_WIDGETS_DIR,
+    generate_widget_tools,
+    register_widget_tools,
+    server,
+)
+from .widget_loader import load_widget, load_widgets
 
 
 def main() -> None:  # pragma: no cover
@@ -18,3 +25,14 @@ def main() -> None:  # pragma: no cover
 
     register_widget_tools(args.widgets_dir)
     server.run()
+
+
+__all__ = [
+    "DEFAULT_WIDGETS_DIR",
+    "generate_widget_tools",
+    "load_widget",
+    "load_widgets",
+    "render_widget_definition",
+    "register_widget_tools",
+    "server",
+]

@@ -42,11 +42,11 @@ Formalize the MCP ChatKit widget loader so it enforces a curated `widgets_dir`, 
 
 #### Task Checklist
 
-- [ ] Task 2.1: Implement schema parsing utilities that turn `jsonSchema` into typed Pydantic models and load templates through `WidgetTemplate.from_file`.
+- [x] Task 2.1: Implement schema parsing utilities that turn `jsonSchema` into typed Pydantic models and load templates through `WidgetTemplate.from_file`.
   - Dependencies: Milestone 1
-- [ ] Task 2.2: Create `render_widget_definition` and related helpers that validate inputs, render the stored template, and convert the JSON to `WidgetRoot` instances (matching the official demo layout).
+- [x] Task 2.2: Create `render_widget_definition` and related helpers that validate inputs, render the stored template, and convert the JSON to `WidgetRoot` instances (matching the official demo layout).
   - Dependencies: Task 2.1
-- [ ] Task 2.3: Expose and document the module-level API (`load_widgets`, `render_widget_definition`, `generate_widget_tools`) so downstream consumers can import the same helpers without running FastMCP.
+- [x] Task 2.3: Expose and document the module-level API (`load_widgets`, `render_widget_definition`, `generate_widget_tools`) so downstream consumers can import the same helpers without running FastMCP.
   - Dependencies: Task 2.2
 
 ---

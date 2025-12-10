@@ -2,12 +2,8 @@
 
 from __future__ import annotations
 from typing import Any
-from mcp_chatkit_widget.schema_utils import json_schema_to_pydantic
-from mcp_chatkit_widget.server import (
-    _create_widget_tool_function,
-    _sanitize_tool_name,
-    _to_camel_case,
-)
+from mcp_chatkit_widget.rendering import build_widget_model
+from mcp_chatkit_widget.server import _create_widget_tool_function
 
 
 def deep_compare(obj1: Any, obj2: Any) -> bool:
@@ -33,14 +29,8 @@ def deep_compare(obj1: Any, obj2: Any) -> bool:
 
 def build_tool_components(widget: Any):
     """Return the pydantic model and tool function for a widget definition."""
-    camel_name = _to_camel_case(_sanitize_tool_name(widget.name))
-    model_name = f"{camel_name}Model"
-    pydantic_model = json_schema_to_pydantic(widget.json_schema, model_name)
-    tool_func = _create_widget_tool_function(
-        widget.name,
-        pydantic_model,
-        widget.template,
-    )
+    pydantic_model = build_widget_model(widget)
+    tool_func = _create_widget_tool_function(widget)
     return pydantic_model, tool_func
 
 
