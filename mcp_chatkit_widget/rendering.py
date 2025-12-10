@@ -12,14 +12,33 @@ from mcp_chatkit_widget.widget_loader import WidgetDefinition
 
 
 def _model_metadata(widget_name: str) -> tuple[str, str]:
-    """Build consistent model and schema titles from a widget name."""
+    """Return consistent Pydantic metadata derived from a widget name.
+
+    Args:
+        widget_name: The widget's identifier, which may include unsafe characters.
+
+    Returns:
+        A tuple containing the generated model class name and schema title that are
+        safe for Pydantic and tooling (e.g., ``FooBarModel`` and ``FooBarArguments``).
+    """
     camel_name = _to_camel_case(_sanitize_tool_name(widget_name))
     return f"{camel_name}Model", f"{camel_name}Arguments"
 
 
 @cache
 def _build_pydantic_model(schema_dump: str, widget_name: str) -> type[BaseModel]:
-    """Return a cached Pydantic model for the given schema snapshot."""
+    """Return a cached Pydantic model class for the given schema snapshot.
+
+    Args:
+        schema_dump: A JSON string representation of the widget's schema that is
+            already normalized (e.g., via ``json.dumps(..., sort_keys=True)``)
+            so hashing remains stable across calls.
+        widget_name: The name used to generate consistent model metadata for the
+            schema (see :func:`_model_metadata`).
+
+    Returns:
+        The generated :class:`pydantic.BaseModel` subclass that enforces the schema.
+    """
     schema = json.loads(schema_dump)
     model_name, schema_title = _model_metadata(widget_name)
     return json_schema_to_pydantic(schema, model_name, schema_title)
