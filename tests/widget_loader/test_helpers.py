@@ -1,40 +1,29 @@
 """Tests covering helper utilities for widget loading."""
 
-import os
 from pathlib import Path
-from typing import Any
 import pytest
-from mcp_chatkit_widget.widget_loader import _build_search_paths, _validate_directory
+from mcp_chatkit_widget.widget_loader import _validate_widgets_dir
 
 
-class TestValidateDirectory:
-    """Tests for _validate_directory helper."""
+class TestValidateWidgetsDir:
+    """Tests for _validate_widgets_dir helper."""
 
-    def test_file_path_non_strict_warns_and_returns_false(
-        self, temp_widgets_dir: Path, capsys: Any
-    ) -> None:
-        """Ensure non-directory path prints warning when not strict."""
-        file_path = temp_widgets_dir / "not_a_dir.txt"
-        file_path.write_text("data")
+    def test_missing_directory_raises_value_error(self) -> None:
+        """The helper errors when the path does not exist."""
+        missing_dir = Path("/tmp/this/does/not/exist")
 
-        result = _validate_directory(file_path, strict=False)
+        with pytest.raises(ValueError, match="Widgets directory does not exist"):
+            _validate_widgets_dir(missing_dir)
 
-        assert result is False
-        captured = capsys.readouterr()
-        assert "Custom widgets path is not a directory" in captured.out
+    def test_file_path_raises_value_error(self, temp_widgets_dir: Path) -> None:
+        """Passing a file path raises a helpful error."""
+        file_path = temp_widgets_dir / "file.txt"
+        file_path.write_text("content")
 
+        with pytest.raises(ValueError, match="Widgets directory is not a directory"):
+            _validate_widgets_dir(file_path)
 
-class TestBuildSearchPaths:
-    """Tests for _build_search_paths helper."""
-
-    def test_skips_blank_custom_entries(
-        self, temp_widgets_dir: Path, monkeypatch: pytest.MonkeyPatch
-    ) -> None:
-        """Ensure empty CUSTOM_WIDGETS_DIR entries are ignored."""
-        env_value = f"{temp_widgets_dir}{os.pathsep} {os.pathsep}"
-        monkeypatch.setenv("CUSTOM_WIDGETS_DIR", env_value)
-
-        paths = _build_search_paths(None)
-        custom_paths = [path for path, strict in paths if not strict]
-
-        assert custom_paths == [temp_widgets_dir]
+    def test_none_path_raises_value_error(self) -> None:
+        """None is rejected as an invalid widgets directory."""
+        with pytest.raises(ValueError, match="widgets_dir argument is required"):
+            _validate_widgets_dir(None)

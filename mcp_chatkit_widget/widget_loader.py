@@ -1,14 +1,18 @@
 """Widget discovery and loading utilities.
 
-This module provides functionality to automatically discover .widget files
-and load their configuration for use in MCP tools.
+This module provides functionality to load curated .widget definitions and
+expose them in a controlled way so the tooling always targets the same
+directory.
 """
 
 import json
-import os
+import logging
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
+
+
+LOGGER = logging.getLogger(__name__)
 
 
 @dataclass
@@ -34,77 +38,71 @@ class WidgetDefinition:
     file_path: Path
 
 
-def _validate_directory(path: Path, *, strict: bool) -> bool:
-    if not path.exists():
-        if strict:
-            raise ValueError(f"Widgets directory does not exist: {path}")
-        print(f"Warning: Custom widgets directory does not exist: {path}")
-        return False
-    if not path.is_dir():
-        if strict:
-            raise ValueError(f"Path is not a directory: {path}")
-        print(f"Warning: Custom widgets path is not a directory: {path}")
-        return False
-    return True
+def _validate_widgets_dir(widgets_dir: Path | None) -> Path:
+    """Ensure the provided widgets directory exists and is a directory."""
+    if widgets_dir is None:
+        raise ValueError("The widgets_dir argument is required to load widgets.")
+    resolved_dir = widgets_dir.resolve()
+    if not resolved_dir.exists():
+        raise ValueError(f"Widgets directory does not exist: {resolved_dir}")
+    if not resolved_dir.is_dir():
+        raise ValueError(f"Widgets directory is not a directory: {resolved_dir}")
+    return resolved_dir
 
 
-def _build_search_paths(widgets_dir: Path | None) -> list[tuple[Path, bool]]:
-    if widgets_dir is not None:
-        return [(widgets_dir, True)]
+def _collect_widget_files(base_dir: Path) -> list[Path]:
+    """Return .widget files that physically live inside the base directory."""
+    base_resolved = base_dir.resolve()
+    widget_files: list[Path] = []
+    seen_files: set[Path] = set()
+    for widget_file in sorted(base_dir.rglob("*.widget")):
+        if not widget_file.is_file():
+            continue
+        try:
+            resolved_path = widget_file.resolve()
+        except OSError as exc:
+            LOGGER.warning(
+                "Skipping widget %s because it could not be resolved (%s)",
+                widget_file,
+                exc,
+            )
+            continue
+        try:
+            resolved_path.relative_to(base_resolved)
+        except ValueError:
+            LOGGER.warning(
+                "Skipping widget %s because it is outside the widgets directory",
+                widget_file,
+            )
+            continue
+        if resolved_path in seen_files:
+            continue
+        seen_files.add(resolved_path)
+        widget_files.append(widget_file)
+    return widget_files
 
-    paths: list[tuple[Path, bool]] = []
-    default_dir = Path(__file__).parent / "widgets"
-    paths.append((default_dir, True))
 
-    custom_dirs = os.environ.get("CUSTOM_WIDGETS_DIR", "")
-    if custom_dirs:
-        for entry in custom_dirs.split(os.pathsep):
-            cleaned_entry = entry.strip()
-            if not cleaned_entry:
-                continue
-            paths.append((Path(cleaned_entry).expanduser(), False))
+def load_widgets(widgets_dir: Path | None) -> list[WidgetDefinition]:
+    """Load all .widget files from the curated directory.
 
-    return paths
+    Args:
+        widgets_dir: Path to the curated widgets directory. Must exist.
+
+    Returns:
+        List of loaded WidgetDefinition instances.
+    """
+    base_dir = _validate_widgets_dir(widgets_dir)
+    widget_files = _collect_widget_files(base_dir)
+
+    if not widget_files:
+        LOGGER.warning("No widget definitions found in %s", base_dir)
+
+    return [load_widget(widget_file) for widget_file in widget_files]
 
 
 def discover_widgets(widgets_dir: Path | None = None) -> list[WidgetDefinition]:
-    """Discover all .widget files from bundled and custom directories.
-
-    Args:
-        widgets_dir: Directory to search for .widget files. If provided, only
-            this directory is scanned. When None, the default package widgets
-            directory is scanned along with any directories defined via the
-            ``CUSTOM_WIDGETS_DIR`` environment variable (supports multiple
-            directories separated by ``os.pathsep``).
-
-    Returns:
-        List of WidgetDefinition objects for all discovered widgets
-
-    Raises:
-        ValueError: If ``widgets_dir`` doesn't exist or isn't a directory
-    """
-    search_paths = _build_search_paths(widgets_dir)
-
-    widgets: list[WidgetDefinition] = []
-    seen_files: set[Path] = set()
-
-    for path, strict in search_paths:
-        if not _validate_directory(path, strict=strict):
-            continue
-
-        for widget_file in sorted(path.glob("*.widget")):
-            resolved_file = widget_file.resolve()
-            if resolved_file in seen_files:
-                continue
-            seen_files.add(resolved_file)
-            try:
-                widget_def = load_widget(widget_file)
-                widgets.append(widget_def)
-            except Exception as e:
-                # Log the error but continue discovering other widgets
-                print(f"Warning: Failed to load widget {widget_file}: {e}")
-
-    return widgets
+    """Discover widgets from a curated directory."""
+    return load_widgets(widgets_dir)
 
 
 def load_widget(widget_path: Path) -> WidgetDefinition:
@@ -123,39 +121,40 @@ def load_widget(widget_path: Path) -> WidgetDefinition:
     with open(widget_path) as f:
         data = json.load(f)
 
-    # Validate required fields
     required_fields = ["name", "version", "jsonSchema", "outputJsonPreview", "template"]
     missing_fields = [field for field in required_fields if field not in data]
     if missing_fields:
         raise ValueError(
-            f"Widget file missing required fields: {', '.join(missing_fields)}"
+            f"Widget file {widget_path} missing required fields: "
+            f"{', '.join(missing_fields)}"
         )
+
+    template_value = data["template"]
+    if not isinstance(template_value, str):
+        raise ValueError(f"Widget template must be a string: {widget_path}")
 
     return WidgetDefinition(
         name=data["name"],
         version=data["version"],
         json_schema=data["jsonSchema"],
         output_json_preview=data["outputJsonPreview"],
-        template=data["template"],
+        template=template_value,
         encoded_widget=data.get("encodedWidget"),
         file_path=widget_path,
     )
 
 
-def get_widget_by_name(
-    name: str, widgets_dir: Path | None = None
-) -> WidgetDefinition | None:
+def get_widget_by_name(name: str, widgets_dir: Path) -> WidgetDefinition | None:
     """Get a specific widget by name.
 
     Args:
         name: The widget name to search for
         widgets_dir: Directory to search for .widget files.
-                    If None, uses the default package widgets directory.
 
     Returns:
         WidgetDefinition if found, None otherwise
     """
-    widgets = discover_widgets(widgets_dir)
+    widgets = load_widgets(widgets_dir)
     for widget in widgets:
         if widget.name == name:
             return widget

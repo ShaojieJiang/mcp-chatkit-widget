@@ -35,7 +35,7 @@ class TestLoadWidget:
         with open(widget_path, "w", encoding="utf-8") as file:
             json.dump(incomplete_data, file)
 
-        with pytest.raises(ValueError, match="Widget file missing required fields"):
+        with pytest.raises(ValueError, match=r"Widget file .* missing required fields"):
             load_widget(widget_path)
 
     def test_load_widget_partial_missing_fields(self, temp_widgets_dir: Path) -> None:

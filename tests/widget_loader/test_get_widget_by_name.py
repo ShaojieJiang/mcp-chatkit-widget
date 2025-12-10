@@ -36,16 +36,3 @@ class TestGetWidgetByName:
         widget = get_widget_by_name("Nonexistent Widget", temp_widgets_dir)
 
         assert widget is None
-
-    def test_get_widget_from_default_directory(self) -> None:
-        """Test getting widget from default directory."""
-        widget = get_widget_by_name("Flight Tracker")
-
-        assert widget is not None
-        assert widget.name == "Flight Tracker"
-
-    def test_get_nonexistent_widget_from_default_directory(self) -> None:
-        """Test getting non-existent widget from default directory."""
-        widget = get_widget_by_name("This Widget Does Not Exist")
-
-        assert widget is None

@@ -6,11 +6,16 @@ import pytest
 from chatkit.widgets import WidgetComponentBase
 from mcp_chatkit_widget.schema_utils import json_schema_to_pydantic
 from mcp_chatkit_widget.server import (
+    DEFAULT_WIDGETS_DIR,
     _create_widget_tool_function,
     _sanitize_tool_name,
     _to_camel_case,
+    register_widget_tools,
     server,
 )
+
+
+register_widget_tools(DEFAULT_WIDGETS_DIR)
 
 
 class TestSanitizeToolName:
@@ -193,9 +198,9 @@ class TestRegisterWidgetTools:
 
     def test_register_widget_tools_runs(self) -> None:
         """Test that register_widget_tools executes without errors."""
-        # The function should have been called on module import
-        # We can verify by checking that the server has tools in its registry
-        # Access the server's internal tool registry
+        server._tool_manager._tools.clear()
+        register_widget_tools(DEFAULT_WIDGETS_DIR)
+
         assert hasattr(server, "_tool_manager")
         assert len(server._tool_manager._tools) >= 2
 

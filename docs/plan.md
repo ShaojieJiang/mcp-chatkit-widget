@@ -27,11 +27,11 @@ Formalize the MCP ChatKit widget loader so it enforces a curated `widgets_dir`, 
 
 #### Task Checklist
 
-- [ ] Task 1.1: Require `widgets_dir` in MCP configuration, validate it exists, and raise a clear error when it is omitted.
+- [x] Task 1.1: Require `widgets_dir` in MCP configuration, validate it exists, and raise a clear error when it is omitted.
   - Dependencies: None
-- [ ] Task 1.2: Restrict discovery to `.widget` files beneath `widgets_dir` and skip any files outside that directory.
+- [x] Task 1.2: Restrict discovery to `.widget` files beneath `widgets_dir` and skip any files outside that directory.
   - Dependencies: Task 1.1
-- [ ] Task 1.3: Enforce that each `.widget` definition embeds a `template` block, logging helpfully and halting registration when the block is absent or malformed.
+- [x] Task 1.3: Enforce that each `.widget` definition embeds a `template` block, logging helpfully and halting registration when the block is absent or malformed.
   - Dependencies: Task 1.2
 
 ---

@@ -2,6 +2,7 @@
 
 import inspect
 import json
+from pathlib import Path
 from typing import Any
 from chatkit.widgets import WidgetComponentBase
 from fastmcp import FastMCP
@@ -11,10 +12,12 @@ from mcp_chatkit_widget.schema_utils import (
     json_schema_to_chatkit_widget,
     json_schema_to_pydantic,
 )
-from mcp_chatkit_widget.widget_loader import discover_widgets
+from mcp_chatkit_widget.widget_loader import load_widgets
 
 
 server = FastMCP("mcp-chatkit-widget")
+
+DEFAULT_WIDGETS_DIR = Path(__file__).resolve().parent / "widgets"
 
 
 def _sanitize_tool_name(widget_name: str) -> str:
@@ -128,13 +131,13 @@ def _create_widget_tool_function(
     return widget_tool
 
 
-def register_widget_tools() -> None:
-    """Automatically discover and register tools for all widgets.
+def register_widget_tools(widgets_dir: Path) -> None:
+    """Discover widgets from a curated directory and register tools.
 
-    This function scans the widgets directory, loads all .widget files,
-    and dynamically creates and registers MCP tools for each widget.
+    Args:
+        widgets_dir: Path to the curated widget definitions directory.
     """
-    widgets = discover_widgets()
+    widgets = load_widgets(widgets_dir)
 
     for widget_def in widgets:
         # Convert JSON schema to Pydantic model
@@ -154,10 +157,6 @@ def register_widget_tools() -> None:
         # Use snake_case for tool name, but function name is CamelCase
         tool_name = _sanitize_tool_name(widget_def.name)
         server.tool(name=tool_name)(tool_func)
-
-
-# Automatically register all widget tools on module import
-register_widget_tools()
 
 
 if __name__ == "__main__":  # pragma: no cover
