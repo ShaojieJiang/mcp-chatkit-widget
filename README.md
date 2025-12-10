@@ -19,11 +19,14 @@ A Model Context Protocol (MCP) server that **automatically** transforms ChatKit 
 - **Template Rendering**: Uses Jinja2 to render widget templates with validated data
 - **Rich Widget Library**: Includes 16 pre-built widgets from ChatKit Studio's gallery (flight tracker, weather, email composer, etc.), extendable with custom widgets
 - **Type Safety**: Full type annotations and validation using Pydantic v2
-- **Zero Configuration**: Works out of the box with included widget definitions
+- **Curated Discovery Guardrails**: Requires passing an explicit `widgets_dir` so only
+  curated definitions are discovered and registered, preventing accidental loads
+  from arbitrary paths
 
 ### How It Works
 
-1. **Widget Discovery**: Scans `.widget` files from the `widgets/` directory and user-specified directory through the `CUSTOM_WIDGETS_DIR` environment variable
+1. **Widget Discovery**: Requires the CLI `--widgets-dir` argument to point at the curated
+   directory; loading fails fast if the argument is missing or invalid.
 2. **Schema Parsing**: Extracts JSON Schema and Jinja2 templates from widget definitions
 3. **Model Generation**: Creates dynamic Pydantic models for input validation
 4. **Tool Registration**: Registers MCP tools with FastMCP server
@@ -61,11 +64,15 @@ pip install -e ".[dev,docs]"
 
 ### Running the MCP Server
 
-Start the server using the provided console script:
+Start the server with the required `--widgets-dir` argument that points to your curated
+widget directory:
 
 ```bash
-uv run mcp-chatkit-widget
+uv run mcp-chatkit-widget --widgets-dir /path/to/widgets
 ```
+
+Point to `mcp_chatkit_widget/widgets` to expose the built-in definitions or supply your own
+curated `.widget` directory.
 
 ### Integrating with MCP Clients
 
@@ -143,6 +150,36 @@ flight_widget = server.call_tool(
 print(result.content[0].text)
 ```
 
+### Importable Helpers
+
+The package exports helpers so scripts, demos, and tests can reuse the same
+rendering pipeline without running the full MCP server.
+
+- `load_widgets(widgets_dir: Path)` enforces the curated directory, loads `.widget`
+  files, and raises when the path is missing, invalid, or contains malformed
+  templates.
+- `render_widget_definition(widget_def, **kwargs)` validates inputs against the
+  schema-backed Pydantic model, renders the stored template, and returns a
+  `WidgetComponentBase` that mirrors the preview payload.
+- `generate_widget_tools(server, widget_defs)` registers sanitized tools on your
+  FastMCP-like server so you can reuse the same helpers elsewhere.
+
+```python
+from pathlib import Path
+
+from mcp_chatkit_widget import (
+    generate_widget_tools,
+    load_widgets,
+    render_widget_definition,
+)
+
+widgets = load_widgets(Path("/path/to/widgets"))
+widget = render_widget_definition(widgets[0], title="Hello")
+
+# Optionally wire the helpers into your own FastMCP server.
+generate_widget_tools(custom_server, widgets)
+```
+
 ### Reconstructing the widget
 
 Once you have the JSON string, you can reconstruct the widget as a Python object for [streaming to the ChatKit UI](https://platform.openai.com/docs/guides/custom-chatkit#add-inline-interactive-widgets).
@@ -171,19 +208,13 @@ Each widget automatically becomes an MCP tool named in `snake_case` (e.g., "Flig
 ### Adding Custom Widgets
 
 1. Export a `.widget` file from [ChatKit Studio](https://chatkit.openai.com/)
-2. Copy it to `mcp_chatkit_widget/widgets/`
-3. Restart the MCP server
+2. Place the `.widget` file into a curated directory that you control
+3. Start the MCP server with `--widgets-dir` pointing to that directory
 
-The widget will automatically be discovered and registered as a new tool.
-
-Alternatively, point the server at your own widget directory by setting
-`CUSTOM_WIDGETS_DIR` before starting the process (supports multiple directories
-separated by `:` on Unix-like systems):
-
-```bash
-export CUSTOM_WIDGETS_DIR="/path/to/my/widgets"
-mcp-chatkit-widget
-```
+The loader only inspects the directory passed via `--widgets-dir`, so all
+discovered widgets are explicitly approved by your deployment workflow. Use
+`mcp_chatkit_widget/widgets` as the argument when you want to boot the packaged
+definitions, or swap in a custom directory to opt in to bespoke widgets.
 
 ## Architecture
 
@@ -214,14 +245,20 @@ flowchart TD
 
 ### Running Tests
 
+Always lint and test through the project-managed environment before merging:
+
 ```bash
+# Run linting and type checking
+uv run make lint
+
 # Run all tests with coverage
-make test
+uv run make test
+```
 
-# Run specific test file
+You can run targeted tests directly when experimenting:
+
+```bash
 pytest tests/test_server.py
-
-# Run with verbose output
 pytest -v tests/
 ```
 
@@ -229,20 +266,20 @@ pytest -v tests/
 
 ```bash
 # Run linting and type checking
-make lint
+uv run make lint
 
 # Auto-format code
-make format
+uv run make format
 
 # Type check only
-mypy mcp_chatkit_widget/
+uv run mypy mcp_chatkit_widget/
 ```
 
 ### Building Documentation
 
 ```bash
 # Serve documentation locally
-make doc
+uv run make doc
 
 # Documentation will be available at http://0.0.0.0:8080
 ```

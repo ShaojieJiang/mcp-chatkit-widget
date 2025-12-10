@@ -57,11 +57,11 @@ Formalize the MCP ChatKit widget loader so it enforces a curated `widgets_dir`, 
 
 #### Task Checklist
 
-- [ ] Task 3.1: Use `generate_widget_tools` to register sanitized FastMCP tools based on the validated definitions while reusing the shared rendering helpers.
+- [x] Task 3.1: Use `generate_widget_tools` to register sanitized FastMCP tools based on the validated definitions while reusing the shared rendering helpers.
   - Dependencies: Milestone 2
-- [ ] Task 3.2: Add unit/integration tests that cover `load_widgets`, template rendering fidelity, and tool registration, plus fresh checks that `widgets_dir` enforcement raises clear errors.
+- [x] Task 3.2: Add unit/integration tests that cover `load_widgets`, template rendering fidelity, and tool registration, plus fresh checks that `widgets_dir` enforcement raises clear errors.
   - Dependencies: Task 3.1
-- [ ] Task 3.3: Update the documentation (including `README.md` and release notes) with the new `widgets_dir` requirement, exported helpers, and testing guidance.
+- [x] Task 3.3: Update the documentation (including `README.md` and release notes) with the new `widgets_dir` requirement, exported helpers, and testing guidance.
   - Dependencies: Task 3.2
 
 ---

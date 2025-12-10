@@ -68,3 +68,27 @@ class TestLoadWidgets:
 
         with pytest.raises(ValueError, match="missing required fields"):
             load_widgets(temp_widgets_dir)
+
+    def test_load_widgets_requires_existing_directory(
+        self, temp_widgets_dir: Path
+    ) -> None:
+        """Passing a non-existent directory raises a helpful error."""
+        missing_dir = temp_widgets_dir / "does_not_exist"
+
+        with pytest.raises(ValueError, match="Widgets directory does not exist"):
+            load_widgets(missing_dir)
+
+    def test_load_widgets_rejects_non_directory_path(
+        self, temp_widgets_dir: Path
+    ) -> None:
+        """Passing a file path where a directory is expected fails."""
+        file_path = temp_widgets_dir / "file.widget"
+        file_path.write_text("{}")
+
+        with pytest.raises(ValueError, match="Widgets directory is not a directory"):
+            load_widgets(file_path)
+
+    def test_load_widgets_requires_widgets_dir_argument(self) -> None:
+        """Explicitly passing None raises a clear configuration error."""
+        with pytest.raises(ValueError, match="widgets_dir argument is required"):
+            load_widgets(None)  # type: ignore[arg-type]
