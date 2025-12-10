@@ -82,3 +82,19 @@ class TestLoadWidget:
         widget = load_widget(widget_path)
 
         assert widget.encoded_widget is None
+
+    def test_load_widget_template_must_be_string(self, temp_widgets_dir: Path) -> None:
+        """Templates must be strings to pass validation."""
+        widget_path = temp_widgets_dir / "BadTemplate.widget"
+        data: dict[str, Any] = {
+            "name": "Bad Template Widget",
+            "version": "1.0",
+            "jsonSchema": {"type": "object"},
+            "outputJsonPreview": {"type": "Card"},
+            "template": {"type": "Card"},
+        }
+        with open(widget_path, "w", encoding="utf-8") as file:
+            json.dump(data, file)
+
+        with pytest.raises(ValueError, match="Widget template must be a string"):
+            load_widget(widget_path)

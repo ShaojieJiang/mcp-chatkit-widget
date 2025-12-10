@@ -15,7 +15,7 @@ from tests.widget_integration.tooling import deep_compare
 def create_event_widget() -> WidgetDefinition:
     """Load the Create Event widget definition from the curated widgets folder."""
     repo_root = Path(__file__).resolve().parents[1]
-    widget_path = repo_root / "mcp_chatkit_widget" / "widgets" / "Create Event.widget"
+    widget_path = repo_root / "examples" / "widgets" / "Create Event.widget"
     return load_widget(widget_path)
 
 

@@ -23,9 +23,9 @@ Keeping the rendering path deterministic and packaged as a module also ensures t
   - Responsibility: validate the required `widgets_dir`, walk it exclusively for `.widget` files, and fail fast when the argument is missing, when the directory is absent, or when files lack the required `template` block.
   - Interfaces: `load_widgets(widgets_dir: Path)` returns a list of `WidgetDefinition` objects, and `load_widget(widget_path: Path)` parses an individual file while raising helpful errors.
 
-- **Schema & Template Rendering (`schema_utils.py` + renderer helpers)**
+- **Schema & Template Rendering (`pydantic_conversion.py` + renderer helpers)**
   - Responsibility: load each curated template via `chatkit.widgets.WidgetTemplate.from_file`, generate Pydantic models from the widget's `jsonSchema`, render the stored `template` with validated data, and call the template's `.build()` helper so the resulting JSON becomes `chatkit.widgets.WidgetRoot` instances matching the official ChatKit layout.
-  - Interfaces: `json_schema_to_pydantic(schema, model_name, schema_title)` for validation and `json_schema_to_chatkit_widget(rendered_json, widget_name)` for constructing reusable components via the widget template's build pipeline.
+  - Interfaces: `json_schema_to_pydantic(schema, model_name, schema_title)` for validation and `render_widget_definition(widget_def, **kwargs)` for rendering templates and returning a `WidgetRoot`.
 
 - **Server Integration & Module API (`server.py` + module exports)**
   - Responsibility: orchestrate tool generation for FastMCP (naming conventions, signature creation, tool registration) while simultaneously exposing modular helpers (`load_widgets`, `render_widget_definition`, `generate_widget_tools`) so external scripts can call the same rendering pipeline without importing FastMCP.

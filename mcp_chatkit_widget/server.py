@@ -13,8 +13,6 @@ from .widget_loader import load_widgets
 
 server = FastMCP("mcp-chatkit-widget")
 
-DEFAULT_WIDGETS_DIR = Path(__file__).resolve().parent / "widgets"
-
 
 def register_widget_tools(widgets_dir: Path) -> None:
     """Discover widget definitions and register FastMCP tools."""
@@ -23,7 +21,6 @@ def register_widget_tools(widgets_dir: Path) -> None:
 
 
 __all__ = [
-    "DEFAULT_WIDGETS_DIR",
     "generate_widget_tools",
     "_create_widget_tool_function",
     "_sanitize_tool_name",

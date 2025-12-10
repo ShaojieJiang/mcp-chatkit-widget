@@ -13,7 +13,7 @@
 | Document | Link | Owner | Notes |
 |----------|------|-------|-------|
 | ChatKit Advanced Samples | https://github.com/openai/openai-chatkit-advanced-samples | OpenAI | Official widget and template references |
-| Widget definitions corpus | mcp_chatkit_widget/widgets/ | Shaojie Jiang | Current `.widget` files and validation harness |
+| Widget definitions corpus | examples/widgets/ | Shaojie Jiang | Current `.widget` files and validation harness |
 
 ## PROBLEM DEFINITION
 ### Objectives
@@ -98,4 +98,4 @@ Ship as a minor release: update documentation to note the required `widgets_dir`
 - Risk Mitigation: Fail early with actionable errors when `widgets_dir` is missing and log clear schema/template validation failures, allowing teams to fix or migrate their widget definitions before the release.
 
 ## APPENDIX
-- Include references to `mcp_chatkit_widget/widgets/` for widget authors and `docs/templates/requirements_template.md` for future requirement updates.
+- Include references to `examples/widgets/` for widget authors and `docs/templates/requirements_template.md` for future requirement updates.

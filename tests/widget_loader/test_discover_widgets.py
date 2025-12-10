@@ -1,6 +1,7 @@
 """Tests for widget discovery helpers."""
 
 import json
+import logging
 from pathlib import Path
 from typing import Any
 import pytest
@@ -92,3 +93,13 @@ class TestLoadWidgets:
         """Explicitly passing None raises a clear configuration error."""
         with pytest.raises(ValueError, match="widgets_dir argument is required"):
             load_widgets(None)  # type: ignore[arg-type]
+
+    def test_load_widgets_warns_when_directory_empty(
+        self, temp_widgets_dir: Path, caplog: pytest.LogCaptureFixture
+    ) -> None:
+        """A warning is emitted when no widgets are present."""
+        caplog.set_level(logging.WARNING, logger="mcp_chatkit_widget.widget_loader")
+        widgets = load_widgets(temp_widgets_dir)
+
+        assert widgets == []
+        assert "No widget definitions found" in caplog.text

@@ -4,7 +4,6 @@ from argparse import ArgumentParser
 from pathlib import Path
 from .rendering import render_widget_definition
 from .server import (
-    DEFAULT_WIDGETS_DIR,
     generate_widget_tools,
     register_widget_tools,
     server,
@@ -28,7 +27,6 @@ def main() -> None:  # pragma: no cover
 
 
 __all__ = [
-    "DEFAULT_WIDGETS_DIR",
     "generate_widget_tools",
     "load_widget",
     "load_widgets",

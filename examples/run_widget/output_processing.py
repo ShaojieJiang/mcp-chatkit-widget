@@ -1,9 +1,8 @@
-"""Helpers for inspecting tool output and rendering chatkit card metadata."""
+"""Helpers for inspecting tool output."""
 
 from __future__ import annotations
 import json
 from typing import Any
-from chatkit import widgets
 
 
 def parse_tool_result(result: Any) -> dict[str, Any] | None:
@@ -35,19 +34,14 @@ def _try_parse_json(raw: str) -> dict[str, Any] | None:
         return None
 
 
-def display_card_widget(
-    card_widget: widgets.WidgetComponentBase, widget_name: str
-) -> None:
-    """Print a lightweight summary about the generated ``card_widget``."""
-    print("\nConverting to chatkit.widgets.Card...")
-    print(f"Widget type: {type(card_widget).__name__}")
-    print(f"Is Card instance: {isinstance(card_widget, widgets.Card)}")
-
-    if isinstance(card_widget, widgets.Card):
-        print(f"Card size: {card_widget.size}")
-        print(f"Card theme: {card_widget.theme}")
-        print(f"Card background: {card_widget.background}")
-        print(f"Number of children: {len(card_widget.children)}")
-
+def display_widget_payload(widget_dict: dict[str, Any], widget_name: str) -> None:
+    """Print a lightweight summary of the widget payload returned by FastMCP."""
+    root_type = widget_dict.get("type", "<unknown>")
+    children = widget_dict.get("children")
+    print("\nWidget result summary:")
+    print(f"- Widget name: {widget_name}")
+    print(f"- Root type: {root_type}")
+    if isinstance(children, list):
+        print(f"- Children count: {len(children)}")
     print("\n" + "=" * 80)
-    print("Card widget created successfully!")
+    print("Widget payload displayed successfully!")

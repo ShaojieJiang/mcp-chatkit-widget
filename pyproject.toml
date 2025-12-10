@@ -114,3 +114,8 @@ max-complexity = 10
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
+
+[tool.pytest.ini_options]
+filterwarnings = [
+  "ignore:Direct usage of named widget classes is deprecated.*:DeprecationWarning",
+]

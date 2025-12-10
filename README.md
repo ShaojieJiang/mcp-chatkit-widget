@@ -71,7 +71,7 @@ widget directory:
 uv run mcp-chatkit-widget --widgets-dir /path/to/widgets
 ```
 
-Point to `mcp_chatkit_widget/widgets` to expose the built-in definitions or supply your own
+Point to `examples/widgets` to expose the built-in definitions or supply your own
 curated `.widget` directory.
 
 ### Integrating with MCP Clients
@@ -180,16 +180,9 @@ widget = render_widget_definition(widgets[0], title="Hello")
 generate_widget_tools(custom_server, widgets)
 ```
 
-### Reconstructing the widget
+### Inspecting tool output
 
-Once you have the JSON string, you can reconstruct the widget as a Python object for [streaming to the ChatKit UI](https://platform.openai.com/docs/guides/custom-chatkit#add-inline-interactive-widgets).
-
-```python
-from mcp_chatkit_widget.schema_utils import json_schema_to_chatkit_widget
-
-card_widget = json_schema_to_chatkit_widget(result.content[0].text, widget_name)
-# `card_widget` is a ChatKit WidgetComponentBase instance
-```
+FastMCP returns the JSON emitted by the widget template's `.build()` helper, so the response already matches the ChatKit schema. Scripts such as `examples/run_widget/run_widget.py` show how to print that JSON and summarize it via `display_widget_payload`. There is no need to instantiate ChatKit classes manually—the helpers always re-render widgets through `render_widget_definition`, so the payload you see is the canonical structure the server would send to agents.
 
 ### Available Widgets
 
@@ -213,7 +206,7 @@ Each widget automatically becomes an MCP tool named in `snake_case` (e.g., "Flig
 
 The loader only inspects the directory passed via `--widgets-dir`, so all
 discovered widgets are explicitly approved by your deployment workflow. Use
-`mcp_chatkit_widget/widgets` as the argument when you want to boot the packaged
+`examples/widgets` as the argument when you want to boot the packaged
 definitions, or swap in a custom directory to opt in to bespoke widgets.
 
 ## Architecture
@@ -223,7 +216,7 @@ flowchart TD
     A["MCP Client<br/>(Claude, LangGraph, Custom Agents)<br/>(AI Agent)"]
     B["FastMCP Server<br/><code>mcp-chatkit-widget</code>"]
     B1["Widget Loader<br/><small>Discovers *.widget files<br/>Parses JSON definitions</small>"]
-    B2["Schema Utils<br/><small>JSON Schema → Pydantic models<br/>JSON → ChatKit widgets</small>"]
+    B2["Schema & Rendering<br/><small>JSON Schema → Pydantic models<br/>WidgetTemplate .build() → WidgetRoot</small>"]
     B3["MCP Tools<br/><small>Registers tools dynamically<br/>flight_tracker, weather_current, etc.</small>"]
     C["ChatKit Widget<br/>(JSON Structure)"]
 
@@ -238,7 +231,7 @@ flowchart TD
 3. **Invocation**: Agent calls tool with parameters
 4. **Validation**: Pydantic model validates input data
 5. **Rendering**: Jinja2 template renders with validated data
-6. **Construction**: JSON parsed into ChatKit widget components
+6. **Construction**: `render_widget_definition` invokes the template's `.build()` so the rendered JSON becomes a `WidgetRoot` that matches the preview hierarchy
 7. **Return**: Widget instance sent back to agent
 
 ## Development
@@ -284,24 +277,40 @@ uv run make doc
 # Documentation will be available at http://0.0.0.0:8080
 ```
 
-## Project Structure
+## Project Layout
 
 ```
 mcp-chatkit-widget/
 ├── mcp_chatkit_widget/
-│   ├── __init__.py          # Package entry point
-│   ├── server.py            # FastMCP server implementation
-│   ├── widget_loader.py     # Widget discovery and parsing
-│   ├── schema_utils.py      # Schema conversion utilities
-│   └── widgets/             # Widget definition files
-│       ├── Flight Tracker.widget
-│       ├── weatherCurrent.widget
-│       ├── draftEmail.widget
-│       └── ... (16+ widgets)
-├── tests/                   # Test suite
-├── docs/                    # Documentation
-├── examples/                # Example integrations
-├── pyproject.toml           # Project configuration
+│   ├── __init__.py
+│   ├── server.py            # FastMCP server entrypoint
+│   ├── widget_loader.py     # Discovers .widget files
+│   ├── schema_utils.py      # JSON Schema → Pydantic helpers
+│   ├── pydantic_conversion.py  # Schema conversion helpers
+│   ├── rendering.py         # Jinja rendering helpers
+│   ├── tooling.py           # MCP tool registration utilities
+│   ├── naming.py            # Widget ⇄ tool name helpers
+│   └── py.typed
+├── examples/
+│   ├── run_widget/          # Sample rendering scripts
+│   └── widgets/             # Packaged widget definitions
+├── custom_widgets/          # Optional curated widget sources
+├── docs/
+│   ├── release-notes.md
+│   └── plan.md
+├── tests/
+│   ├── test_server.py
+│   ├── test_tooling.py
+│   ├── test_rendering.py
+│   ├── schema_utils/
+│   ├── widget_loader/
+│   └── widget_integration/
+├── Makefile
+├── mkdocs.yml
+├── pyproject.toml
+├── uv.lock
+├── langgraph.json
+├── LICENSE.txt
 └── README.md
 ```
 

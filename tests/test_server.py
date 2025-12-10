@@ -7,7 +7,6 @@ from typing import Any
 import pytest
 from chatkit.widgets import WidgetComponentBase
 from mcp_chatkit_widget.server import (
-    DEFAULT_WIDGETS_DIR,
     _create_widget_tool_function,
     _sanitize_tool_name,
     _to_camel_case,
@@ -16,6 +15,8 @@ from mcp_chatkit_widget.server import (
 )
 from mcp_chatkit_widget.widget_loader import WidgetDefinition
 
+
+DEFAULT_WIDGETS_DIR = Path(__file__).resolve().parent.parent / "examples" / "widgets"
 
 register_widget_tools(DEFAULT_WIDGETS_DIR)
 
