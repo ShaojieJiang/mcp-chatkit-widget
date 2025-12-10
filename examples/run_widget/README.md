@@ -74,6 +74,19 @@ To see available widgets:
 ls examples/widgets/
 ```
 
+### Batch runs
+
+If you want to jump-start every demo widget, the helper script
+`examples/run_widget/run_widgets.sh` loops through every `.widget` file in
+`examples/widgets/` and runs it via the same Python runner, using
+`uv run python examples/run_widget/run_widget.py "$widget"`. Just invoke:
+
+```bash
+bash examples/run_widget/run_widgets.sh
+```
+
+This is handy when you want to smoke-test the entire widget catalog at once.
+
 ## Example Output
 
 When you run a widget, you'll see:
@@ -128,12 +141,15 @@ config = {
         "chatkit": {
             "transport": "stdio",
             "command": "mcp-chatkit-widget",
+            "args": ["--widgets-dir", "<widget-directory>"],
         }
     }
 }
 ```
 
 This connects to the installed `mcp-chatkit-widget` command via stdio transport.
+
+When you run the widget runner it replaces `<widget-directory>` with the parent of the widget file you passed so the server automatically loads that widget definition before the tool call.
 
 ## Implementation Details
 

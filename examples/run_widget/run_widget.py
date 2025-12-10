@@ -33,14 +33,17 @@ from mcp_chatkit_widget.server import _sanitize_tool_name
 from mcp_chatkit_widget.widget_loader import load_widget
 
 
-MCP_CONFIG: dict[str, Any] = {
-    "mcpServers": {
-        "chatkit": {
-            "transport": "stdio",
-            "command": "mcp-chatkit-widget",
+def _build_mcp_config(widgets_dir: Path) -> dict[str, Any]:
+    """Create the FastMCP configuration for running widgets from ``widgets_dir``."""
+    return {
+        "mcpServers": {
+            "chatkit": {
+                "transport": "stdio",
+                "command": "mcp-chatkit-widget",
+                "args": ["--widgets-dir", str(widgets_dir)],
+            }
         }
     }
-}
 
 
 def _handle_missing_widget(widget_path: Path) -> None:
@@ -82,8 +85,10 @@ async def run_widget_example(widget_path_str: str) -> None:
     print("\n" + "=" * 80)
 
     tool_name = _sanitize_tool_name(widget_name)
+    widgets_dir = widget_path.parent
+    client_config = _build_mcp_config(widgets_dir)
 
-    async with Client(MCP_CONFIG) as client:
+    async with Client(client_config) as client:
         result = await client.call_tool(tool_name, input_data)
 
         print("\nTool Output (Raw JSON):")

@@ -85,7 +85,13 @@ Add the server to your Claude Desktop configuration (`claude_desktop_config.json
   "mcpServers": {
     "chatkit-widget": {
       "command": "/path/to/uvx",
-      "args": ["--from", "mcp-chatkit-widget@latest", "mcp-chatkit-widget"]
+      "args": [
+        "--from",
+        "mcp-chatkit-widget@latest",
+        "mcp-chatkit-widget",
+        "--widgets-dir",
+        "/path/to/widgets"
+      ]
     }
   }
 }
