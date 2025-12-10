@@ -2,13 +2,13 @@
 
 from argparse import ArgumentParser
 from pathlib import Path
-from .rendering import render_widget_definition
-from .server import (
+from mcp_chatkit_widget.rendering import render_widget_definition
+from mcp_chatkit_widget.server import (
     generate_widget_tools,
     register_widget_tools,
     server,
 )
-from .widget_loader import load_widget, load_widgets
+from mcp_chatkit_widget.widget_loader import load_widget, load_widgets
 
 
 def main() -> None:  # pragma: no cover

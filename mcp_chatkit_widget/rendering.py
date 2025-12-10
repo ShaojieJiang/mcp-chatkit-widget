@@ -6,9 +6,9 @@ from functools import cache
 from typing import Any
 from chatkit.widgets import WidgetRoot, WidgetTemplate
 from pydantic import BaseModel
-from .naming import _sanitize_tool_name, _to_camel_case
-from .pydantic_conversion import json_schema_to_pydantic
-from .widget_loader import WidgetDefinition
+from mcp_chatkit_widget.naming import _sanitize_tool_name, _to_camel_case
+from mcp_chatkit_widget.pydantic_conversion import json_schema_to_pydantic
+from mcp_chatkit_widget.widget_loader import WidgetDefinition
 
 
 def _model_metadata(widget_name: str) -> tuple[str, str]:

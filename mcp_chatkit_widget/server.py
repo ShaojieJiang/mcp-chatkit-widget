@@ -2,13 +2,13 @@
 
 from pathlib import Path
 from fastmcp import FastMCP
-from .tooling import (
+from mcp_chatkit_widget.tooling import (
     _create_widget_tool_function,
     _sanitize_tool_name,
     _to_camel_case,
     generate_widget_tools,
 )
-from .widget_loader import load_widgets
+from mcp_chatkit_widget.widget_loader import load_widgets
 
 
 server = FastMCP("mcp-chatkit-widget")
@@ -33,6 +33,10 @@ __all__ = [
 if __name__ == "__main__":  # pragma: no cover
     import asyncio
 
+    def _examples_widgets_path() -> Path:
+        """Return the curated examples/widgets directory for manual testing."""
+        return Path(__file__).resolve().parents[1] / "examples" / "widgets"
+
     async def list_tools() -> None:
         """List all registered tools."""
         print("Registered tools:")
@@ -43,4 +47,6 @@ if __name__ == "__main__":  # pragma: no cover
             if tool and tool.description:
                 print(f"    {tool.description.strip().split(chr(10))[0]}")
 
+    widgets_dir = _examples_widgets_path()
+    register_widget_tools(widgets_dir)
     asyncio.run(list_tools())

@@ -6,9 +6,9 @@ from collections.abc import Callable
 from typing import Any, cast
 from chatkit.widgets import WidgetComponentBase
 from fastmcp import FastMCP
-from .naming import _sanitize_tool_name, _to_camel_case
-from .rendering import build_widget_model, render_widget_definition
-from .widget_loader import WidgetDefinition
+from mcp_chatkit_widget.naming import _sanitize_tool_name, _to_camel_case
+from mcp_chatkit_widget.rendering import build_widget_model, render_widget_definition
+from mcp_chatkit_widget.widget_loader import WidgetDefinition
 
 
 def _create_widget_tool_function(
