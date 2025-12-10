@@ -126,7 +126,14 @@ async with stdio_client(server_params) as (read, write):
 #### Direct Tool Invocation
 
 ```python
-from mcp_chatkit_widget.server import server
+from pathlib import Path
+
+from mcp_chatkit_widget.server import register_widget_tools, server
+
+# Load the curated widgets directory so the FastMCP tool manager
+# knows about the bundled widget tools before invocation.
+widgets_dir = Path(__file__).resolve().parents[1] / "examples" / "widgets"
+register_widget_tools(widgets_dir)
 
 # Example: Generate a flight tracker widget
 flight_widget = server.call_tool(
