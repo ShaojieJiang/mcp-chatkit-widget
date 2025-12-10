@@ -19,11 +19,14 @@ A Model Context Protocol (MCP) server that **automatically** transforms ChatKit 
 - **Template Rendering**: Uses Jinja2 to render widget templates with validated data
 - **Rich Widget Library**: Includes 16 pre-built widgets from ChatKit Studio's gallery (flight tracker, weather, email composer, etc.), extendable with custom widgets
 - **Type Safety**: Full type annotations and validation using Pydantic v2
-- **Zero Configuration**: Works out of the box with included widget definitions
+- **Curated Discovery Guardrails**: Requires passing an explicit `widgets_dir` so only
+  curated definitions are discovered and registered, preventing accidental loads
+  from arbitrary paths
 
 ### How It Works
 
-1. **Widget Discovery**: Scans `.widget` files from the `widgets/` directory and user-specified directory through the `CUSTOM_WIDGETS_DIR` environment variable
+1. **Widget Discovery**: Requires the CLI `--widgets-dir` argument to point at the curated
+   directory; loading fails fast if the argument is missing or invalid.
 2. **Schema Parsing**: Extracts JSON Schema and Jinja2 templates from widget definitions
 3. **Model Generation**: Creates dynamic Pydantic models for input validation
 4. **Tool Registration**: Registers MCP tools with FastMCP server
@@ -61,17 +64,15 @@ pip install -e ".[dev,docs]"
 
 ### Running the MCP Server
 
-Start the server using the provided console script:
+Start the server with the required `--widgets-dir` argument that points to your curated
+widget directory:
 
 ```bash
-mcp-chatkit-widget
+uv run mcp-chatkit-widget --widgets-dir /path/to/widgets
 ```
 
-Or run as a Python module:
-
-```bash
-python -m mcp_chatkit_widget
-```
+Point to `examples/widgets` to expose the built-in definitions or supply your own
+curated `.widget` directory.
 
 ### Integrating with MCP Clients
 
@@ -84,7 +85,13 @@ Add the server to your Claude Desktop configuration (`claude_desktop_config.json
   "mcpServers": {
     "chatkit-widget": {
       "command": "/path/to/uvx",
-      "args": ["--from", "mcp-chatkit-widget@latest", "mcp-chatkit-widget"]
+      "args": [
+        "--from",
+        "mcp-chatkit-widget@latest",
+        "mcp-chatkit-widget",
+        "--widgets-dir",
+        "/path/to/widgets"
+      ]
     }
   }
 }
@@ -119,7 +126,14 @@ async with stdio_client(server_params) as (read, write):
 #### Direct Tool Invocation
 
 ```python
-from mcp_chatkit_widget.server import server
+from pathlib import Path
+
+from mcp_chatkit_widget.server import register_widget_tools, server
+
+# Load the curated widgets directory so the FastMCP tool manager
+# knows about the bundled widget tools before invocation.
+widgets_dir = Path(__file__).resolve().parents[1] / "examples" / "widgets"
+register_widget_tools(widgets_dir)
 
 # Example: Generate a flight tracker widget
 flight_widget = server.call_tool(
@@ -149,16 +163,39 @@ flight_widget = server.call_tool(
 print(result.content[0].text)
 ```
 
-### Reconstructing the widget
+### Importable Helpers
 
-Once you have the JSON string, you can reconstruct the widget as a Python object for [streaming to the ChatKit UI](https://platform.openai.com/docs/guides/custom-chatkit#add-inline-interactive-widgets).
+The package exports helpers so scripts, demos, and tests can reuse the same
+rendering pipeline without running the full MCP server.
+
+- `load_widgets(widgets_dir: Path)` enforces the curated directory, loads `.widget`
+  files, and raises when the path is missing, invalid, or contains malformed
+  templates.
+- `render_widget_definition(widget_def, **kwargs)` validates inputs against the
+  schema-backed Pydantic model, renders the stored template, and returns a
+  `WidgetComponentBase` that mirrors the preview payload.
+- `generate_widget_tools(server, widget_defs)` registers sanitized tools on your
+  FastMCP-like server so you can reuse the same helpers elsewhere.
 
 ```python
-from mcp_chatkit_widget.schema_utils import json_schema_to_chatkit_widget
+from pathlib import Path
 
-card_widget = json_schema_to_chatkit_widget(result.content[0].text, widget_name)
-# `card_widget` is a ChatKit WidgetComponentBase instance
+from mcp_chatkit_widget import (
+    generate_widget_tools,
+    load_widgets,
+    render_widget_definition,
+)
+
+widgets = load_widgets(Path("/path/to/widgets"))
+widget = render_widget_definition(widgets[0], title="Hello")
+
+# Optionally wire the helpers into your own FastMCP server.
+generate_widget_tools(custom_server, widgets)
 ```
+
+### Inspecting tool output
+
+FastMCP returns the JSON emitted by the widget template's `.build()` helper, so the response already matches the ChatKit schema. Scripts such as `examples/run_widget/run_widget.py` show how to print that JSON and summarize it via `display_widget_payload`. There is no need to instantiate ChatKit classes manually—the helpers always re-render widgets through `render_widget_definition`, so the payload you see is the canonical structure the server would send to agents.
 
 ### Available Widgets
 
@@ -177,19 +214,13 @@ Each widget automatically becomes an MCP tool named in `snake_case` (e.g., "Flig
 ### Adding Custom Widgets
 
 1. Export a `.widget` file from [ChatKit Studio](https://chatkit.openai.com/)
-2. Copy it to `mcp_chatkit_widget/widgets/`
-3. Restart the MCP server
+2. Place the `.widget` file into a curated directory that you control
+3. Start the MCP server with `--widgets-dir` pointing to that directory
 
-The widget will automatically be discovered and registered as a new tool.
-
-Alternatively, point the server at your own widget directory by setting
-`CUSTOM_WIDGETS_DIR` before starting the process (supports multiple directories
-separated by `:` on Unix-like systems):
-
-```bash
-export CUSTOM_WIDGETS_DIR="/path/to/my/widgets"
-mcp-chatkit-widget
-```
+The loader only inspects the directory passed via `--widgets-dir`, so all
+discovered widgets are explicitly approved by your deployment workflow. Use
+`examples/widgets` as the argument when you want to boot the packaged
+definitions, or swap in a custom directory to opt in to bespoke widgets.
 
 ## Architecture
 
@@ -198,7 +229,7 @@ flowchart TD
     A["MCP Client<br/>(Claude, LangGraph, Custom Agents)<br/>(AI Agent)"]
     B["FastMCP Server<br/><code>mcp-chatkit-widget</code>"]
     B1["Widget Loader<br/><small>Discovers *.widget files<br/>Parses JSON definitions</small>"]
-    B2["Schema Utils<br/><small>JSON Schema → Pydantic models<br/>JSON → ChatKit widgets</small>"]
+    B2["Schema & Rendering<br/><small>JSON Schema → Pydantic models<br/>WidgetTemplate .build() → WidgetRoot</small>"]
     B3["MCP Tools<br/><small>Registers tools dynamically<br/>flight_tracker, weather_current, etc.</small>"]
     C["ChatKit Widget<br/>(JSON Structure)"]
 
@@ -213,21 +244,27 @@ flowchart TD
 3. **Invocation**: Agent calls tool with parameters
 4. **Validation**: Pydantic model validates input data
 5. **Rendering**: Jinja2 template renders with validated data
-6. **Construction**: JSON parsed into ChatKit widget components
+6. **Construction**: `render_widget_definition` invokes the template's `.build()` so the rendered JSON becomes a `WidgetRoot` that matches the preview hierarchy
 7. **Return**: Widget instance sent back to agent
 
 ## Development
 
 ### Running Tests
 
+Always lint and test through the project-managed environment before merging:
+
 ```bash
+# Run linting and type checking
+uv run make lint
+
 # Run all tests with coverage
-make test
+uv run make test
+```
 
-# Run specific test file
+You can run targeted tests directly when experimenting:
+
+```bash
 pytest tests/test_server.py
-
-# Run with verbose output
 pytest -v tests/
 ```
 
@@ -235,42 +272,58 @@ pytest -v tests/
 
 ```bash
 # Run linting and type checking
-make lint
+uv run make lint
 
 # Auto-format code
-make format
+uv run make format
 
 # Type check only
-mypy mcp_chatkit_widget/
+uv run mypy mcp_chatkit_widget/
 ```
 
 ### Building Documentation
 
 ```bash
 # Serve documentation locally
-make doc
+uv run make doc
 
 # Documentation will be available at http://0.0.0.0:8080
 ```
 
-## Project Structure
+## Project Layout
 
 ```
 mcp-chatkit-widget/
 ├── mcp_chatkit_widget/
-│   ├── __init__.py          # Package entry point
-│   ├── server.py            # FastMCP server implementation
-│   ├── widget_loader.py     # Widget discovery and parsing
-│   ├── schema_utils.py      # Schema conversion utilities
-│   └── widgets/             # Widget definition files
-│       ├── Flight Tracker.widget
-│       ├── weatherCurrent.widget
-│       ├── draftEmail.widget
-│       └── ... (16+ widgets)
-├── tests/                   # Test suite
-├── docs/                    # Documentation
-├── examples/                # Example integrations
-├── pyproject.toml           # Project configuration
+│   ├── __init__.py
+│   ├── server.py            # FastMCP server entrypoint
+│   ├── widget_loader.py     # Discovers .widget files
+│   ├── schema_utils.py      # JSON Schema → Pydantic helpers
+│   ├── pydantic_conversion.py  # Schema conversion helpers
+│   ├── rendering.py         # Jinja rendering helpers
+│   ├── tooling.py           # MCP tool registration utilities
+│   ├── naming.py            # Widget ⇄ tool name helpers
+│   └── py.typed
+├── examples/
+│   ├── run_widget/          # Sample rendering scripts
+│   └── widgets/             # Packaged widget definitions
+├── custom_widgets/          # Optional curated widget sources
+├── docs/
+│   ├── release-notes.md
+│   └── plan.md
+├── tests/
+│   ├── test_server.py
+│   ├── test_tooling.py
+│   ├── test_rendering.py
+│   ├── schema_utils/
+│   ├── widget_loader/
+│   └── widget_integration/
+├── Makefile
+├── mkdocs.yml
+├── pyproject.toml
+├── uv.lock
+├── langgraph.json
+├── LICENSE.txt
 └── README.md
 ```
 

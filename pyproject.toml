@@ -27,9 +27,9 @@ docs = [
 [project]
 dependencies = [
     "fastmcp>=2.13.0.2",
-    "openai-chatkit>=1.1.0",
+    "openai-chatkit>=1.4.0",
 ]
-description = "Add your description here"
+description = "MCP server that loads ChatKit widgets from a directory and registers them as tools for AI agents to invoke and generate ChatKit widgets."
 name = "mcp-chatkit-widget"
 readme = "README.md"
 requires-python = ">=3.12"
@@ -114,3 +114,8 @@ max-complexity = 10
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
+
+[tool.pytest.ini_options]
+filterwarnings = [
+  "ignore:Direct usage of named widget classes is deprecated.*:DeprecationWarning",
+]

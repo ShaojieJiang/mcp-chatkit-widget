@@ -1,6 +1,6 @@
 # Widget Runner Example
 
-This example showcases how does MCP ChatKit Widget server work.
+This example showcases how the MCP ChatKit Widget server works.
 
 ## Overview
 
@@ -9,9 +9,9 @@ The widget runner shows how to:
 - Extract example input data from the widget's `outputJsonPreview`
 - Connect to the MCP ChatKit Widget server via stdio transport
 - Call widget tools with input data
-- Convert the JSON output to `chatkit.widgets.Card` objects
+- Summarize the JSON output payload
 
-Especially with the last two steps, it demonstrates how the tools might be called by AI agents, and how to consume the results for displaying in the ChatKit UI.
+Especially with the last two steps, it demonstrates how the tools might be called by AI agents and how to explore the returned JSON structure.
 
 ## Prerequisites
 
@@ -32,13 +32,13 @@ python examples/run_widget/run_widget.py <path/to/widget.widget>
 **Examples:**
 ```bash
 # Run Flight Tracker widget
-python examples/run_widget/run_widget.py mcp_chatkit_widget/widgets/"Flight Tracker.widget"
+python examples/run_widget/run_widget.py examples/widgets/"Flight Tracker.widget"
 
 # Run Create Event widget
-python examples/run_widget/run_widget.py mcp_chatkit_widget/widgets/"Create Event.widget"
+python examples/run_widget/run_widget.py examples/widgets/"Create Event.widget"
 ```
 
-You can replace the widget file path with any other widget in the `mcp_chatkit_widget/widgets/` directory.
+You can replace the widget file path with any other widget in the `examples/widgets/` directory.
 
 ## How It Works
 
@@ -47,8 +47,8 @@ You can replace the widget file path with any other widget in the `mcp_chatkit_w
 3. **Connect to MCP server** via stdio transport
 4. **Call the widget tool** with the extracted data
 5. **Display raw JSON output**
-6. **Convert result** to a `chatkit.widgets.Card` object
-7. **Show Card properties**
+6. **Summarize the payload**
+7. **Complete the example run**
 
 ## Input Data Extraction
 
@@ -66,13 +66,26 @@ The script uses the `extract_input_data_from_preview()` function to intelligentl
 
 All widget definitions are stored in:
 ```
-mcp_chatkit_widget/widgets/
+examples/widgets/
 ```
 
 To see available widgets:
 ```bash
-ls mcp_chatkit_widget/widgets/
+ls examples/widgets/
 ```
+
+### Batch runs
+
+If you want to jump-start every demo widget, the helper script
+`examples/run_widget/run_widgets.sh` loops through every `.widget` file in
+`examples/widgets/` and runs it via the same Python runner, using
+`uv run python examples/run_widget/run_widget.py "$widget"`. Just invoke:
+
+```bash
+bash examples/run_widget/run_widgets.sh
+```
+
+This is handy when you want to smoke-test the entire widget catalog at once.
 
 ## Example Output
 
@@ -107,16 +120,13 @@ Tool Output (Raw JSON):
 }
 ================================================================================
 
-Converting to chatkit.widgets.Card...
-Widget type: Card
-Is Card instance: True
-Card size: medium
-Card theme: light
-Card background: white
-Number of children: 3
+Widget result summary:
+- Widget name: Flight Tracker
+- Root type: Card
+- Children count: 3
 
 ================================================================================
-Card widget created successfully!
+Widget payload displayed successfully!
 ================================================================================
 Flight Tracker example completed successfully!
 ```
@@ -131,12 +141,15 @@ config = {
         "chatkit": {
             "transport": "stdio",
             "command": "mcp-chatkit-widget",
+            "args": ["--widgets-dir", "<widget-directory>"],
         }
     }
 }
 ```
 
 This connects to the installed `mcp-chatkit-widget` command via stdio transport.
+
+When you run the widget runner it replaces `<widget-directory>` with the parent of the widget file you passed so the server automatically loads that widget definition before the tool call.
 
 ## Implementation Details
 
@@ -156,13 +169,13 @@ Main function that:
 - Extracts input data from the preview
 - Connects to the MCP server using FastMCP Client
 - Calls the widget tool with `client.call_tool()`
-- Displays results and converts to Card widget
+- Displays results and summarizes the JSON payload
 
 ## Troubleshooting
 
 **Error: "Widget file not found"**
 - Check that the file path is correct
-- Make sure the widget file exists in `mcp_chatkit_widget/widgets/`
+- Make sure the widget file exists in `examples/widgets/`
 - Use quotes around paths with spaces: `"Flight Tracker.widget"`
 
 **Error: "command not found: mcp-chatkit-widget"**
@@ -179,3 +192,4 @@ Main function that:
 - **Schema Utils:** `../../mcp_chatkit_widget/schema_utils.py`
 - **Server Implementation:** `../../mcp_chatkit_widget/server.py`
 - **Integration Tests:** `../../tests/test_widget_integration.py`
+- **Output Helpers:** `output_processing.py`

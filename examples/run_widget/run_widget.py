@@ -3,7 +3,7 @@
 Usage:
     python examples/run_widget/run_widget.py <path/to/widget.widget>
     python examples/run_widget/run_widget.py \
-        mcp_chatkit_widget/widgets/"Flight Tracker.widget"
+        examples/widgets/"Flight Tracker.widget"
 """
 
 from __future__ import annotations
@@ -18,7 +18,7 @@ from fastmcp import Client
 try:
     from examples.run_widget.input_data import extract_input_data_from_preview
     from examples.run_widget.output_processing import (
-        display_card_widget,
+        display_widget_payload,
         parse_tool_result,
     )
 except ModuleNotFoundError:
@@ -26,29 +26,31 @@ except ModuleNotFoundError:
     # package name is not importable.
     from input_data import extract_input_data_from_preview  # type: ignore
     from output_processing import (  # type: ignore
-        display_card_widget,
+        display_widget_payload,
         parse_tool_result,
     )
-from mcp_chatkit_widget.schema_utils import json_schema_to_chatkit_widget
 from mcp_chatkit_widget.server import _sanitize_tool_name
 from mcp_chatkit_widget.widget_loader import load_widget
 
 
-MCP_CONFIG: dict[str, Any] = {
-    "mcpServers": {
-        "chatkit": {
-            "transport": "stdio",
-            "command": "mcp-chatkit-widget",
+def _build_mcp_config(widgets_dir: Path) -> dict[str, Any]:
+    """Create the FastMCP configuration for running widgets from ``widgets_dir``."""
+    return {
+        "mcpServers": {
+            "chatkit": {
+                "transport": "stdio",
+                "command": "mcp-chatkit-widget",
+                "args": ["--widgets-dir", str(widgets_dir)],
+            }
         }
     }
-}
 
 
 def _handle_missing_widget(widget_path: Path) -> None:
     """Handle case where widget file is not found."""
     print(f"Error: Widget file not found at {widget_path}")
 
-    widgets_dir = Path(__file__).parent.parent / "mcp_chatkit_widget" / "widgets"
+    widgets_dir = Path(__file__).parent.parent / "widgets"
     if widgets_dir.exists():
         print(f"\nAvailable widgets in {widgets_dir}:")
         for widget_file in sorted(widgets_dir.glob("*.widget")):
@@ -83,8 +85,10 @@ async def run_widget_example(widget_path_str: str) -> None:
     print("\n" + "=" * 80)
 
     tool_name = _sanitize_tool_name(widget_name)
+    widgets_dir = widget_path.parent
+    client_config = _build_mcp_config(widgets_dir)
 
-    async with Client(MCP_CONFIG) as client:
+    async with Client(client_config) as client:
         result = await client.call_tool(tool_name, input_data)
 
         print("\nTool Output (Raw JSON):")
@@ -94,8 +98,7 @@ async def run_widget_example(widget_path_str: str) -> None:
         print("=" * 80)
 
         if widget_dict:
-            card_widget = json_schema_to_chatkit_widget(widget_dict, widget_name)
-            display_card_widget(card_widget, widget_name)
+            display_widget_payload(widget_dict, widget_name)
         else:
             print("\nNo widget data found in result.")
 
@@ -110,11 +113,11 @@ async def main() -> None:
         print("\nExample:")
         print(
             "  python examples/run_widget/run_widget.py "
-            'mcp_chatkit_widget/widgets/"Flight Tracker.widget"'
+            'examples/widgets/"Flight Tracker.widget"'
         )
         print(
             "  python examples/run_widget/run_widget.py "
-            'mcp_chatkit_widget/widgets/"Create Event.widget"'
+            'examples/widgets/"Create Event.widget"'
         )
         sys.exit(1)
 

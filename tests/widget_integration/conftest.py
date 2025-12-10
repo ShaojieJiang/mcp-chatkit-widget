@@ -11,7 +11,7 @@ from mcp_chatkit_widget.widget_loader import discover_widgets, load_widget
 def widgets_dir() -> Path:
     """Return the path to the widgets directory."""
     root_dir = Path(__file__).resolve().parents[2]
-    return root_dir / "mcp_chatkit_widget" / "widgets"
+    return root_dir / "examples" / "widgets"
 
 
 @pytest.fixture

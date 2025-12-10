@@ -3,7 +3,7 @@
 from __future__ import annotations
 import json
 from typing import Any
-from chatkit.widgets import Card
+from chatkit.widgets import DynamicWidgetRoot
 from .input_extractors import extract_input_data_from_preview
 from .tooling import build_tool_components, deep_compare
 
@@ -23,7 +23,7 @@ class TestWidgetToolExecution:
 
         result = tool_func(**input_data)
 
-        assert isinstance(result, Card)
+        assert isinstance(result, DynamicWidgetRoot)
 
         result_dict = result.model_dump(exclude_none=True)
 
@@ -50,7 +50,7 @@ class TestWidgetToolExecution:
 
         result = tool_func(**input_data)
 
-        assert isinstance(result, Card)
+        assert isinstance(result, DynamicWidgetRoot)
 
         result_dict = result.model_dump(exclude_none=True)
 
@@ -84,4 +84,4 @@ class TestWidgetToolExecution:
             result = tool_func(**input_data)
 
             assert result is not None
-            assert isinstance(result, Card)
+            assert isinstance(result, DynamicWidgetRoot)
