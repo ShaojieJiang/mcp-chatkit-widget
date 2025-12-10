@@ -18,7 +18,7 @@ def main() -> None:  # pragma: no cover
         "--widgets-dir",
         type=Path,
         required=True,
-        help="Path to the curated widgets directory that contains .widget files",
+        help="Path to the curated widgets directory that contains .widget files (e.g., https://github.com/ShaojieJiang/mcp-chatkit-widget/tree/main/examples/widgets)",
     )
     args, _ = parser.parse_known_args()
 
